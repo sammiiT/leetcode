@@ -8,6 +8,9 @@ public:
             if(sum==0)return true;
             else return false;
         }else{
+			//root->left==NULL || root->right!=NULL
+			//root->left!=NULL || root->right==NULL
+			//root->left!=NULL || root->right!=NULL
             return hasPathSum(root->left,sum-root->val)||
                 hasPathSum(root->right,sum-root->val);
         }

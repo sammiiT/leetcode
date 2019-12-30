@@ -1,4 +1,4 @@
-class Solution {
+﻿class Solution {
 public:
     void reorderList(ListNode* head){
        if(head==NULL||head->next==NULL) return;
@@ -6,8 +6,8 @@ public:
     ListNode hdr(-1);
     ListNode *f,*s;
     f=s=&hdr;
-    hdr.next=head;
-
+    hdr.next=head;//用first middle,不用second middle
+				  //比較 sortedListToBST題目, 用到的是second middle
     while(f&&f->next){
         f=f->next->next;
         s=s->next;
@@ -70,3 +70,6 @@ public:
         
     }
 };
+
+Given 1->2->3->4, reorder it to 1->4->2->3.
+Given 1->2->3->4->5, reorder it to 1->5->2->4->3.

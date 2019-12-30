@@ -58,4 +58,26 @@ public:
         }
         return hdr.next;
     }
+
+
+	ListNode* swapPairs_OK2(ListNode* head) {
+		if (head == NULL || head->next == NULL) return head;
+
+		ListNode hdr(-1);
+		ListNode *pre, *cur;
+		pre = &hdr;
+		pre->next = head;
+		cur = head;
+
+		while (cur && cur->next) {
+			ListNode* tmp = cur->next;
+			cur->next = tmp->next;
+			tmp->next = pre->next;
+			pre->next = tmp;
+			pre = cur;
+			cur = cur->next;
+		}
+		return hdr.next;
+	}
+
 };

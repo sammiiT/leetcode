@@ -1,4 +1,4 @@
-class Solution {
+﻿class Solution {
 public:
     vector<ListNode*> splitListToParts(ListNode* root, int k) {
         
@@ -21,7 +21,7 @@ public:
             return res;
         }
         
-        ListNode hdr(-1);
+       // ListNode hdr(-1);
         ListNode *pre,*cur,*s;
         //pre=&hdr;
         pre = s = cur = root;
@@ -31,13 +31,13 @@ public:
         //     for(int j=0; i<k+(remain>0); ++j){
         for(int i=0; i<k; ++i){
             for(int j=0; j<group+(remain>0) && cur!=NULL; ++j){
-                s = cur;
-                cur = cur->next;
+                s = cur;//下一個node的前一個節點
+                cur = cur->next;//下一個節點
             }
             res.push_back(pre);
-            s->next = NULL;
-            pre = cur;
-            remain--;
+            s->next = NULL;//截斷
+            pre = cur;//重新設定新partition的頭
+            remain--;//remain減一
         }
         
         // if(group<1){

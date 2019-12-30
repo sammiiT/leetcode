@@ -14,7 +14,7 @@ public:
 
     while(f&&f->next){
         f=f->next;
-        s=s->next;
+        s=s->next;//要被remove的前一個
     }
     ListNode *tmp = s->next;
     s->next = tmp->next;

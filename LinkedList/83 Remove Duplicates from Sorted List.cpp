@@ -1,4 +1,4 @@
-class Solution {
+﻿class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if(head==NULL|| head->next==NULL) return head;
@@ -19,7 +19,31 @@ public:
                 delete tmp;
             }
         }
-        return hdr.next;
-        
+        return hdr.next;        
     }
+
+	ListNode* deleteDuplicates_OK(ListNode* head) {//不需要hdr,且不需要pre
+		if (head == NULL || head->next == NULL) return head;
+		ListNode *pre, *cur;
+
+		pre = cur = head;
+		while (cur && cur->next) {//至少兩個
+			ListNode* tmp = cur->next;
+			if (cur->val == tmp->val) {
+				cur->next = tmp->next;
+				delete tmp;
+			}
+			else {
+				cur = cur->next;
+			}
+		}
+		return pre;
+	}
+
 };
+
+Input: 1->1->2->3->3
+Output : 1->2->3
+
+Input : 1->1->2
+Output : 1->2

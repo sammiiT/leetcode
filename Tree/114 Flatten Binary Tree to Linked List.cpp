@@ -1,5 +1,6 @@
-class Solution {
+﻿class Solution {
 public:
+	//post-order概念
     void flatten(TreeNode* root) {
         if(root==NULL) return;
         
@@ -15,3 +16,26 @@ public:
         
     }
 };
+
+
+      1
+     / \
+    2   5
+   / \   \
+  3   4   6
+
+
+
+1
+ \
+  2
+   \
+    3
+     \
+      4
+       \
+        5
+         \
+          6
+
+

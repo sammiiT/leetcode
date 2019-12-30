@@ -2,6 +2,11 @@
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         if(nums.empty()) return NULL;
+
+		//need second middle: mid = size()/2 +1;   
+		//					index mid = size()/2+1-1;
+		//					index mide = size()/2;
+
         int mid = nums.size()/2;//middle node in linked list
         TreeNode* cur = new TreeNode(nums[mid]);
     

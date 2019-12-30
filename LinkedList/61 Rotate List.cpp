@@ -32,3 +32,15 @@ public:
         
     }
 };
+	      f
+	      |
+          v   
+    h->O->O->O->O->NULL
+
+		  s	     f
+		  | 	 |
+          v      v
+	h->O->O->O->O->NULL
+
+
+

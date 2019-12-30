@@ -1,4 +1,4 @@
-class Solution {
+﻿class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         
@@ -9,7 +9,7 @@ public:
         cur = head;
         hdr.next = head;
         
-        for(int i=0; i<m-1; ++i){
+        for(int i=0; i<m-1; ++i){//cur為第m個的前一個
             cur = cur->next;
             pre = pre->next;
         }

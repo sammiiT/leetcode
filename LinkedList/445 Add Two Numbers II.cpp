@@ -1,7 +1,7 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-           stack<int> s1;
+     stack<int> s1;
      stack<int> s2;
 
      while(l1){
@@ -82,3 +82,6 @@ public:
         
     }
 };
+
+Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output : 7 -> 8 -> 0 -> 7

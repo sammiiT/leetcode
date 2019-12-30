@@ -5,7 +5,7 @@ public:
         ListNode *f,*s;
         f=s=head;//最後指向 second middle
         
-        while(f&&f->next){
+        while(f&&f->next)//至少有兩個節點
             s=s->next;
             f=f->next->next;
         }

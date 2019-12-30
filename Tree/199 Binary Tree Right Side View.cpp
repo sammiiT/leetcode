@@ -1,4 +1,4 @@
-class Solution {
+﻿class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
         
@@ -10,11 +10,10 @@ public:
             
             out.push_back(res[i].back());
         }
-        
         return out;
     }
     
-    
+    //利用level order, 將每一個level的數列列出來, 再將每一數列的最後一個數值取出
     void helper(TreeNode* root, int level, vector<vector<int>>& res){
         if(!root) return;
         

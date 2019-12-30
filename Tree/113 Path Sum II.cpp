@@ -1,4 +1,4 @@
-class Solution {
+﻿class Solution {
 public:
     vector<vector<int>> pathSum(TreeNode* root, int sum) {
         vector<vector<int>> res;
@@ -29,7 +29,7 @@ public:
     
     void helper_2(TreeNode* root, 
                   int sum, 
-                  vector<int> out,
+                  vector<int> out,//此方式會造成較大的stack,每次遞迴進入都會copy一次vector
                   vector<vector<int>>& res){
         if(!root) return;
         

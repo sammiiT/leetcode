@@ -15,18 +15,18 @@ public:
         
         int l=0,r=0;
         if(root->left) l = checkBalanced(root->left);
-        if(l==-1) return -1;
+        if(l==-1) return -1;//中途就截斷
         
         if(root->right) r = checkBalanced(root->right);
-        if(r==-1) return -1;
+        if(r==-1) return -1;//中途就截斷
         
         int diff=abs(l-r);
-        if(diff>1) return -1;
+        if(diff>1) return -1;//中途就截斷
         else return 1+max(l,r);
         
     }
     
-    
+    //post-order算法
     int helper(TreeNode* root, int &res){
         if(!root) return 0;
         int l=0,r=0;
