@@ -22,7 +22,7 @@ public:
         return dummy->next;
     }
 
-    ListNode* mergeTwoLists_2(ListNode* list1, ListNode* list2) {
+    ListNode* mergeTwoLists_2(ListNode* list1, ListNode* list2) {//算法如同add_two_sum
         ListNode *cur = NULL;
         ListNode hdr(-1);
         cur = &hdr; //如果用當下新建的節點, 則沒辦法知道上一個節點
