@@ -46,4 +46,28 @@ public:
         return hdr.next;
     }	
 	
+
+ListNode* mergeTwoLists_3(ListNode* list1, ListNode* list2) {//不新建new
+        ListNode *cur= NULL;
+        ListNode hdr(-1);
+        cur = &hdr;
+        
+        while(list1||list2){
+            int val1 = list1? list1->val : INT_MAX;
+            int val2 = list2? list2->val : INT_MAX;
+            
+            if(val1<=val2){
+                cur->next = list1;
+                cur=cur->next;
+                list1 = list1?list1->next:NULL;
+            }else if(val1>val2){
+                cur->next = list2;
+                cur=cur->next;
+                list2 = list2?list2->next:NULL;
+            }            
+        }
+        return hdr.next;
+}	
+	
+	
 };
