@@ -61,9 +61,38 @@ public:
         }
         prev->next = prev->next->next;
         return head;
-        
-        
-        
     }
     
+     ListNode* removeNthFromEnd_3(ListNode* head, int n) {
+        ListNode *f,*s;
+	    ListNode *p;//s前一個node;
+        ListNode *hdr;//第一個node
+        
+	    hdr=p=s=f=head;	
+	    for(int i=0; i<n; i++){
+	        if(!f) return NULL;
+	        f=f->next;
+	    }	
+	    if(f==NULL) return p->next;//移除第一個節點,回傳第二個節點
+//	    while(f&&f->next){//f->next存在(不是NULL);就執行以下描述=>用此描述會錯誤, 最後一個節點不會變成NULL   
+        while(f!=NULL){
+            p=s;
+            s=s->next; 
+            f=f->next;
+    	}
+	    p->next = s->next;//移除s節點	
+	    return hdr;        
+/*
+樹3格2
+n=4
+x
+o
+1 2 3 4 5 6 5 4 3 2 0 2 4 1  null
+o       x                  
+                  o       x 
+                    o         x
+*/
+
+         
+     }
 };
