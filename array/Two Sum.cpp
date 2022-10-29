@@ -13,3 +13,11 @@ public:
         return res;
     }
 };
+
+/*
+target-nums[i] => 剩餘值 (剩餘當作key)
+m.count(target-nums[i]) => key存在?
+
+m[target-nums[i]]
+m[nums[i]] => 當下的數值,視為剩餘值
+*/
