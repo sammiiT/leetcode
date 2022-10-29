@@ -12,8 +12,9 @@ public:
     }
     if(f->next==NULL) return head->next;
 
-    while(f&&f->next){
-        f=f->next;
+    //是要確認f->next存不存在    
+    while(f&&f->next){//引申:f存在的話,再確認f->next是否存在; 不然f->next會發生segmentfault
+        f=f->next;    
         s=s->next;//要被remove的前一個
     }
     ListNode *tmp = s->next;
