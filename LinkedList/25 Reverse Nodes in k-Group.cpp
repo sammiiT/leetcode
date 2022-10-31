@@ -1,12 +1,12 @@
 ﻿class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {//swap k node, not reverse list
-		if (head==NULL||head->next==NULL) return head;
+	if (head==NULL||head->next==NULL) return head;
 		
-		ListNode *pre,*cur;
+	ListNode *pre,*cur;
         ListNode hdr(-1);
         int n = 0;
-        for(ListNode *t = head;t; t=t->next) ++n;
+        for(ListNode *t = head;t; t=t->next) ++n;//計算node數
         
         pre = &hdr;
         cur = head;
@@ -30,7 +30,7 @@ public:
     }
 };
 
-/* //fail
+
 ListNode* reverseKGroup(ListNode* head, int k){
     
     ListNode *tmp,*prev,*cur;
@@ -60,11 +60,11 @@ ListNode* reverseKGroup(ListNode* head, int k){
         }
         
         // 跳到新的group 
-        prev = cur;
+        prev = tmp =cur; //prev = cur;此描述會出錯, 因為前面tmp已經被轉移到其他地方, 不會按照前面計算,tmp還在原來地方.
         cur = cur->next;
     }
     return vnode.next;
 }
 
-*/
+
 
