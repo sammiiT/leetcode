@@ -29,3 +29,42 @@ public:
         return hdr.next;
     }
 };
+
+/* //fail
+ListNode* reverseKGroup(ListNode* head, int k){
+    
+    ListNode *tmp,*prev,*cur;
+    ListNode vnode(-1);
+    int i,j;
+    
+    vnode.next = head;
+    prev = tmp = &vnode;
+    cur = head;
+    
+    for(;cur!=NULL;) {
+    
+        for(i=k; i>0; i--){//是否可以滿足 k-group
+            tmp = tmp?tmp->next:NULL;
+            if(!tmp) break;
+        }
+        
+        if(i==0) {//如果滿足 k-group, 則開始做轉換
+            for(j=0; j<k-1; j++) { 
+                ListNode *t= cur->next;
+                cur->next = t->next;
+                t->next = prev->next;
+                prev->next = t;
+            }
+        } else {//不滿足k-group,則跳出第一級迴圈
+          break;  
+        }
+        
+        // 跳到新的group 
+        prev = cur;
+        cur = cur->next;
+    }
+    return vnode.next;
+}
+
+*/
+
