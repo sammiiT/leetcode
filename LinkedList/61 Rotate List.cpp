@@ -42,5 +42,37 @@ public:
           v      v
 	h->O->O->O->O->NULL
 
+ListNode* rotateRight(ListNode* head, int k) {
+        ListNode *prev,*cur;
+        ListNode vnode(-1);
+        int n=0;
+        
+        
+        for(ListNode *t = head; t; t = t->next) n++;
+        if(n==0) return NULL;
+        k=k%n;
+        
+        vnode.next = head;
+        prev = &vnode;
+        cur = head;
+        
+        //(n-k)//位移(n-k)次
+        for(int i=0; i<(n-k); i++){
+            prev = prev->next;
+            cur = cur->next;
+        }
+        
+        prev->next = NULL;//
+        vnode.next = cur;//
+        
+        prev = &vnode;
+        for(;cur!=NULL;){
+            prev = prev->next;
+            cur = cur->next;
+        }        
+        prev->next = head;
+        
+        return vnode.next;
+    }
 
 
