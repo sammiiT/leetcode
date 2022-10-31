@@ -19,7 +19,7 @@ public:
         return hdr.next;
     }
      
-     ListNode* create_list(int n){
+ListNode* create_list(int n){
     ListNode *tmp;
     ListNode vnode(-1);
 
