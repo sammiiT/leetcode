@@ -79,5 +79,37 @@ public:
 		}
 		return hdr.next;
 	}
+	 
+	 
+    ListNode* swapPairs_3(ListNode* head) {
+        ListNode *prev,*cur,*tmp;
+        ListNode vnode(-1);
+        int i = 0;
+        
+        vnode.next = head;
+        prev = tmp = &vnode;
+        cur = head;
+        
+        for(;cur!=NULL;){
+            for(i=2;i>0;i--){
+                tmp = tmp->next;
+                if(!tmp) break;
+            }
+        
+            if(i==0){//
+                ListNode *t = cur->next;
+                cur->next = t->next;
+                t->next = prev->next;
+                prev->next = t;
+                
+            }else{//remain
+                break;
+            }
+            
+            prev = tmp = cur;
+            cur = cur->next;
+        }
+        return vnode.next;
+    }	 
 
 };
