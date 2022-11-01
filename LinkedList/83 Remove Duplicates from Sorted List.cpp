@@ -40,6 +40,24 @@ public:
 		return pre;
 	}
 
+	 
+ListNode* deleteDuplicates_2(ListNode* head) {
+        ListNode* f;
+        f = head;
+        
+        while(f && f->next){
+            if(f->val==f->next->val){
+                ListNode* tmp = f->next;
+                f->next = f->next->next;
+                delete tmp;
+            }else{
+                f = f->next;
+            }
+        }
+        return head;
+}	 
+	 
+
 };
 
 Input: 1->1->2->3->3
