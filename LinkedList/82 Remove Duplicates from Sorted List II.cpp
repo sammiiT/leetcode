@@ -38,6 +38,47 @@ public:
     }
 };
 
+ListNode* deleteDuplicates_II(ListNode* head) {
+        ListNode *prev,*cur;
+        ListNode vnode(-1);
+        int duplicate = 0;
+        
+        vnode.next = head;
+        prev = &vnode;
+        cur = head;
+        
+        for(;cur&&cur->next;){
+
+            if((cur->val)==(cur->next->val)) {//相等
+                ListNode *tmp = cur->next->next;
+                delete cur->next;
+                cur->next = tmp;
+                duplicate = 1;
+
+            } else {//不相等
+                if(duplicate){
+                    ListNode *tmp = cur;
+                    cur = cur->next;
+                    prev->next = cur;
+                    delete tmp;
+                    duplicate = 0;
+                } else {
+                    prev=prev->next;    
+                    cur=cur->next;
+                }
+            }
+        }
+        
+        if(duplicate){//[1,1] => output []
+                    ListNode *tmp = cur;
+                    cur = cur->next;
+                    prev->next = cur;
+                    delete tmp;
+                    duplicate = 0;
+        } 
+        return vnode.next;    
+}
+
 Input: 1->2->3->3->4->4->5
 Output : 1->2->5
 
