@@ -8,7 +8,7 @@ public:
          while(f&&f->next){
              s=s->next;
              f=f->next->next;
-             if(f==s) return true;
+             if(f==s) return true;//當f==s的時候,不見得是cycle begin.
          }
          return false;
     }
