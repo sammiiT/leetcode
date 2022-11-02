@@ -28,6 +28,49 @@ public:
         }
     } 
 };
+        
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+	int n = 0;
+        int ref = INT_MAX;
+        int min_idx = 0;
+        int flag = 0; 
+        ListNode **tmp;                                                                                
+        
+        ListNode vnode(-1);        
+        ListNode *iter;                                                                   
+        iter = &vnode;                                                                    
+        n = lists.size();                                                                         
+        if(!n) return NULL;
+        
+        tmp = (ListNode**)malloc(sizeof(ListNode*)*n);/*tmp[0],..., tmp[n-1]*/ 
+        for(int i=0; i<n; i++){
+            tmp[i] = lists.at(i);//記錄每一個list的第一個node位址    
+        }
+        
+        do { 
+            flag = 0;  
+            for(int i=0; i<n; i++){//搜尋最小值
+                if(tmp[i]){//check existance 
+                    flag = 1; 
+                    if(tmp[i]->val<=ref){//check value
+                        ref = tmp[i]->val; 
+                        min_idx = i;                  
+                    }
+                }
+            }   
+            if(flag){//連結最小值的節點
+                iter->next = tmp[min_idx];            
+                iter = iter->next;                    
+                tmp[min_idx] = tmp[min_idx]->next;    
+                ref = INT_MAX;                        
+            }
+        } while(flag);//如果所有的節點都是NULL,則跳出迴圈
+	
+        return vnode.next;    
+ }
+
+
+
 
 Input:
 [
