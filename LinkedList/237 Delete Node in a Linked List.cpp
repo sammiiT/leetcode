@@ -8,4 +8,17 @@ public:
         node->next = tmp->next;
         delete tmp;
     }
+ 
+    void deleteNode_OK(ListNode* node) {
+        if(node&&node->next){//two node
+            ListNode *tmp = node->next;
+            node->val = node->next->val;
+            node->next = node->next->next;
+            delete tmp;
+        }else{//only one node
+            delete node;
+            node = NULL;
+        }
+    }
+     
 };
