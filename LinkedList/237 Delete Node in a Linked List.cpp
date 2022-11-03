@@ -10,6 +10,9 @@ public:
     }
  
     void deleteNode_OK(ListNode* node) {
+//移除下一個節點, 將下一個節點的數值存在node中 
+//討論, (1)node下一個節點是NULL; (2)node下一個節點不是NULL
+ 
         if(node&&node->next){//two node
             ListNode *tmp = node->next;
             node->val = node->next->val;
