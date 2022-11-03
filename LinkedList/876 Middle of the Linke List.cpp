@@ -13,29 +13,21 @@ public:
     }
     
     ListNode* middleNode_OK2(ListNode* head) {
-        
         if(head==NULL||head->next==NULL) return head;
         ListNode hdr(-1);
         ListNode* f,*s;
         f=s=&hdr;
         hdr.next = head;
-        
         while(f&&f->next){
             f=f->next->next;
             s=s->next;
         }
-        
         if(f){
             return s->next;
         }else{
             return s;
         }
-        
-        
     }
-    
-    
-    
     ListNode* middleNode_OK(ListNode* head) {
         if(head==NULL||head->next==NULL) return head;
         
@@ -46,11 +38,33 @@ public:
             f=f->next->next;
             s=s->next;
         }
-        
         if(f->next!=NULL){
             return s->next;
         }else{//f->next==NULL
             return s;
         }
     }
+
+
+    ListNode* middleNode(ListNode* head) {
+        ListNode *prev,*cur;
+        ListNode vnode(-1);
+        
+        vnode.next = head;
+        prev = &vnode;
+        cur = head;
+        
+        while(cur&&cur->next){
+            cur=cur->next->next;
+            prev = prev->next;
+        }
+        if(cur){
+            cur = cur->next;
+            prev = prev->next;
+        }else{
+            prev=prev->next;    
+        }
+        return prev;
+    }
+
 };
