@@ -1,0 +1,30 @@
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+        ListNode *n1,*n2,*tmp;
+        ListNode vnode(-1);
+        
+        vnode.next = list1;
+        tmp = &vnode;
+        
+        //find (a-1) node (b-1) node
+        for(int i=0;i<b;i++){
+            tmp = tmp->next;
+            if(i==a-1){
+                n1 = tmp;   
+            }
+/*            if(i==b-1){
+                n2 = tmp;
+            }*/
+        }//i=b
+        n2 = tmp->next;
+        
+        /*find end node of list2*/
+        tmp = list2;
+        for(;tmp&&tmp->next;){
+            tmp = tmp->next;
+        }
+        
+        n1->next = list2;
+        tmp->next = n2->next;
+        
+        return vnode.next;         
+    }
