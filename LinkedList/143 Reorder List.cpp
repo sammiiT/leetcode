@@ -32,7 +32,6 @@ public:
         cur=pre->next;
         pre=tmp;
     }
-
     }
     
     void reorderList_OK(ListNode* head) {
@@ -69,6 +68,53 @@ public:
         }
         
     }
+	 
+
+void reorderList(ListNode* head) {
+        ListNode *prev,*cur;
+        ListNode *tmp=NULL, *top=NULL;
+        ListNode vnode(-1),ln(-1);
+        ListNode *l1tmp,*l2tmp;
+        
+        vnode.next = head;
+        prev = cur = &vnode;
+        
+        while(cur&&cur->next){//find the first-middle
+            prev = prev->next;
+            cur = cur->next->next;
+        }
+        
+        //define list boundary
+        tmp = prev->next;//l2 start
+        prev->next = NULL;//reset l1 end;
+        
+        //stacking list2 for question request.
+        while(tmp){
+            ListNode* stacking = tmp;
+            tmp = tmp->next;
+            stacking->next = top;
+            top = stacking;
+        }
+        
+        //zig-zag concatenance
+        tmp = &ln;
+        l1tmp = vnode.next;
+        l2tmp = top;
+        while(l1tmp||l2tmp){
+            if(l1tmp){
+                tmp->next = l1tmp;
+                l1tmp = l1tmp->next;
+                tmp = tmp->next;
+            }
+            if(l2tmp){
+                tmp->next = l2tmp;
+                l2tmp = l2tmp->next;
+                tmp = tmp->next;
+            }
+        }
+        head = ln.next;
+}	    	 
+	 
 };
 
 Given 1->2->3->4, reorder it to 1->4->2->3.
