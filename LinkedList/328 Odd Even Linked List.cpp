@@ -73,7 +73,31 @@ public:
         o->next = NULL;
         return hdrg;
     }
-    
+  
+     
+ListNode* oddEvenList(ListNode* head) {
+        ListNode *prev,*cur;
+        ListNode vnode(-1);
+        
+        if(!(head&&head->next)) return head;
+        
+        vnode.next = head;
+        prev = head;
+        cur = head->next;
+
+        while(cur&&cur->next){//pre,cur,tmp
+    //  while(cur){//會運算NULL pointer,錯誤
+            ListNode* tmp = cur->next;
+            cur->next = tmp->next;
+            tmp->next = prev->next;
+            prev->next = tmp;
+
+            prev = prev->next;
+            cur = cur->next;
+        }
+        return vnode.next;
+}     
+     
 };
 
 Input: 1->2->3->4->5->NULL
