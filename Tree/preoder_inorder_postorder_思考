@@ -1,0 +1,28 @@
+//==== preorder ====
+void preorder(TreeNode* root){
+  if(!root) return;
+  
+  cout<<root->val; //先處理 parent
+  preorder(root->left);//再處理 left
+  preorder(root->right);//再處理 right
+}
+
+//==== inorder ====
+
+void inorder(TreeNode* root){
+  if(!root) return;
+  
+  inorder(root->left);//先處理 left
+  cout<<root->val;//再處理 parent
+  inorder(root->right);//再處理 right
+}
+
+//==== post order ====
+
+void postorder(TreeNode* root){
+  if(!root) return;
+  
+  postorder(root->left);//先處理 left
+  postorder(root->right);//再處理 right
+  cout<<root->val;//再處理 parent
+}
