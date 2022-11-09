@@ -10,6 +10,10 @@ public:
         if(root->right) r = maxDepth(root->right);
         
         return 1 + max(l,r);
-        
+    }
+    
+    int maxDepth(TreeNode* root){
+        if(!root) return 0;
+        return 1+ max(maxDepth(root->left),maxDepth(root->right));
     }
 };
