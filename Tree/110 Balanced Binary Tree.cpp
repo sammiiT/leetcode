@@ -39,4 +39,23 @@ public:
         return 1+max(l,r);//當下節點運算,包含其下節點總和
     }
     
+     
+    //錯誤的helper 
+    void _helper(TreeNode* root, int level, int& lmax, int& lmin){
+        if(!root) return;
+        if(root->left) helper(root->left, level+1, lmax, lmin);
+        if(root->right) helper(root->right, level+1, lmax, lmin);
+        lmin = min(lmin,level);//會錯誤, 因為每回一層, level就會減一, 所以min會一直跳到最原始的level數值
+                               //所以要找到second maximum 
+        lmax = max(lmax,level);
+    }
+    bool isBalanced(TreeNode* root) {
+        int lmax = INT_MIN;
+        int lmin = INT_MAX;
+        helper(root,0,lmax,lmin);
+        return (lmax-lmin<=1);//((lmax-lmin)>1)?false:true;
+    }   
+     
+     
+     
 };
