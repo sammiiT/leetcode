@@ -26,7 +26,7 @@ public:
         return max(l,r)+root->val;		//return是討論單邊,l或r邊
     }
 		
-   int helper(TreeNode* root, int& vmax){
+   int helper(TreeNode* root, int& vmax){//從底部開始往上找,才會與到交叉點.=> 交叉點就是parent節點 
         if(!root) return 0;      
         int l=0,r=0;
 //        if(root->left) l = helper(root->left,vmax);//如果有負數, 會有錯誤
