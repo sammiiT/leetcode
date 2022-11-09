@@ -25,7 +25,26 @@ public:
         res = max(res,l+r+root->val);	//res是討論雙邊,l加r邊
         return max(l,r)+root->val;		//return是討論單邊,l或r邊
     }
+		
+   int helper(TreeNode* root, int& vmax){
+        if(!root) return 0;      
+        int l=0,r=0;
+//        if(root->left) l = helper(root->left,vmax);//如果有負數, 會有錯誤
+//        if(root->right) r = helper(root->right,vmax);//如果有負數, 會有錯誤
+        
+        if(root->left) l = max(helper(root->left,vmax),0);
+        if(root->right) r = max(helper(root->right,vmax),0);
+        
+        vmax = max(vmax, l + r + root->val);
+        return root->val + max(l,r);
+    }
+	
 };
+
+
+
+
+
 
 Input: [1, 2, 3]
 	 1
