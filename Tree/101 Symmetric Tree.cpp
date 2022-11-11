@@ -7,7 +7,7 @@ public:
     
     bool isSym(TreeNode *left, TreeNode *right){
         if(left==NULL&&right==NULL) return true;
-        if(!left&&right||left&&!right||left->val!=right->val)
+        if(!left&&right||left&&!right||left->val!=right->val)//preorder概念
             return false;
         return isSym(left->left,right->right)&&isSym(left->right,right->left);
     }
