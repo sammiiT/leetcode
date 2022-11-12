@@ -49,8 +49,6 @@ public:
         
         
     }
-    
-    
     void helper_3(TreeNode *root,
                int sum,
                vector<int> &out,
@@ -75,4 +73,21 @@ public:
         }
         out.pop_back();
     }
+     
+    void helper(TreeNode* root, int targetSum, vector<vector<int>>& res, vector<int>& v){
+        if(!root) return;
+        v.push_back(root->val);
+        if(!root->left && !root->right){
+            if(targetSum-root->val==0){
+                res.push_back({});
+                for(int i=0; i<v.size(); i++)
+                    res[res.size()-1].push_back(v[i]);
+            }
+        }
+        if(root->left) helper(root->left, targetSum-val, res, v);
+        if(root->right) helper(root->right,targetSum-val, res, v);
+        v.pop_back();
+    }     
+     
+     
 };
