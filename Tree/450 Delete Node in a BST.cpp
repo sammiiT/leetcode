@@ -88,3 +88,30 @@ public:
         return root;
     }
 };
+
+//用return的方式回傳下一個節點, 可以知道指定節點的前一個節點
+TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root) return NULL;
+    
+        if(root->val==key){//移除節點, 重新建構
+            TreeNode *l=root->left;
+            TreeNode *r=root->right;
+            TreeNode *tmp;
+            tmp = r;
+            while(tmp&&tmp->left){
+                tmp=tmp->left;
+            }
+            if(tmp){
+                tmp->left = l;
+                return r;
+            }else{
+                return l;
+            }
+        }
+        //用return的方式回傳下一個節點, 可以知道指定節點的前一個節點
+        if(root->left) root->left = deleteNode(root->left, key);
+        if(root->right) root->right = deleteNode(root->right, key);
+        
+        return root;    
+}
+
