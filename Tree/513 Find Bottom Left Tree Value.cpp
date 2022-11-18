@@ -32,3 +32,20 @@ public:
     }
 
 };
+
+
+void helper(TreeNode* root, int level, vector<vector<int>>& v){
+        if(!root) return;
+        if(level==v.size()) v.push_back({});
+        v[level].push_back(root->val);
+        
+        helper(root->left,level+1,v);
+        helper(root->right,level+1,v);
+}
+
+int findBottomLeftValue(TreeNode* root) {
+        vector<vector<int>> res;
+        helper(root,0,res);
+        
+        return res[res.size()-1].at(0);
+}
