@@ -22,3 +22,27 @@ public:
         helper(root->right,m,mx);
     }
 };
+
+void helper(TreeNode* root, int& mval, unordered_map<int,int>& map){
+        if(!root) return;
+        
+        map[root->val]+=1;
+        mval = max(mval, map[root->val]);
+        
+        helper(root->left, mval, map);
+        helper(root->right, mval, map);
+}
+    
+    
+vector<int> findMode(TreeNode* root) {
+        unordered_map<int,int> map;
+        vector<int> res;
+        int mval = 0;
+        helper(root, mval, map);
+        for(auto& it:map){
+            if(it.second==mval){
+                res.push_back(it.first);
+            }
+        }
+        return res;
+}
