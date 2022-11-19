@@ -29,7 +29,18 @@ return isSame(s->left,t->left) && isSame(s->right,t->right);
 //         return isSame(s->left,t->left) &&           isSame(s->right,t->right);
 //     }
 
-    
+ //==================================
+bool isSame(TreeNode* p, TreeNode* q){
+        if(!p && !q) return true;
+        if(!q&&p || q&&!p || p->val!=q->val) return false;
+        return isSame(p->left,q->left) && isSame(p->right,q->right);
+}
+bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(!root) return false;
+        if(isSame(root,subRoot)) return true;   
+//        return isSame(root->left,subRoot)||isSame(root->right,subRoot);//錯誤描述,
+        return isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot);        
+}   
     
     
     
