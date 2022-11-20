@@ -1,0 +1,24 @@
+    void inorder(TreeNode* root, int& sum){
+        if(!root) return;
+        
+        inorder(root->left, sum);
+        sum = sum + root->val;
+        root->val = sum;
+        inorder(root->right, sum);
+    }
+    
+    void revInorder(TreeNode* root, int& sum){
+        if(!root) return;
+        revInorder(root->right,sum);
+        sum = sum+root->val;
+        root->val = sum;
+        revInorder(root->left,sum);
+        
+    }
+    
+    //inorder的反方向
+    TreeNode* convertBST(TreeNode* root) {
+        int sum = 0;
+        revInorder(root,sum);
+        return root;
+    }
