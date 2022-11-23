@@ -19,3 +19,31 @@ public:
         return right;
     }
 };
+//===============================
+    int helper_insert(vector<int>& nums, int target, int l, int r){
+        int m;
+        while(l<=r){
+            m = l + (r-l)/2;
+            if(nums[m]<target){
+                l = m+1;
+            }else if(nums[m]>target){
+                r = m-1;
+            }else{
+                return m;
+            }        
+        }
+        return m;//回傳m才是正確, 不能回傳l或m
+    }
+        
+    int searchInsert(vector<int>& nums, int target) {
+        int pos;
+        pos = helper_insert(nums, target, 0, nums.size()-1);
+        
+        if(nums[pos]==target){
+            return pos;
+        }else if(nums[pos]> target){
+            return pos;
+        }else{// (nums[pos]<target){
+            return pos+1;
+        }
+    }
