@@ -19,6 +19,10 @@ while(left<right) 對應right = nums.size();  對應right = m;
     => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
 解在右邊界, 因為left=m+1, 所以left==right=>跳出迴圈
 
+
+(*)當target不存在sorting array中, 且要求出插入的位址, 則上述兩點必須牢記
+
+
 (*)===== 找不到,回傳-1 ======
 int binarySearch(vector<int>& nums, int target){
     int l = 0;
@@ -54,6 +58,26 @@ int binarySearch(vector<int>& nums, int target){
     }
     return m;//找不到,回傳-1
 }
+
+//==============================================================
+int binarySearch(vector<int>& nums, int target){//用在最靠近的element
+    int l = 0;  
+//    int r = nums.size()-1;
+    int r = nums.size();
+    int m = 0;
+    
+    while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
+        m = l + (r-l)/2;
+        if(nums[m]<target){
+            l = m+1;
+        }else{//nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
+            r = m;//等於放在nums[m]> target區間
+        }
+    }
+    return r;//return r就是靠近 right的那一個index
+}
+
+
 
 //==============================================================
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
