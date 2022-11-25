@@ -10,7 +10,7 @@ right進一個step是right = m 或 right = m-1;
 (*)
 while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
 解在左邊界, 因為right=m-1; 所以left會在right的右邊=>跳出迴圈
-   =>如果(right=m條件)發生在左邊界,且target不存在, 則跳不出迴圈
+   =>在right=m條件下, 若解發生在左邊界, 且target不存在左邊界, 則跳不出迴圈
 解在右邊界, 因為left =m+1; 所以left會在right的右邊=>跳出迴圈
 
 (*)
@@ -26,9 +26,9 @@ int binarySearch(vector<int>& nums, int target){
     while(l<=r){//用nums.size()-1, 則要用l<=r, 才能找到邊界(最左邊),(最右邊)
         int m = l+(r-l)/2;
         if(nums[m]<target){
-            l = m+1;
+            l = m+1;//會觸發while break
         }else if(nums[m]>target){
-            r = m-1;
+            r = m-1;//會觸發while break
         }else{
             return m;
         }
