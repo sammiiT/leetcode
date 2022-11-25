@@ -12,8 +12,8 @@ public:
 //========================
 int helper(vector<int>& nums){
         sort(nums.begin(),nums.end());
-        nums.push_back(nums[nums.size()-1]+1);
-        nums.insert(nums.begin(),-1);
+        nums.push_back(nums[nums.size()-1]+1);//加入右邊界
+        nums.insert(nums.begin(),-1);//加入左邊界
         
         for(int i = 0; i<nums.size()-1; i++){
             if(nums[i+1]!=nums[i]+1){
