@@ -80,6 +80,9 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
 
 
 //==============================================================
+找到第一個不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
+找到第一個大於target的數值=> return r
+
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
     int r = nums.size()-1;
