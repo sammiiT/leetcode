@@ -9,15 +9,15 @@ right進一個step是right = m 或 right = m-1;
 
 (*)
 while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
-解在左邊界, 因為right=m-1; 所以left會在right的右邊=>跳出迴圈
-   =>在right=m條件下, 若解發生在左邊界, 且target不存在左邊界, 則跳不出迴圈
-解在右邊界, 因為left =m+1; 所以left會在right的右邊=>跳出迴圈
+解在左邊界, 因為right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
+   =>在right=m條件下, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
+解在右邊界, 因為left =m+1; 所以left會在right的右邊(left>right)=>跳出迴圈
 
 (*)
 while(left<right) 對應right = nums.size();  對應right = m;  
-解在左邊界, 因為right=m, 所以left==right=>跳出迴圈
+解在左邊界, 因為right=m, 所以(left==right)=>跳出迴圈
     => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
-解在右邊界, 因為left=m+1, 所以left==right=>跳出迴圈
+解在右邊界, 因為left=m+1, 所以(left==right)=>跳出迴圈
 
 
 (*)當target不存在sorting array中, 且要求出插入的位址, 則上述兩點必須牢記
