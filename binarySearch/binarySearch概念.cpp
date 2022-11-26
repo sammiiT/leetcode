@@ -80,9 +80,8 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
 
 
 //==============================================================
-找到第一個不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
-找到第一個大於target的數值=> return r
-
+找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
+因為 (nums[m]>=target){r = m;}=> 遇到target, 或大於target; 所以 ">="
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
     int r = nums.size()-1;
@@ -102,3 +101,19 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     }
     return r;//return r就是靠近 right的那一個index
 }
+
+查找第一個大於目標值的數值 return r; 可變形為查找最後一個部大於目標值的數 return r-1; 
+因為if(nums[m]<=target) left = m+1; 即使遇到等於target, left還是要m+1; 所以會找到第一個大於target的數值
+
+int binarySearch(vector<int>& nums, int target){
+   int left=0, right = nums.size();
+   while(left<right){
+      int m = left + (right-left)/2;
+      if(nums[m]<=target) left = m+1;
+      else right = m;
+   }
+   return r;
+}
+
+
+
