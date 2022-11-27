@@ -109,6 +109,9 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     }
     return r;//return r就是靠近 right的那一個index
 }
+此binary search的回傳值 => lower_bound(v.begin(),v.end(), target);
+
+
 //==========================================================
 (*)查找第一個大於目標值的數值 return r; 可變形為查找最後一個部大於目標值的數 return r-1; 
 因為if(nums[m]<=target) left = m+1; 即使遇到等於target, left還是要m+1; 所以會找到第一個大於target的數值
@@ -129,6 +132,6 @@ int binarySearch(vector<int>& nums, int target){
    }
    return r;
 }
-
+此binary search的回傳值 => upper_bound(v.begin(),v.end(),target)
 
 
