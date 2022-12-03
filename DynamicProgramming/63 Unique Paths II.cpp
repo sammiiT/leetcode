@@ -32,3 +32,36 @@ public:
         
     }
 };
+//====================================================================================
+    int helper0(vector<vector<int>>& obstacleGrid){
+        int m = obstacleGrid.size();
+        int n = obstacleGrid[0].size();
+        
+        vector<vector<int>> dp(m,vector<int>(n,1));
+  
+//建立初始值, 邊界值; 邊界值固定後, 接下來運算都會依賴邊界值      
+        dp[0][0] = obstacleGrid[0][0]?0:1; //(0,0)       
+        for(int i=1; i<m; i++){ //(1,0)~(m,0)
+            if(dp[i-1][0]==0){//如果出現obstacle,則後續都是obstacle 
+                dp[i][0]=0; 
+                continue;
+            }
+            if(obstacleGrid[i][0]==1){ dp[i][0]=0; }
+        }
+        
+        for(int i=1; i<n; i++){//(0,1)~(0,n)
+            if(dp[0][i-1]==0){//如果出現obstacle,則後續都是obstacle
+                dp[0][i]=0;
+                continue;
+            }
+            if(obstacleGrid[0][i]==1){ dp[0][i]=0; }
+        }
+ 
+ //從(1,1)開始算起       
+        for(int i=1; i<m; i++){
+            for(int j=1; j<n; j++){
+                dp[i][j] = (obstacleGrid[i][j])? 0 : (dp[i-1][j]+dp[i][j-1]);
+            }
+        }
+        return dp[m-1][n-1];
+    }
