@@ -1,3 +1,19 @@
+/*
+bool helper0(string s, vector<string>& wordDict){
+    unordered_set<string> wordSet(wordDict.begin(),wordDict.end());
+    vector<int> dp(s.size(),0);
+    
+    dp[0]=true;
+    
+    for(int i=0; i<dp.size(); i++){
+        for(int j=0; j<=i; j++){//  j<=i  => 會發生i-j=0的情況
+            if(wordSet(s.substr(j,i-j)))
+        }
+    }
+}
+*/
+
+
 bool helper0(string s, vector<string>& wordDict){
   unordered_set<string> wordSet(wordDict.begin(),wordDict.end());
   vector<bool> dp(s.size()+1,0);//+1是為了(i-j)計算, 為了記錄下一個seperation 的start
