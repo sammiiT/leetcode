@@ -1,4 +1,10 @@
-﻿class Solution {
+//===== 相似題 =======
+54. Spiral Matrix
+978. Longest Turbulent Subarray
+2321. Maximum Score Of Spliced Array
+1749. Maximum Absolute Sum of Any Subarray
+
+class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
         int cur = 0;
