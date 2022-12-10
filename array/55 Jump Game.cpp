@@ -1,4 +1,13 @@
-﻿class Solution {
+//=====相似題======
+56. Merge Intervals
+45. Jump Game II
+1306. Jump Game III
+1871. Jump Game VII
+
+
+
+
+class Solution {
 public:
     bool canJump(vector<int>& nums) {
 //---FAIL--------
