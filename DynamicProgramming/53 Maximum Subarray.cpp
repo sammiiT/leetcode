@@ -13,3 +13,40 @@ public:
         return res;
     }
 };
+
+
+/*   memory limit exceeded */   
+//dynamic programming造成記憶體使用過度
+    int helper3(vector<int>& nums){
+        int n = nums.size();
+        int res;
+        vector<vector<int>> dp(n,vector<int>(n));
+        res = nums[0];
+        for(int i=0; i<n; i++){
+            for(int j=i;j<n;j++){
+                dp[i][j]= (i==j)?(nums[i]):(dp[i][j-1]+nums[j]);
+                res = max(dp[i][j],res);
+            }
+        }
+        return res;
+    }
+
+//沒考慮到i==j的情況,會有錯誤
+int helper2(vector<int>& nums){
+    int n = nums.size();
+    int res;
+        vector<vector<int>> dp(n,vector<int>(n));
+        res = nums[0];
+/*
+要考慮(i==j)的情況
+[-2,1] => [1]
+*/        
+        for(int i=0; i<n; i++){
+            dp[i][i]=nums[i];
+            for(int j=i+1;j<n;j++){
+                dp[i][j]=dp[i][j-1]+nums[j];
+                res = max(dp[i][j],res);
+            }
+        }
+        return res;
+}
