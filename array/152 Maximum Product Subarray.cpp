@@ -9,7 +9,9 @@ public:
         mi[0] = nums[0];        
 /* 途中會有"中斷"發生; (中斷=截斷); 斷點發生在當下的element, 可以用 max()或 min()函數來做為截斷方式 
 mx[i] = max(max(mx[i-1]*nums[i],mi[i-1]*nums[i]),nums[i]);
-其中 nums[i]為截斷點
+其中 nums[i]為截斷點.
+
+概念可相通於 53. Maximum Subarray
 */        
         for(int i=1; i<nums.size(); ++i){
             mx[i] = max(max(mx[i-1]*nums[i],mi[i-1]*nums[i]),nums[i]);
