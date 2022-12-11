@@ -2,6 +2,9 @@
 2121. Intervals Between Identical Elements
 524. Longest Word in Dictionary through Deleting
 
+//return bool=> 只要發生, 就會回傳, 就算有其他解, 也不用管 =>所以只討論發生的第一次.
+//=>如 m[sum]有很多發生的次數, 所以只討論發生的第一次...
+
 //若數字a和b分別除以數字c, 若得到的餘數相同, 那(a-b)必定能整除c
 bool helper3(vector<int>& nums, int k){
         unordered_map<int,int> m;
