@@ -1,3 +1,8 @@
+//====類似題====
+1118. Number of Days in a Month
+2453. Destroy Sequential Targets
+
+
 int helper0(vector<int>& nums){
         int n = nums.size();
         int res = 0;
