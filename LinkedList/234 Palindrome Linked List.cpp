@@ -104,7 +104,7 @@ public:
             r=r->next->next;
         }
         ListNode* tmp = f->next;
-        while(tmp){
+        while(tmp){//將後半部放入stack就不用考慮前半部的last node
             stk.push(tmp);
             tmp=tmp->next;
         }
