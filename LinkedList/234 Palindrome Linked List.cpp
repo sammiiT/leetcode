@@ -1,4 +1,8 @@
-﻿class Solution {
+//=====類似題======
+235. Lowest Common Ancestor of a Binary Search Tree
+2130. Maximum Twin Sum of a Linked List
+
+class Solution {
 public:
     bool isPalindrome(ListNode* head) {
 		//(*)需要找到first middle, 用first middle找到第二部分的start node 
@@ -86,8 +90,31 @@ public:
 			}
 		}
 		return true;
-
 	}
-
-
 };
+//===============================================================
+    bool helper0(ListNode* head){
+        stack<struct ListNode*> stk;
+        ListNode hdr(-1);
+        ListNode *f,*r;
+        f=r=&hdr;
+        hdr.next = head;
+        while(r&&r->next){
+            f=f->next;
+            r=r->next->next;
+        }
+        ListNode* tmp = f->next;
+        while(tmp){
+            stk.push(tmp);
+            tmp=tmp->next;
+        }
+        f = hdr.next;
+        while(!stk.empty()){//將後半部放入stack就不用考慮前半部的last node
+            ListNode* t = stk.top();
+            if(t->val!=f->val) return false;
+            stk.pop();
+            f=f->next;
+        }
+        return true;
+    }
+
