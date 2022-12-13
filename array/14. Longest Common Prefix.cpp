@@ -25,3 +25,26 @@ string helper1(vector<string>& strs){
 string longestCommonPrefix(vector<string>& strs) {
         return helper1(strs);
 }
+
+//========fail============
+    string helper0(vector<string>& strs){
+        int mi=201;
+        int letter;
+        string res;
+
+        for(int i=0; i<strs.size(); i++){
+            mi = min((int)strs[i].size(), mi);        
+        }
+
+        for(int i=0;i<mi;i++){    
+            int count = 0;
+            letter = strs[0][i];
+            for(int j=0;j<strs.size();j++){
+                count+=strs[j][i];
+            }
+            if(letter*strs.size() == count){//錯誤, 第一個char分別是 b,a,b,c=>出錯
+                res+=letter;                
+            }else break;
+        }
+        return res;
+    }
