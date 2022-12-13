@@ -34,3 +34,19 @@ o  o  o   o   second middle (even)
         return palindrome;
     }
 };
+
+//========================================
+helper0修改
+string breakPalindrome(string palindrome) {
+    const int n = palindrome.length();
+    if (n == 1) return "";
+    for (int i = 0; i < n / 2; ++i) {
+      if (palindrome[i] != 'a') {
+        palindrome[i] = 'a';
+        return palindrome;//如果出現不為a的數, 修改後直接返回
+      }
+    }
+    palindrome.back() = 'b';
+    return palindrome;
+}
+
