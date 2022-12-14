@@ -1,16 +1,23 @@
-    int helper1(string s){
+//=====類似題========
+648. Replace Words
+2232. Minimize Result by Adding Parentheses to Expression
+1881. Maximum Value after Insertion
+2182. Construct String With Repeat Limit
+
+int helper1(string s){
         int res = 0;
         int n = s.size();
         vector<vector<bool>> dp(n,vector<bool>(n));
 
         for(int i=n-1; i>=0; i--){
             dp[i][i]=1;
-            for(int j=i+1; j<n; j++){
+            for(int j=i+1; j<n; j++){//從相鄰兩個位址開始, i,(j=i+1);
+                                      //所以dp[i][i]的情況沒有算到,最後要再算一次dp[i][i]   
                 dp[i][j]=(s[i]==s[j]) && (j-i<=2 || (dp[i+1][j-1])); 
                 if(dp[i][j]) res++;
             }        
         }
-        for(int i=0; i<n; i++){//計算單一
+        for(int i=0; i<n; i++){//最後要再算一次i==j的情況
             res++;
         }
         return res;
@@ -23,7 +30,7 @@
 
         for(int i=n-1; i>=0; i--){
             //dp[i][i]=1;
-            for(int j=i; j<n; j++){//從相鄰兩個位址開始, i,(j=i+1)  
+            for(int j=i; j<n; j++){  
                 dp[i][j]=(s[i]==s[j])&&((j-i<=2) || dp[i+1][j-1]);    
 /*
 dp[3][3]
