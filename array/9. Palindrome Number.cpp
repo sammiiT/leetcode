@@ -1,4 +1,21 @@
-    bool helper0(int x){
+//====類似題=====
+10. Regular Expression Matching
+2217. Find Palindrome With Fixed Length
+2396. Strictly Palindromic Number
+
+bool helper2(int x){
+        long count = x;
+        long y = 0;
+        if(x<0) return false;
+        while(count>0){
+            y = y*10 + count%10;
+            count/=10;        
+        }
+        return (y==x)?true:false;
+}
+
+
+bool helper0(int x){
         
         long i = x, j=0;//int會出錯,要用long
         int div = 1;//計算order
@@ -15,7 +32,7 @@
         
         if(j==x) return true;
         return false;
-    }
+}
 
     bool helper1(int x){
         int div = 1;
