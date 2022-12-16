@@ -47,6 +47,15 @@ int helper1(vector<int>& nums){
         }
         return count;
 }
+//====思路
+
+//===
+int helper2(vector<int>& nums) {
+         sort(nums.begin(), nums.end());
+        int i = 1;
+        for(int x: nums) if(x == i) i++;
+        return i;        
+}
 
 int firstMissingPositive(vector<int>& nums) {
         return helper0(nums);    
