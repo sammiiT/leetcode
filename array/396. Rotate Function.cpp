@@ -10,6 +10,10 @@
 f(n) = f(n-1) + sum -n*arr[n-1];
 n是array size
 
+sum = 1A + 1B + 1C + 1D
+F(1) = F(0) + sum - 4D
+F(2) = F(1) + sum - 4C
+F(3) = F(2) + sum - 4B
 //===
  int helper0(vector<int>& nums){
         int n = nums.size();
