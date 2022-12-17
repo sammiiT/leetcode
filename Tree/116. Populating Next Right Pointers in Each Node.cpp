@@ -1,5 +1,9 @@
 //====類似題===
 117. Populating Next Right Pointers in Each Node II
+118. Pascal's Triangle
+1091. Shortest Path in Binary Matrix
+146. LRU Cache
+1740. Find Distance in a Binary Tree
 
 //===思路===
 1. 記錄每一level的所有node; 此資料會形成一個vector<vector<Node*>>的陣列
