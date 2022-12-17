@@ -8,8 +8,8 @@
 //===思路===
 1. 記錄每一level的所有node; 此資料會形成一個vector<vector<Node*>>的陣列
 2. 遍歷每一階層的陣列, 並將陣列中的每一個Node的next指向下一個節點
-//=====
 
+//=====
 void helper0(Node* root, int level, vector<vector<Node*>>& res){
     if(!root) return;
     if(level==res.size()) res.push_back({});
