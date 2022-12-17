@@ -15,3 +15,11 @@ double myPow(double x, int n){
   if(n>0) return half*half*x;//要避開 n<0的情況 ; 奇數個所以平方後, 再多乘一個x
   return half*half/x;
 }
+
+
+//===計算n幾次方====
+if(n=0) return 1;//除2等於0,表示被除數是1或0=> 假設是1
+
+int half = myPow(x,n/2);
+if(n%2==0) return half*2;
+if(n%2==1) return (half+1);
