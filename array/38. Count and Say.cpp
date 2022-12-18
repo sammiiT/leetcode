@@ -15,7 +15,7 @@ string helper0(int n){
     int same;
     
     for(int i=2; i<=n; i++){
-        res="";
+        res="";//每一次都要做reset, 沒有reset會錯誤
         same = 1;
         //如果pre="1",則最後一個算不到,所以強制加上一個非數字字元
         
