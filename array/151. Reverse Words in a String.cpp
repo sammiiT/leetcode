@@ -28,6 +28,20 @@ string helper0(string s){
         return t;
 }
 
+string helper1(string s){
+        string r;
+        string t;
+        for(int i=0; i<=s.size(); i++){
+            if(s[i]==' '|| i==s.size()){
+                if(t.size()){
+                    (r.size()==0)?r.insert(0,t):r.insert(0,t+' ');        
+                    t.clear();
+                }        
+            }else{ t+=s[i]; }
+        }
+        return r;
+}
+
 string reverseWords(string s) {
         return helper0(s);
 }
