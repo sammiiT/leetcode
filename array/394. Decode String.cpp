@@ -9,9 +9,13 @@
 
    stkNum          stkStr   
   +-----+         +-----+
-  |-----|         |-----| 
-  |-----|         |-----|  
-  |-----|         |-----|  
+  |     |      -->| str3|
+  |-----|    /    |-----|
+  |  n3 |---/  -->| str2| 
+  |-----|    /    |-----|
+  |  n2 |---/  -->| str1|
+  |-----|    /    |-----|
+  |  n1 |---/     |     |  
   +-----+         +-----+
 下一個要重複個數    要依據前一個數字來重複string  
 
@@ -27,6 +31,12 @@ stkNum =i 會對應到 stkStr = i+1
 3.遇到']',將數字從stkNum pop出來, 那pop出來的數字是當下"尚未push到stkStr"的字串需要重複的字數
 將當下字串重複過後, 加到stkStr的top中; 準備為stkNum的top做準備
   
+  
+(*)如果是string是空, 也一樣可以push至stack;會在stack中占用一個位置  
+(*)stack pop執行, 用stk.empty()來判斷是否為空, 可以將所有在stack中的element取出
+若用for(int i=0;i<stk.size();i++) 會無法取出所有的element,沒辦法取出最初push的那一個
+
+(*)如果stack本身為空, 用stk.top()會出錯
 //=====
 string helper0(string s) {
     stack<int> stkNum;
