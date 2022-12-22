@@ -27,6 +27,8 @@ while(left<right) 對應right = nums.size();  對應right = m;
 int binarySearch(vector<int>& nums, int target){
     int l = 0;
     int r = nums.size()-1;
+
+//找不到的時候, (l>r)跳出迴圈
     while(l<=r){//用nums.size()-1, 則要用l<=r, 才能找到邊界(最左邊),(最右邊)
         int m = l+(r-l)/2;
         if(nums[m]<target){
@@ -56,7 +58,7 @@ int binarySearch(vector<int>& nums, int target){
             return m;
         }
     }
-    return m;//找不到,回傳-1
+    return m;//回傳一個位址, 
 }
 
 //==============================================================
@@ -69,17 +71,18 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
         m = l + (r-l)/2;
         if(nums[m]<target){
-            l = m+1;
+            l = m+1;//m+1原因: 偶數個,m會永遠落在first middle, 不會往下一個跳; 所以要m+1 
         }else{//nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
+              //由(>=)的條件, 解有可能落在索引m上, 所以r=m;=> lower_bounded
+              //或,因為r不會因為first middle而停在同一個位置, 在奇數或偶數求出的m, r都可以往前移動
             r = m;//等於放在nums[m]> target區間
         }
     }
     return r;//return r就是靠近 right的那一個index
 }
 
-
-
 //==============================================================
+
 (*)找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
 因為 (nums[m]>=target){r = m;}=> 遇到target, 或大於target; 所以 ">="
 
@@ -92,7 +95,7 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
 
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
-    int r = nums.size()-1;
+    int r = nums.size()-1;//配上while(l<r)會有錯誤, 因為如果target發生在右邊界, 會導致找不到"解"?==>還是可以, 因為r初始值就是nums.size()-1
     int m = 0;
     
 // while(l<=r) 無法跳出迴圈    
@@ -113,7 +116,7 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
 lower_bound = 找出(>=)大於或等於target的最小值的位置                         
 
 //==========================================================
-(*)查找第一個大於目標值的數值 return r; 可變形為查找最後一個部大於目標值的數 return r-1; 
+(*)查找第一個大於目標值的數值 return r; 可變形為查找最後一個不大於目標值的數 return r-1; 
 因為if(nums[m]<=target) left = m+1; 即使遇到等於target, left還是要m+1; 所以會找到第一個大於target的數值
 
 (*)(nums[m]<=target) l = m+1; return r;
@@ -127,8 +130,8 @@ int binarySearch(vector<int>& nums, int target){
    int left=0, right = nums.size();
    while(left<right){
       int m = left + (right-left)/2;
-      if(nums[m]<=target) left = m+1;
-      else right = m;
+      if(nums[m]<=target) left = m+1;//若target發生在m, 但left=m+1, 會造成找到>target的最小位址
+      else right = m;                //用在upper_bound
    }
    return r;
 }
