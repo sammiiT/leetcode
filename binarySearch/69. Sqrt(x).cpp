@@ -11,7 +11,7 @@
 (*)因為 0 <= x <= 2^31-1, 所以當x+1時會超出範圍, 所以一開始要做cast => (long)x
 //=======
 int mySqrt(int x){
-  long l = 1, r = (long)x+1;
+  long l = 1, r = (long)x+1; //+1可解釋為, target不存在時的位置.
   while(l<r){//lower bounded
     long m = l+(r-l)/2;
     if(m*m<x)
