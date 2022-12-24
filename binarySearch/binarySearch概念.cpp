@@ -81,6 +81,10 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     return r;//return r就是靠近 right的那一個index
 }
 
+(*)左極限,右極限來看邏輯=> 左極限 idx=0, 右極限 idx=(n-1); 
+r = nums.size(); 搭配 while(l<r)
+--跳出迴圈, 當(l==r); 最後 (l==r) =>不管怎樣, 都會算到(l==r)才停止
+
 //==============================================================
 
 (*)找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
@@ -137,4 +141,43 @@ int binarySearch(vector<int>& nums, int target){
 }
 此binary search的回傳值 => upper_bound(v.begin(),v.end(),target)
 upper_bound = 找出(>)大於target的最小值的位置
+
+
+
+//=======分析==============
+
+=>解有可能存在,有可能不存在陣列中
+=>左極限(左邊界) index=0;  右極限(右邊界) index=nums.size()-1, 最大的index
+=>運算描述句為
+if(nums[m]<target) l=m+1;
+else r=m;
+
+(*) r = nums.size();   while(l<r)
+--當target超出右極限, 給l移到右極限的機會;
+最後l==r, 且值為nums.size()
+
+
+(*) r= nums.size(); while(l<=r)
+--當target超出右極限, 運算會出錯(1)
+當l==r時, 已經超出了 [num.size()-1]索引範圍; 所以要修正上面條件範圍 => r= nums.size()-1
+--當target存在, 運算會出錯(2)
+找到target, l會等於r, 接下來求出的m會一直在同一個數值, 導致跳不出迴圈
+
+
+(*)r= nums.size()-1; while(l<=r)
+--當target超出右極限, l==r時會, 再運算一次, 若沒找到 最後 l>r, 跳出回圈
+--當target存在, 運算出錯, l==r時, m會一直在同一個數值,導致跳不出迴圈
+
+
+(*) r = nums.size()-1; while(l<r)
+--當 target剛好在右極限, 可以找到解, 剛好在l==r的時候
+--當target超出右極限,找到的解,是右極限的位址, 但是錯誤的
+
+
+r=nums.size()會有超出索引範圍的狀況
+while(l<=r)會有跳不出迴圈的狀況;要搭配break敘述或在每次r和l的遷移都要做+1或-1的運算
+
+
+
+
 
