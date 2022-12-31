@@ -52,3 +52,26 @@ vector<int> partitionLabels(string s) {
         return helper0(s);
 }
 
+//=====思路=====
+1.
+2.  a...e...a...e...
+        ^   ^
+        |   第一個last
+        |--找到第二個last, 位置會大於第一個last; 所以 last = max(last,m[s[i]]);    
+            
+//===========
+vector<int> helper1(string s){
+    unordered_map<char,int> mp;
+    int start=0,last=0;
+    vector<int> res;
+    for(int i=0; i<s.size(); i++) mp[s[i]]=i;//紀錄最後一個位置
+    
+    for(int i=0; i<s.size(); i++){
+        last = max(last,mp[s[i]]);//找到對應字元的最後一個位址, 並記錄在last
+        if(last == i){//如果遍歷到第一個last
+            res.push_back(i-start+1);//長度
+            start = i+1;//下一個partition的start
+        }
+    }
+    return res;
+}
