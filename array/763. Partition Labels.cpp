@@ -24,8 +24,8 @@ vector<int> helper0(string s) {
         if(mp.count(s[i])){
             mp[s[i]].second = max(mp[s[i]].second,i);
         }else{
-            p.first = p.second = i;
-            mp[s[i]]=p;
+            p.first = p.second = i;//(*)第一次出現, 把first和,second都記錄為同一位址..之後重複出現再修改second
+            mp[s[i]]=p;            //如果只出現一次,second -first +1 = 1;
         }
     }
     for(auto a:mp) pq.push(a.second);//(起始位置,末位置)可以重新排列, 以起始位置做比較, 遞增
