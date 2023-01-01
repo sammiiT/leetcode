@@ -34,3 +34,17 @@ int helper0(string text){
 int maxNumberOfBalloons(string text) {
         return helper0(text);
 }
+//======
+ int maxNumberOfBalloons(string text) {
+        int res = INT_MAX;
+        string balloon = "balloon";
+        unordered_map<char, int> charCnt;
+        for (char c : text) ++charCnt[c];//紀錄每一個字元,不用管是不是balon其中之一, 因為最後比較只會比balon這幾個
+        
+        for (char c : balloon) {//只遍歷一次, 每一個字元出現的次數都取最小值
+            if (c == 'l' || c == 'o') res = min(res, charCnt[c] / 2);
+            else res = min(res, charCnt[c]);
+        }
+        return res;
+}
+
