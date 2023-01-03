@@ -3,6 +3,15 @@
 252. Meeting Rooms
 253. Meeting Rooms II
 
+//====思路====
+0. 先sort一次
+2.新建且定義解 vector<vector<int>> res 
+3.初始值, 指派給res; res.push_back(intervals[0])
+4. res的最後一個元素, 都跟intervals去做比較
+5.for遍歷陣列, 比較 res[res.size()-1][1] 和 intervals[i][0] 是否overlay
+5.1 做合併
+
+//=======
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals){
