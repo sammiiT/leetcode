@@ -34,5 +34,5 @@ ListNode* helper0(ListNode* head){
 
 
 ListNode* middleNode(ListNode* head) {
-        
+     return helper0(head);   
 }
