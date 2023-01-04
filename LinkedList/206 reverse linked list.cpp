@@ -1,3 +1,24 @@
+//===類似題===
+207. Course Schedule
+156. Binary Tree Upside Down
+2074. Reverse Nodes in Even Length Groups
+2487. Remove Nodes From Linked List
+//===思路====
+
+//=====
+ListNode* helper1(ListNode* head){
+        ListNode *pre,*cur;
+        pre=NULL;
+        cur=head;
+        while(cur!=NULL){
+            ListNode* tmp = cur->next;//紀錄cur->next, 因為會斷開原本的cur->next,去指向後前一個節點
+            cur->next = pre;//指向前一個節點
+            pre = cur;//前一個節點往後移
+            cur = tmp;//cur 更新,待做下一次運算
+        }
+        return pre;
+}
+
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
