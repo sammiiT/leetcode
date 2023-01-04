@@ -3,7 +3,7 @@
 703. Kth Largest Element in a Stream
 2146. K Highest Ranked Items Within a Price Range
 //===思路===
-(*) quicksort概念, 但是sort方式為descending
+(*) quicksort概念, 但是sort方式為descending; 由大排到小
 (*) quick select概念
 (*)quick sort輸出是 0-index base; 第4個, 就是 0,1,2,3,4 =>實際上是第5個
 依題意, 1-index base, 所以0-index base, 求第k個(1-index base); 要輸入(k-1)
