@@ -1,4 +1,51 @@
-﻿class Solution {
+//===類似題===
+93. Restore IP Addresses
+708. Insert into a Sorted Circular Linked List
+1290. Convert Binary Number in a Linked List to Integer
+1171. Remove Zero Sum Consecutive Nodes from Linked List
+//===思路===
+   p  c=left      right 
+   |  |  t        | 
+h->o->@->#->$->&->*->o->x
+
+   p     c        right
+   |  |  |  t     | 
+h->o->#->@->$->&->*->o->x
+
+   p        c     right 
+   |  |     |  t  |               
+h->o->$->#->@->&->*->o->x
+
+   p           c  right
+   |  |        |  |t 
+h->o->&->$->#->@->*->o->x
+
+   p              c
+   |  |           | 
+h->o->*->&->$->#->@->o->x
+
+//====
+ListNode* helper0(ListNode* head, int left, int right){
+    ListNode *pre,*cur;
+    ListNode hdr(-1);
+    hdr.next = head;
+    pre = &hdr;
+    
+    for(int i=0; i<left-1; i++) pre = pre->next;
+    cur =pre->next;
+
+    for(int i=0;i<(right-left);i++){
+        ListNode* t = cur->next;
+        cur->next = t->next;
+//        t->next = cur;//此描述會出錯
+        t->next = pre->next;//這一段要記得
+        pre->next =t;
+    }
+    return hdr.next;
+}
+
+//=====
+class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         ListNode *pre,*cur;
