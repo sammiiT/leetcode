@@ -68,6 +68,9 @@ void queue_init(struct queue* qu, int capacity){
 2. 實作
 3. 以此線性quque實作stack
 
+
+
+
 //=== circular queue (Ring buffer)=====
 1. f==r => buffer empty
 2. (r+1)%n==f => buffer full
@@ -96,13 +99,25 @@ int getFront(struct queue* qu){
   return qu->q[f];
 }
 int getBack(struct queue* qu){
-  if(isEmpty(qu))
+  if(isEmpty(qu)){ return -1;}
+  return (r-1)<0?qu->q[qu->capacity-1]:qu->q[r-1];
 }
 int getSize(struct queue* qu){
-
+  int res = 0;
+  if(isEmpty()){return 0;}
+  if(qu->f > qu->r){
+    res = qu->capacity - (qu->f - qu->r); // 大減小(f-r), 再用capacity-(f-r);
+                                          //r的位址沒有插入新值, f的位址有舊值; 相減就是"空的"沒有插入的位址
+  }else if(qu->f < qu->r){                 
+      res =  qu->r-qu->f;//大減小 (r-f)
+  }
+  return res;
 }
 bool isEmpty(struct queue* qu){
+  return (qu->f==qu->r);
 }
 bool isFull(struct queue* qu){
+  return ((r+1)%n==f);
 }
 
+//===利用ring buffer實作stack
