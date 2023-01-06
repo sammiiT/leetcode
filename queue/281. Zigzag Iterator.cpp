@@ -46,7 +46,6 @@ void zigzagIterator(vector<vector<int>>& vec){
     }
     i=0;
     n=vec.size();
-    cout<<endl;
 }
 
 int next(){//update要放在 執行當下的next, 放在hasNext會出錯
