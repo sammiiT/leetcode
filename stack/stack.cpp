@@ -119,7 +119,14 @@ int getSize(struct stack* stk);
 
 (*)queue操作
 
-int push(int val);
+void queue_init(struct stack* stk, int size){
+    stack_init(stk,size);
+}
+int push(struct stack* stk, int val){
+    struct stack tmp;
+    
+    stack_init(&tmp,)
+}
 int pop();
 int getFront();
 int getBack();
