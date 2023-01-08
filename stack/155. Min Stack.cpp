@@ -8,8 +8,13 @@
 -stk1是依據推入順序推入
 -stk2是存入minimum; 最上面(top)的數值, 是最小的值 
 
-(*)stk2會排除其他min區間的數; 
-1.
+(*)stk2會排除其他min區間的數; 有min(x,y)的概念=>排除其他的數
+1.如果用priority_queue會記錄到每一個數值, 求算起來
+
+for(int i=0;i<nums;i++){
+    res = min(res,nums[i]); //區間n~i 之間, 最小的數值
+                            //res是0~n區間, 最小的數值
+}
 
 //=====
 class MinStack {
