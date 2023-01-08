@@ -15,6 +15,9 @@ for(int i=0;i<nums;i++){
     res = min(res,nums[i]); //區間n~i 之間, 最小的數值
                             //res是0~n區間, 最小的數值
 }
+stk2的概念與min概念一樣: 
+- stk2有紀錄每一個區間的最小數值, 
+- min(x,y)是會排除前面區間最小的數值
 
 //=====
 class MinStack {
