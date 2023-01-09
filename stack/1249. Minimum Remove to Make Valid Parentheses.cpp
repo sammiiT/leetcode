@@ -15,6 +15,9 @@
 如果是'('則pop stack;
 如果是')',則push stack;
 
+3.最後依據stack中的元素, 從top開始做pop, 根據top的)或(位置, 將其移除
+s.erase(s.begin()+ 9), 第九個
+
 //=====
 string helper0(string s){
     vector<pair<char,int>> stk;
@@ -26,18 +29,15 @@ string helper0(string s){
             if(s[i]!=')') continue;
             
             if(!stk.empty()){//(
-                if(stk.back().first=='(')
-                    stk.pop_back();
-                else
-                    stk.push_back({s[i],i});
+                if(stk.back().first=='(')  stk.pop_back();//如果是'('則pop stack
+                else  stk.push_back({s[i],i});//如果是')',則push stack;
             
-                
-            } else if(stk.empty()){
+            }else if(stk.empty()){//如果stack是empty(), 則壓入stack, 一定都第一個是發生')'的情況
                 stk.push_back({s[i],i});
             }
         }
     }
-    while(!stk.empty()){
+    while(!stk.empty()){//最後依據stack中的元素, 從top開始做pop, 根據top的)或(位置, 將其移除
         pair<char,int> t = stk.back();
         s.erase(s.begin()+t.second);
         stk.pop_back();
