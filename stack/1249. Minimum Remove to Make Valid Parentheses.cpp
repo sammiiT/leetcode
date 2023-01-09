@@ -44,8 +44,34 @@ string helper0(string s){
     }
     return s;
 }
-
-
-    string minRemoveToMakeValid(string s) {
+string minRemoveToMakeValid(string s) {
         return helper0(s);    
+}
+//===思路2===
+    string minRemoveToMakeValid(string s) {
+
+        vector<int> st;
+
+        int n=s.length();
+        // unordered_set<int>set;
+
+        for(int i=0;i<n;i++){
+            if(s[i]=='(') 
+                st.push_back(i);
+            else if(s[i]==')'){
+                if(st.empty()) 
+                    s[i]='#';
+                else st.pop_back();
+            }
+        }
+        for(auto i:st)
+            s[i]='#';
+
+        string ans="";
+        for(auto i:s){
+            if(i!='#') 
+                ans+=i;
+        }
+
+        return ans;
     }
