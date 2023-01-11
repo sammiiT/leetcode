@@ -37,8 +37,8 @@ public:
         l.push_front(make_pair(key,value));
         m[key]=l.begin();
         if(m.size()>cap){
-            int k = l.back().first;
-            //int k = l.rbegin()->first;
+            int k = l.back().first;//最後一個元素
+            //int k = l.rbegin()->first;//最後一個元素
             l.pop_back();
             m.erase(k);
         }
