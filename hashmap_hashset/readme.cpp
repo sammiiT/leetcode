@@ -44,7 +44,6 @@ int main(){
 int main ()
 {
   int myints[]= {77,30,16,2,30,30};
-                                                    
   std::multiset<int> mymultiset(myints, myints+6); // 2 16 30 30 30 77
 /*
 +6 是把end()也考慮進去
@@ -53,6 +52,8 @@ int main ()
 |---myints                     |---end(); 就是myints+6的位置
 */                                                    
                                                     
-  std::pair<It,It> ret = mymultiset.equal_range(30); //      ^        ^
+  std::pair<It,It> ret = mymultiset.equal_range(30); //2 16 30 30 30 77      
+                                                     //      ^        ^
+                                                     //      first    seconde                            
 }
 //=== unordered_set ====
