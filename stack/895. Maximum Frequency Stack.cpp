@@ -3,7 +3,18 @@
 433. Minimum Genetic Mutation
 1257. Smallest Common Region
 792. Number of Matching Subsequences
+
 //===思路====
+(*)將每一個數值的出現次數, 都建立一個stack;以 5,7,5,7,4,5為例
+出現一次: 5,7,4   => 第一個vector<int>
+出現兩次: 5,7     => 第二個vector<int>
+出現三次: 5       => 第三個vector<int>
+這三種情況,分別會記錄到 unordered_map<int,vector<int>> m;中
+    
+1 第一個pop, 找出現3次的5; pop完之後, 即不考慮出現三次的狀況,因為mxfreq會減1
+2 第二個pop, 會找出現兩次的stack, 此stack有5和7, 因為7比較靠近top, 所以會先取得7
+3 pop完之後, 第二個stack會剩下1個element, 直到5也被pop, 才不會被討論, mxfreq再減1
+3.3 每次pop完一個數值之後, 都要對其次數減1, 此資訊存在於另外一個map中
 
 
 //=======
