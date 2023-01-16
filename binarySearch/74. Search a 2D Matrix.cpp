@@ -1,5 +1,6 @@
 //====類似題====
-
+75. Sort Colors
+2468. Split Message Based on Limit
 
 //===思路====
 1.先找到target落在哪一個區間, 每一個區間就是每一列的所有數值
@@ -34,7 +35,7 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
 }
 
 //====思路====
-
+(*)
 
 //====
 bool searchMatrix(vector<vector<int>>& matrix, int target) {
@@ -51,3 +52,35 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
     return false;
   }  
 }
+
+//====思路====
+1.先求解落在哪一個row
+2.再求解落在哪一個column 
+3.用binary search
+  
+//====  
+bool helper1(vector<vector<int>>& matrix, int target){
+  int left = 0,right = matrix.size();
+  while(left<right){//
+    int m = left + (right-left)/2;
+    if(matrix[m][0]<target) left = m+1;
+    else if(matrix[m][0]>target) right =m;
+    else //matrix[m][0]==target ,將"="獨立出來, 最後的解,為upper_bound
+        return true;
+  }//upper_bound
+  int tmp = (right>0)? right-1: right;//row, 因為是upper_bound,所以要right-1
+  
+  left = 0; right = matrix[tmp].size();
+  while(left<right){
+    int m = left+(right-left)/2;
+    //if(matrix[tmp][m]==target) return true;
+    if(matrix[tmp][m]<target) left = m+1;
+    else if(matrix[tmp][m]>target) right = m;
+    else return true;
+  }
+  return false;
+
+}  
+  
+  
+  
