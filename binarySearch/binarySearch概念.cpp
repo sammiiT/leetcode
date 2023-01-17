@@ -7,13 +7,17 @@ right進一個step是right = m 或 right = m-1;
 
 返回 left, right或right-1
 
-(*)
+(*)----- left=0, right=nums.size()-1, while(left<=right) -----
 while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
 解在左邊界, 因為right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
-   =>在right=m條件下, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
+=>在right=m條件下, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
 解在右邊界, 因為left =m+1; 所以left會在right的右邊(left>right)=>跳出迴圈
 
-(*)
+- 此判斷條件是用來搜尋target是否存在於數列中,會一併搜尋(left==right)的情況是不是target 
+- 如果用(left<right), 則一定會有一個解, 此解是lower_bound, 而且不會判斷到left==right的情況
+
+
+(*)---- left=0, right = nums.size(), while(left<right) -----
 while(left<right) 對應right = nums.size();  對應right = m;  
 解在左邊界, 因為right=m, 所以(left==right)=>跳出迴圈
     => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
