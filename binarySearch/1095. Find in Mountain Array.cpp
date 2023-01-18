@@ -42,3 +42,29 @@ int findInMountainArray(int target, MountainArray &mountainArr) {
     return (idx1==-1)?idx2:idx1;
 }
 
+//===failed 超出搜尋次數 =====
+
+//會超出搜尋次數定義
+int findInMountainArray(int target, MountainArray &mountainArr) {
+    int min_idx =-1;
+    int mx = 0;
+    
+    for(int i =1; i<mountainArr.length(); i++){
+        if(mountainArr.get(i-1)==target){
+            min_idx = i-1;
+        }
+        if(mountainArr.get(i)<mountainArr.get(i-1)) {
+            mx = i-1;
+            break;
+        }
+    }
+    int l = mx , r = mountainArr.length();
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(mountainArr.get(m)<=target) r = m;
+        else //mountainArr.get(m)>target
+            l = m+1;
+    }
+    return (min_idx<0)?(mountainArr.get(r)==target? r : -1):min_idx;
+}
+
