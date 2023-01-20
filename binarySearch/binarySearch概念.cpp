@@ -9,8 +9,8 @@ right進一個step是right = m 或 right = m-1;
 
 (*)----- left=0, right=nums.size()-1, while(left<=right) -----
 while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
-解在左邊界, 因為right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
-=>在right=m條件下, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
+解在左邊界, 如果right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
+           如果right=m, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
 解在右邊界, 因為left =m+1; 所以left會在right的右邊(left>right)=>跳出迴圈
 
 - 此判斷條件是用來搜尋target是否存在於數列中,會一併搜尋(left==right)的情況是不是target 
@@ -20,7 +20,7 @@ while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
 (*)---- left=0, right = nums.size(), while(left<right) -----
 while(left<right) 對應right = nums.size();  對應right = m;  
 解在左邊界, 因為right=m, 所以(left==right)=>跳出迴圈
-    => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
+          => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
 解在右邊界, 因為left=m+1, 所以(left==right)=>跳出迴圈
 
 
@@ -40,7 +40,7 @@ int binarySearch(vector<int>& nums, int target){
         }else if(nums[m]>target){
             r = m-1;//會觸發while break
         }else{
-            return m;
+            return m;//一個跳出迴圈
         }
     }
     return -1;//找不到,回傳-1
@@ -88,6 +88,15 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
 (*)左極限,右極限來看邏輯=> 左極限 idx=0, 右極限 idx=(n-1); 
 r = nums.size(); 搭配 while(l<r)
 --跳出迴圈, 當(l==r); 最後 (l==r) =>不管怎樣, 都會算到(l==r)才停止
+
+(*)first_middle或second_middle 
+l = m+1 , r = m 是因為m的運算式為first_middle運算式 => m = l+(r-l)/2;
+所以才會遇到 l = m的時候,有可能會跳不出迴圈, 一定要是 l = m+1;
+
+如果是用second_middle運算, 則可以用l=m; 不會發生跳不出迴圈, 因為l都會被update
+m = l+(r-l+1)/2; //second_middle, 此時對l和r的更新式如下
+l = m;   ([i]<=target) => 有等於的符號不用+1或-1,但在l取解會有跳不出迴圈的問題
+r = m-1; ([i]>target)
 
 //==============================================================
 
