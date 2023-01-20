@@ -1,7 +1,8 @@
 //===類似題===
 
 //===思路===
-
+(*)k = 分成k分
+(*)k份的每一分數值, 是要最大; return 要分成k分索取的最大值
 //======
 int split_count(vector<int>& nums,int m){
     int res = 0;
