@@ -3,6 +3,10 @@
 186. Reverse Words in a String II
 
 //===思路====
+1.如果做in-lplace運算,會比較複雜,因為
+space出現的位置可能在字串首,也可能在字串尾,而且中間有連續出現space的可能
+
+2.所以把每一個單詞從字串中挑選出來,做reverse之後,再加上' '重新組合.
 
 //====
 string helper0(string s){
@@ -46,3 +50,28 @@ string helper1(string s){
 string reverseWords(string s) {
         return helper0(s);
 }
+//====思路====
+string helper2(string s){
+    vector<string> res;
+    string t;
+    for(int i=0;i<=s.size();i++){
+        if(i==s.size()||s[i]==' '){
+            if(t.size()){
+                res.push_back(t);//將每一個單詞重新取出,加到vector陣列
+                t.clear();
+            }
+        }else{
+            t+=s[i];
+        }
+    }
+    t.clear();
+    reverse(res.begin(),res.end());//將單詞做reverse
+    for(int i=0; i<res.size(); i++){//重新組合,加上space
+        t+=res[i];
+        t+=' ';//加上space
+    }
+    return t.substr(0,t.size()-1);//取出substring, 將最後一個space去掉       
+}
+
+
+
