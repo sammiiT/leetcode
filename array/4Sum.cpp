@@ -1,3 +1,46 @@
+//===類似題===
+19. Remove Nth Node From End of List
+1995. Count Special Quadruplets
+//===思路===
+
+
+//====
+vector<vector<int>> fourSum(vector<int>& nums, int target) {
+    int n = nums.size();
+    vector<vector<int>> res;
+    sort(nums.begin(),nums.end());
+
+    for(int i=0; i<n-3; i++){
+        if(i>0 && nums[i]==nums[i-1]) continue;
+        for(int j=i+1; j<n-2; j++){
+            if(j-1>i && nums[j]==nums[j-1]) continue;
+                
+            for(int p=j+1,q=n-1; p<q;){
+                if(p-1>j && nums[p]==nums[p-1]){
+                    p++;        
+                }else if(q+1<n && nums[q]==nums[q+1]){
+                    q--;    
+                }else{
+//                  long sum = nums[i]+nums[j]+nums[p]+nums[q];
+                    long sum = (long)nums[i]+(long)nums[j]+(long)nums[p]+(long)nums[q];
+                    if(sum>target){
+                        q--;        
+                    }else if(sum<target){
+                        p++;    
+                    }else{//sum==target
+                        res.push_back({nums[i],nums[j],nums[p],nums[q]});
+                        q--;
+                        p++;
+                    }
+                }
+            }
+        }
+    }
+    return res;
+}
+
+
+//===思路2====
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
