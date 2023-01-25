@@ -1,7 +1,8 @@
 //===類似題====
 425. Word Squares
 340. Longest Substring with At Most K Distinct Characters
-2009. Minimum Number of Operations to Make Arr
+2009. Minimum Number of Operations to Make Array Continuous
+2024. Maximize the Confusion of an Exam
 
 //===思路====
 (*)sliding window求算
