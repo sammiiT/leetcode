@@ -1,7 +1,8 @@
 //===類似題===
 
 //===思路====
-
+1.
+2.
 //========
 int lengthOfLongestSubstringKDistinct(string s, int k){
     unordered_map<char,int> m;//character, count
@@ -12,14 +13,15 @@ int lengthOfLongestSubstringKDistinct(string s, int k){
         if(m.find(s[i])==m.end()) k=k-1;
         m[s[i]]++;
         
-        if(k>=0) res = max(res, i-j);
+        if(k>=0) res = max(res, i-j+1);
         
         while(k<0){
             m[s[j]]--;
-            if(m[s[j]]==0) m.erase(s[j]);
-            
+            if(m[s[j]]==0) {
+                m.erase(s[j]);
+                k++;
+            }
             j++;
-            k=m.size();
         }
     }
     return res;
