@@ -5,8 +5,11 @@
 1162. As Far from Land as Possible
 
 //===思路====
+(*)計算出現palindrome的個數, 不是長度(length)
+1. dp[i][j]=> i~j  是否為palindrome, 是的話為1,不是的話為0
+2. 二維陣列的每一個element表示(i~j)是否為palindrome
 
-
+3.(j-i)<=2 代表是2個元素的palindrome ,3個元素的palindrome 
 //=====
 int helper1(string s){
     int res = 0;
