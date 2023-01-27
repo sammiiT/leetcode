@@ -3,6 +3,16 @@
 2330. Valid Palindrome IV
 1216. Valid Palindrome III
 
+//===思路===
+1.左(start)比右(right), 如果相等則
+start++; right--; 左往後移一步,右往前移一步
+
+2.如果不相等,依據題意,只可以忽略一次,可以忽略左邊,或忽略右邊=>忽略哪一邊可以滿足palindromic不知道,所以兩個都計算
+(s,start+1,end)//忽略左邊,繼續比較
+(s,start,end-1)//忽略右邊,繼續比較
+
+while(start<end)=> 往內縮做比較
+//==========
 bool checkPalindrome(string& s, int start, int end){
     while(start<end){
         if(s[start]!=s[end]) return false;
