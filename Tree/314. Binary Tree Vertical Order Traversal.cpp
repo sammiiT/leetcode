@@ -28,6 +28,10 @@ vector<vector<int>> verticalOrder(TreeNode* root){
       if(a.second->right) q.push(a.first+1, a.second->right);//right的index是parent位置+1
   }
   for(auto a:m){
+/*
+a.first = int
+a.second = vector<int>
+*/  
     res.push_back(a.second);//把所有相同index的陣列加到res
   }
   return res;
