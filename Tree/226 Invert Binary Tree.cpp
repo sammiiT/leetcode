@@ -1,3 +1,23 @@
+//===類似題===
+227. Basic Calculator II
+2415. Reverse Odd Levels of Binary Tree
+//===思路===
+(*) post_ordder trasversal
+-遍歷到最後一個節點,將最後一個節點的left和right相互對調, 對調後再將此parent回傳給上一層
+
+
+    O                O            O -->回傳給上一層
+   / \        =>    / \    =>    / \   
+  L   R            R   L        R   L
+  
+     
+   
+      X  ----->對於X, O和*要對調        X
+     / \                              / \ 
+    O    *                           *   O
+   / \  / \                         / \ / \
+  R   L R  L                       R  L R  L 
+//====
 class Solution {
 public:
     
