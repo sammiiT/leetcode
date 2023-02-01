@@ -1,4 +1,20 @@
-﻿class Solution{
+//===類似題===
+952. Largest Component Size by Common Factor
+2246. Longest Path With Different Adjacent Characters
+1644. Lowest Common Ancestor of a Binary Tree II
+2322. Minimum Score After Removals on a Tree
+//===思路===
+(*)flip equivalent
+-兩個binary tree完全相等 => 其中一個tree的任何subtree做 flip 2 次之後, 會等於另外一個binary tree
+-兩個binary tree不相等, 但其中一個tree的一個subtree做flip 1次,還是可以等於另外一個binary tree
+
+
+(*)可以當作isSymmetric的擴展
+-除了最後判斷 (flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left)) 之外
+還要做一個 "||"的判斷, 判斷同樣方向的兩節點是否相等,left_child比left_child, right_child比right_child
+(flipEquiv(root1->left,root2->left) && flipEquiv(root1->right,root2->right))
+//=====
+class Solution{
 public:
     bool flipEquiv(TreeNode* root1, TreeNode* root2) {
         if(!root1 && !root2) return true;
