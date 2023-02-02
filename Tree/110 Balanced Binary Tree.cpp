@@ -34,7 +34,7 @@ public:
         
         int diff=abs(l-r);
         if(diff>1) return -1;//中途就截斷
-        else return 1+max(l,r);
+        else return 1+max(l,r);//最後回傳是大於1的整數,則代表是height_balance
         
     }
     
