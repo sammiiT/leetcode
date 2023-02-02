@@ -51,8 +51,7 @@ public:
         return 1+max(l,r);//當下節點運算,包含其下節點總和
     }
     
-     
-    //錯誤的helper 
+//------錯誤的helper------- 
     void _helper(TreeNode* root, int level, int& lmax, int& lmin){
         if(!root) return;
         if(root->left) helper(root->left, level+1, lmax, lmin);
