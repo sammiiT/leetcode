@@ -1,4 +1,16 @@
-﻿class Solution {
+//===類似題====
+111. Minimum Depth of Binary Tree
+582. Kill Process
+285. Inorder Successor in BST
+2322. Minimum Score After Removals on a Tree
+
+//===思路===
+(*)用maximum depth的思路求解
+-每階層的post-order求算完,先計算一次左右兩子節點所構成的depth差值. 並與每層比較,紀錄最大差值
+-回傳最大的depth給上一層,繼續做運算比較
+
+//=======
+class Solution {
 public:
     bool isBalanced(TreeNode* root) {
         // if(root==NULL) return true;
