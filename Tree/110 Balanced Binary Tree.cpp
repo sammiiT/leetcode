@@ -4,6 +4,9 @@
 285. Inorder Successor in BST
 2322. Minimum Score After Removals on a Tree
 
+1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+1600. Throne Inheritance
+2458. Height of Binary Tree After Subtree Removal Queries
 //===思路===
 (*)用maximum depth的思路求解
 -每階層的post-order求算完,先計算一次左右兩子節點所構成的depth差值. 並與每層比較,紀錄最大差值
