@@ -1,4 +1,15 @@
+//===類似題===
+108. Convert Sorted Array to Binary Search Tree
+499. The Maze III
+366. Find Leaves of Binary Tree
+1485. Clone Binary Tree With Random Pointer
 
+//===思路====
+(*)pre-order 算法 (DFS)
+1.將每一個order的數加入vetor<vector<int>>中
+2.最後再對vetor<vector<int>>做reverse
+
+//====
 struct TreeNode{
 	int val;
 	TreeNode *left;
