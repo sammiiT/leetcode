@@ -1,4 +1,19 @@
-﻿class Solution {
+//===類似題===
+109. Convert Sorted List to Binary Search Tree
+2295. Replace Elements in an Array
+2419. Longest Subarray With Maximum Bitwise AND
+1198. Find Smallest Common Element in All Rows
+//===思路===
+(*) binary search tree, 取2nd-middle作為parent節點,才會滿足height-balance
+(*) 考vector<int>的constructor	
+vector<int> v(nums.begin(),nums.end());//建立一vector v, 內容為vector nums的begin到end
+
+(*)用post-order + pre-order概念來求解
+-先建立parent節點
+-將parent節點的left和right分別指向另外兩半所建立的sub-tree
+-最後回傳parent
+//=========
+class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         if(nums.empty()) return NULL;
