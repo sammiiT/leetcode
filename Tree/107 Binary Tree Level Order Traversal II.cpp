@@ -33,10 +33,12 @@ public:
         if(root==NULL) return;
         
         if(res.size()==level) res.push_back({});
-        
         res[level].push_back(root->val);
-        level+=1;
+        
+	level+=1;
         helper(root->left,level,res);
-        helper(root->right,level,res);
+//      helper(root->left,level+1,res);//此描述也可以
+	helper(root->right,level,res);
+//	helper(root->left,level+1,res);    
     }
 };
