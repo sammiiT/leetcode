@@ -1,4 +1,34 @@
-﻿class Solution {
+//===類似題===
+114. Flatten Binary Tree to Linked List
+666. Path Sum IV
+2096. Step-By-Step Directions From a Binary Tree Node to Another
+//===思路===
+(*)pre-order (DFS)
+1.判斷是否為最後一個節點,如果是且累計等於targetSum, 則將所有的element加到vector<vector<int>>
+2.不是則往下一個節點(左節點和右節點)繼續搜尋    
+//====
+void helper(TreeNode* root , int targetSum, vector<int> nums,vector<vector<int>>& res){
+    if(!root) return;
+
+    targetSum-=root->val;
+    nums.push_back(root->val);
+    if(!root->left && !root->right){
+        if(targetSum==0){
+            res.push_back(nums);
+            return;
+        }
+    }
+    helper(root->left,targetSum,nums,res);    
+    helper(root->right,targetSum,nums,res);
+}
+vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> res;
+        vector<int> nums;
+        helper(root,targetSum,nums,res);
+        return res;
+}
+//====
+class Solution {
 public:
     vector<vector<int>> pathSum(TreeNode* root, int sum) {
         vector<vector<int>> res;
