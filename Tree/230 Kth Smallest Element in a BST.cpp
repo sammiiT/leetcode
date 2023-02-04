@@ -1,3 +1,30 @@
+//===類似題===
+231. Power of Two
+1519. Number of Nodes in the Sub-Tree With the Same Label
+1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+173. Binary Search Tree Iterator
+//===思路===
+(*)方法1:(1-index) k遞減, 每操作一次,就遞減一次, 當k=0,代表執行k次.  => 概念背
+(*)方法2: inoder遍歷tree,並用array紀錄每一個節點, 最後回傳array[k-1]即可
+//=====
+void helper2(TreeNode* root, int& k, int& res){
+        if(!root) return;
+        helper2(root->left, k, res);
+        if(k>=0) k--;//1-index  , 每次找到,做減1的動作, (k--)=>操作一次 ; 操作k次之後會等於零
+        if(k==0) res=root->val;
+        helper2(root->right, k, res);
+}
+
+void helper3(TreeNode* root, vector<int>& res){
+    if(!root) return;
+    helper2(root->left,res);
+    res.push_back(root->val);    
+    helper2(root->right,res);
+}
+
+
+
+//======
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
