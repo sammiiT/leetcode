@@ -1,4 +1,13 @@
-﻿class Solution {
+//===類似題==
+200. Number of Islands
+545. Boundary of Binary Tree
+
+//===思路===
+1.利用之前level-order trasversal的解法,求出每一個level的陣列
+2.對每一個level的陣列的back()取出, 放入另外一個陣列, 此陣列就是right-size view
+
+//======
+class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
         
