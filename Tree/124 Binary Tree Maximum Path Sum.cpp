@@ -1,4 +1,32 @@
-﻿/**
+//===類似題===
+125. Valid Palindrome
+666. Path Sum IV
+687. Longest Univalue Path
+1376. Time Needed to Inform All Employees
+//===思路===
+(*)each pair of adjacent nodes in the sequence has an edge connecting them
+- 有子節點, 一定是兩個; 不會只有一個
+- 如果沒有子節點, 則兩邊都沒有, left和right都沒有
+//=====
+int helper(TreeNode* root, int& res){
+    if(!root) return 0;
+    int l=0,r=0;
+
+    l = max(helper(root->left,res),0);
+    r = max(helper(root->right,res),0);
+
+    res = max(res,root->val+l+r);//計算某個subtree的maximum, 所以要當下節點+左路徑+右路徑
+    return root->val+max(l,r);//左路徑,右路徑, 取sum最大的回傳.
+}
+
+
+    int maxPathSum(TreeNode* root) {
+        int res = INT_MIN;
+        helper(root,res);
+        return res;
+    }
+
+/**
  * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
