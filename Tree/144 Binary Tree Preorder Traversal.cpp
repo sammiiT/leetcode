@@ -1,3 +1,9 @@
+//===類似題===
+145. Binary Tree Postorder Traversal
+255. Verify Preorder Sequence in Binary Search Tree
+//===思路====
+
+//======
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
