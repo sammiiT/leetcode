@@ -1,3 +1,12 @@
+//===類似題===
+130. Surrounded Regions
+988. Smallest String Starting From Leaf
+//===思路===
+(*) pre-odrder (DFS)
+1.每進入一層,就將當下的節點 轉換為string模式,並與上一層的string做疊加
+2.如果當下層是最後一層, 則將string用stoi轉換成真正的integer形態, 累加
+3.最後遍歷完所有節點, 累加值就是解
+//======
 class Solution {
 public:
     int sumNumbers(TreeNode* root) {
