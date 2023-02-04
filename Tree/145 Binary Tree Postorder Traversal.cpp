@@ -1,3 +1,9 @@
+//===類似題====
+146. LRU Cache
+2477. Minimum Fuel Cost to Report to the Capital
+//===思路====
+
+//======
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
