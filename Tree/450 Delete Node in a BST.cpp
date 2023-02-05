@@ -1,4 +1,67 @@
-﻿class Solution {
+//===類似題===
+451. Sort Characters By Frequency
+776. Split BST
+//===思路===
+(*)post-order (DFS)
+1.每次回傳child節點給上層
+2.上層做連接,連接到的是下層回傳的child
+- 如果沒有遇到key,則連接到的是原child
+
+3.遇到的節點是key
+-如果right是NULL,則直接回傳 left
+-如果right存在,就遍歷其left節點
+-right的最後一個left節點連接原來的left節點
+-回傳right節點位址給上層
+//=====
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if(!root) return root;
+
+    root->left = deleteNode(root->left, key);
+    root->right = deleteNode(root->right, key);
+//...    
+    TreeNode* l = root->left;
+    TreeNode* r = root->right;
+    TreeNode* tmp = r;
+    if(root->val==key){
+        if(!tmp) return l;//如果right是NULL,則直接回傳 left
+        
+        while(tmp->left) tmp = tmp->left;//如果right存在,就遍歷其left節點
+        tmp->left = l;//right的最後一個left節點連接原來的left節點
+        return r;//回傳right節點位址給上層
+    }
+    return root;        
+}
+//===思路2===
+(*) pre-order算法
+//===
+//用return的方式回傳下一個節點, 可以知道指定節點的前一個節點
+TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root) return NULL;
+    
+        if(root->val==key){//移除節點, 重新建構
+            TreeNode *l=root->left;
+            TreeNode *r=root->right;
+            TreeNode *tmp;
+            tmp = r;
+            while(tmp&&tmp->left){
+                tmp=tmp->left;
+            }
+            if(tmp){
+                tmp->left = l;
+                return r;
+            }else{
+                return l;
+            }
+        }
+        //用return的方式回傳下一個節點, 可以知道指定節點的前一個節點
+        if(root->left) root->left = deleteNode(root->left, key);
+        if(root->right) root->right = deleteNode(root->right, key);
+        
+        return root;    
+}
+
+//=====
+class Solution {
 public:
     TreeNode *deleteNode(TreeNode *root, int key){
         if(!root) return NULL;
@@ -89,29 +152,5 @@ public:
     }
 };
 
-//用return的方式回傳下一個節點, 可以知道指定節點的前一個節點
-TreeNode* deleteNode(TreeNode* root, int key) {
-        if(!root) return NULL;
-    
-        if(root->val==key){//移除節點, 重新建構
-            TreeNode *l=root->left;
-            TreeNode *r=root->right;
-            TreeNode *tmp;
-            tmp = r;
-            while(tmp&&tmp->left){
-                tmp=tmp->left;
-            }
-            if(tmp){
-                tmp->left = l;
-                return r;
-            }else{
-                return l;
-            }
-        }
-        //用return的方式回傳下一個節點, 可以知道指定節點的前一個節點
-        if(root->left) root->left = deleteNode(root->left, key);
-        if(root->right) root->right = deleteNode(root->right, key);
-        
-        return root;    
-}
+
 
