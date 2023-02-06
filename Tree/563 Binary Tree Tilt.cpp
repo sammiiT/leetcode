@@ -1,3 +1,22 @@
+//===類似題===
+564. Find the Closest Palindrome
+1469. Find All The Lonely Nodes
+//===思路===
+(*)post-order算法
+//====
+int helper(TreeNode* root, int& sum){
+    if(!root) return 0;
+    int l = helper(root->left,sum);
+    int r = helper(root->right,sum);
+    sum += abs(l-r);
+    return root->val +l +r;
+}
+    int findTilt(TreeNode* root) {
+        int sum = 0;
+        helper(root,sum);
+        return sum;
+    }
+//====
 class Solution {
 public:
     int findTilt(TreeNode* root) {
