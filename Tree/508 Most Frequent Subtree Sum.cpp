@@ -1,4 +1,16 @@
-﻿class Solution {
+//===類似題===
+510. Inorder Successor in BST II
+1973. Count Nodes Equal to Sum of Descendants
+//===思路===
+(*)跟mode那一題很像,只是這一題是算subtree sum
+(*)post-order (DFS)
+-計算完下層節點之後, 回傳下層節點的總和,所以會有left的總和,right的總和	
+-依照題意,subtree_sum, 所以 當下的節點要加上left和right;得到的總和就是subtree_sum
+-將subtree_sum紀錄到unordered_map, 
+-subtree_sum計算完之後會回傳給上一層, 再依照上述計算其subtree_sum
+-最後遍歷unordered_map, 列出最高頻的subtree_sum
+//=====
+class Solution {
 public:
     vector<int> findFrequentTreeSum(TreeNode* root) {
         unordered_map<int,int> m;
