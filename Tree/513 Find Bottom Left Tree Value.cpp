@@ -1,3 +1,14 @@
+//===類似題===
+514. Freedom Trail
+958. Check Completeness of a Binary Tree
+742. Closest Leaf in a Binary Tree
+785. Is Graph Bipartite?
+    
+//===思路===
+(*)level-order (DFS)解法
+1.遍歷tree,將每一層的陣列求出
+2.將最後一個陣列的第一個數值回傳,即為解
+//===
 class Solution {
 public:
     int findBottomLeftValue(TreeNode* root) {
