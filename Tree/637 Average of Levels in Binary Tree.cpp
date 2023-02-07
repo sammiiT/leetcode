@@ -1,3 +1,10 @@
+//===類似題===
+638. Shopping Offers
+333. Largest BST Subtree
+1469. Find All The Lonely Nodes
+2097. Valid Arrangement of Pairs
+//===思路===
+//======
 class Solution {
 public:
     vector<double> averageOfLevels(TreeNode* root) {
