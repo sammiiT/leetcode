@@ -1,3 +1,14 @@
+//===類似題===
+939. Minimum Area Rectangle
+1568. Minimum Number of Days to Disconnect Island
+993. Cousins in Binary Tree
+1257. Smallest Common Region
+//===思路===
+(*)pre-order (DFS)
+ 1.如果節點值 "大於等於" low, "小於等於" high
+ -將其累加
+//====
+
 class Solution {
 public:
     int rangeSumBST(TreeNode* root, int L, int R) {
