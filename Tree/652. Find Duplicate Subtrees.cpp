@@ -23,8 +23,8 @@ string helper0(TreeNode* root, unordered_map<string,int>& m, vector<TreeNode*>& 
 */
         string s = to_string(root->val)+","+sl+","+sr;
         
-        if(m[s]==1) res.push_back(root);
-        m[s]++;//下一次再出現 m[s]!=1
+        if(m[s]==1) res.push_back(root);//之前已經出現過一次,就push_back,這次出現是第二次
+        m[s]++;//下一次再出現 m[s]!=1, 出現兩次之後,下次就不會push_back
 /*        if(m.count(s)) {//會有重複計算的情形出現, 因為出現過的string, m.count一定存在
             res.push_back(root);
         }else{
