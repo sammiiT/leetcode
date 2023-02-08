@@ -1,4 +1,33 @@
-﻿class Solution {
+//===類似題===
+1023. Camelcase Matching
+1600. Throne Inheritance
+210. Course Schedule II
+1993. Operations on Tree
+//===思路===
+(*) pre-order算法 (DFS)
+(*) 用stack概念
+1.每進一層,就將運算元向左位移一位
+2.當與到最後一個節點, 就累加
+//====
+void helper(TreeNode* root, int val, int& res){
+    if(!root) return;
+    val = val | root->val;
+    if(!root->left && !root->right){
+        res+=val;
+        return;
+    }
+    helper(root->left,  val<<1, res);//每進一層,就將運算元向左位移一位
+    helper(root->right, val<<1, res);
+}
+
+int sumRootToLeaf(TreeNode* root) {
+    int res = 0;
+    helper(root,0,res);
+    return res;    
+}
+
+//=========
+class Solution {
 public:
     int sumRootToLeaf(TreeNode* root) {
         vector<int> bin;
@@ -40,3 +69,19 @@ public:
          bin.pop_back();
     }
 };
+
+
+//====failed====
+(*)level每次加一層,就會向左位移越多位...不是每次只位移一層
+void helper(TreeNode* root, int level, int val, int& res){
+    if(!root) return;
+
+    //val = val + (root->val)<<level;
+    val = (val<<level) | root->val;
+    if(!root->left && !root->right){
+        res+=val;
+        return;
+    }
+    helper(root->left, level+1, val, res);//level每次加一層,就會向左位移越多位...不是每次只位移一層
+    helper(root->right, level+1, val, res);
+}
