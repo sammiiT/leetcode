@@ -4,6 +4,8 @@
 934. Shortest Bridge
 558. Logical OR of Two Binary Grids Represented as Quad-Trees
 //===思路===
+(*)與"530 Minimum Absolute Difference in BST"解法一樣
+
 (*)pre-order算法 or inorder算法 都可以
 - pre-order解法思路很直覺
 
