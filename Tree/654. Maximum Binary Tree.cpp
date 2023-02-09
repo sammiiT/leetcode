@@ -1,7 +1,16 @@
 //====類似題=====
 655. Print Binary Tree
 998. Maximum Binary Tree II
+//===思路===
+(*)pre-order概念 (DFS)
+1.找到最大值之後, 建立左右兩邊的陣列    
+2.兩邊的陣列所建立的subtree分別是當下節點的left和right 
+3.遞迴帶入函式,將回傳值指派給left和right
 
+(*)vector<int> 概念:
+vector<int> l(nums.begin(),nums.begin()); 
+l.size()會等於"0"
+//=======
 int maxSearch(vector<int>& nums){
     int mx = nums[0];
     int ret = 0;
