@@ -22,6 +22,8 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p){
 //===思路2==
 
 //======
+//這樣傳遞參數是錯誤的, 因為pre和suc是上層指標的副本,所以回到上層時,pre和suc的指標內容是不會改變的
+//必須用global變數來取代local的pre和suc
 void helper(TreeNode* root, TreeNode* p, TreeNode* pre, TreeNode* suc){
   if(!root) return NULL;
   helper(root->left,p,pre,suc);
@@ -34,3 +36,18 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p){
   helper(root,p,pre,suc);
   return suc?suc:NULL;
 }
+=>>>>>>>>>>>>>修正>>>>>>>>>>>>>>>>>>>
+TreeNode* pre=NULL; TreeNode* suc=NULL;
+void helper(TreeNode* root, TreeNode* p){
+  if(!root) return NULL;
+  helper(root->left,p);
+  if(pre==p) suc=root;
+  pre=root;
+  helper(root->right,p);
+}
+TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p){
+  helper(root,p);
+  return suc?suc:NULL;
+}
+
+
