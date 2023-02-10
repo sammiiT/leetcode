@@ -4,7 +4,31 @@
 1104. Path In Zigzag Labelled Binary Tree
 339. Nested List Weight Sum
 
-//===思路===
+
+//===思路1====
+(*)inorder概念
+//=====
+void helper0(TreeNode* root, long& pre, int& res){
+    if(!root) return;
+    helper0(root->left, pre,res);
+/*    if(pre==LONG_MIN) pre = root->val;
+    if(pre>=root->val) res = false;
+    else pre = root->val;*/
+    if(root->val<=pre) res = false;//當下比較前一個
+    pre = root->val;//紀錄前一個
+/*    if(pre>=root->val) res = false;
+    else pre = root->val;*/
+
+    helper0(root->right,pre,res);
+}
+bool isValidBST(TreeNode* root){
+    long pre = LONG_MIN;
+    int res = true;
+    helper0(root,pre,res);
+    return res;
+}
+
+//===思路2===
 (*)pre-order概念
 -每一個節點都去跟左右兩端的極大,極小值做比較; 
 -如果當下節點滿足上述搜尋條件,則往下一個節點繼續找 
