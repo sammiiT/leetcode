@@ -8,6 +8,14 @@
 //===思路1====
 (*)inorder概念
 //=====
+int helper1(TreeNode* root, long& pre){
+    if(!root) return true;
+    int l = helper1(root->left,pre);
+    if(pre>=root->val) return false;//只有回傳此層, 上一層的上一層並沒有回傳這一層false,所以要在座後加上判斷描述 
+    pre = root->val;
+    int r = helper1(root->right, pre);
+    return (l&&r)?true:false;//一直回傳到上層
+}
 void helper0(TreeNode* root, long& pre, int& res){
     if(!root) return;
     helper0(root->left, pre,res);
