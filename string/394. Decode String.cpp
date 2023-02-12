@@ -31,6 +31,8 @@ stkNum =i 會對應到 stkStr = i+1
 3.遇到']',將數字從stkNum pop出來, 那pop出來的數字是當下"尚未push到stkStr"的字串需要重複的字數
 將當下字串重複過後, 加到stkStr的top中; 準備為stkNum的top做準備
   
+4. "["代表要push, "]"代表要pop  
+-]會pop成最後議需要的string.  
   
 (*)如果是string是空, 也一樣可以push至stack;會在stack中占用一個位置  
 (*)stack pop執行, 用stk.empty()來判斷是否為空, 可以將所有在stack中的element取出
