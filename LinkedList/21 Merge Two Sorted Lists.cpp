@@ -1,3 +1,9 @@
+//===類似題===
+22. Generate Parentheses
+244. Shortest Word Distance II
+1634. Add Two Polynomials Represented as Linked Lists
+1940. Longest Common Subsequence Between Sorted Arrays
+//======
 class Solution {
 public:
 	//kind of merge sort algorithm
