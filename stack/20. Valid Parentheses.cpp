@@ -30,7 +30,7 @@
         }
         return stk.empty()?true:false;
      }
-
+//----
 bool helper1(string s){
     stack<char> stk;
     
@@ -49,8 +49,23 @@ bool helper1(string s){
 //    return true;//[[[ ]]若出現此排列,會錯誤
     return stk.empty()?true:false;
 }
-
-    bool isValid(string s) {
-        return helper1(s);
-//        return helper0(s);
+//----
+bool helper2(string s){
+    stack<char> stk;
+    for(int i=0; i<s.size(); i++){
+        if(s[i]=='('||s[i]=='['||s[i]=='{') stk.push(s[i]);
+        else{
+            if(stk.empty() && (s[i]==')'||s[i]==']'||s[i]=='}')) return false;//empty()=> 回傳false
+            if((stk.top()=='('&&s[i]==')') ||(stk.top()=='['&&s[i]==']')||(stk.top()=='{'&&s[i]=='}')) stk.pop();//=>兩個可以匹配
+            else return false;//兩個無法互相匹配
+        }
     }
+    return stk.empty()?true:false;//[[[[]]判斷; 保險
+}
+                      
+                      
+                      
+bool isValid(string s) {
+    return helper1(s);
+//        return helper0(s);
+}
