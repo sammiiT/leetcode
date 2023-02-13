@@ -9,9 +9,10 @@ nums = [0,1,2,2,3,0,4,2], val = 2
 1.設定一所引 pre=-1; 初始值為-1
 2. 因為要將等於val的數值刪除, 並將後面的數值往前移
 3. 當遇到不等於val的數, pre+1更新, 並將不等於val的數指派給pre位置
-4. 最後回傳pre+1 就是刪除val的總個數.    
+4. 當遇到等於val的數,pre不更新; 繼續往下一個執行
+5. 最後回傳pre+1 就是刪除val的總個數.    
     
-//===
+//===   
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val){
@@ -41,6 +42,8 @@ public:
 1.遍歷陣列
 2.當數值等於val, 則erase; 當不等於 index+1
 3.最後回傳陣列的size()
+
+(*)考陣列的 erase() 功能, 內部要帶入的parameter   
 //===
 int helper0(vector<int>& nums, int val){
     int i=0;
