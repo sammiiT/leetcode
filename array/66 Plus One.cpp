@@ -3,7 +3,7 @@
 369. Plus One Linked List
 989. Add to Array-Form of Integer
 //===思路===
-(*)
+(*)用vector或stack都可以計算此題
 (*)考vector<int> 的insert函數
 //=======
 vector<int> plusOne(vector<int>& digits) {
