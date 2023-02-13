@@ -1,3 +1,22 @@
+//===類似題===
+36. Valid Sudoku
+857. Minimum Cost to Hire K Workers
+1975. Maximum Matrix Sum
+1326. Minimum Number of Taps to Open to Water a Garden
+//===思路===
+(*)binary search方式
+//====
+int searchInsert(vector<int>& nums, int target) {
+    int l = 0, r = nums.size();
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(nums[m]<target) l= m+1; 
+        else //nums[m]>=target
+            r = m;
+    }
+    return r;
+}
+//===
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
