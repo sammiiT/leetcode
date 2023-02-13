@@ -1,3 +1,26 @@
+//===類似題===
+67. Add Binary
+369. Plus One Linked List
+989. Add to Array-Form of Integer
+//===思路===
+(*)
+(*)考vector<int> 的insert函數
+//=======
+vector<int> plusOne(vector<int>& digits) {
+    reverse(digits.begin(),digits.end());//先倒轉述列,比較好算
+    vector<int> res;
+    int carry = 0;
+    for(int i=0;i<digits.size();i++){
+        int sum = digits[i]+(i?carry:1);//如果是第0個,要加上1;不是第0個,加上carry
+        carry = sum/10;
+        sum = sum%10;
+        res.insert(res.begin(),sum);
+    }
+    if(carry) res.insert(res.begin(),1);//如果最後有carray,還要將1插入陣列頭
+    return res;
+}
+//=====
+
 class Solution {
 public:
     
