@@ -19,6 +19,18 @@ int count(string s){
         return res;
 }
 bool isHappy(int n) {
+    unordered_map<int, int> m;//
+    int res = n; 
+    do {
+        string s = to_string(res);
+        res = count(s);
+        if(m[res]) return false;
+        m[res]=1;
+    } while(res!=1);
+    return true;
+}
+
+bool isHappy(int n) {
         string s = to_string(n);
         unordered_map<int,int> mp;
         int res = n;
