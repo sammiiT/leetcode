@@ -5,6 +5,12 @@
 1.for(int i=0; i<32; i++)
 -位移32次,但第一次不會位移, 第一次是建立第0bit的數值
 -第一次之後,第0bit才會往前位移, 因為有res<<1做疊代
+
+(*)
+res = res<<1 +(n & 0x01);//會有錯誤
+=> compiler會將此式子翻譯為 res = res<< (1+(n&0x01));
+所以要將此式描述為:
+res = (res<<1) + (n & 0x01);
 //=====
 uint32_t reverseBits(uint32_t n) {
     uint32_t res=0;
