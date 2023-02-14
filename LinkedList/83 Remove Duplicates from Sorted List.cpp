@@ -1,4 +1,26 @@
-﻿class Solution {
+//===類似題===
+84. Largest Rectangle in Histogram
+1836. Remove Duplicates From an Unsorted Linked List
+//===思路===
+(*)遇到重複的數值, (cur->val ==cur->next->val)
+當下節點跳過next, 連結next->next
+(*)沒有遇到重複, 則cur=cur->next;
+//=====
+ListNode* deleteDuplicates(ListNode* head) {
+    ListNode hdr(-1);
+    ListNode* cur = head;
+    hdr.next = head;
+    while(cur&&cur->next){//至少有兩個節點
+        if(cur->val ==cur->next->val)
+            cur->next = cur->next->next;
+        else 
+            cur = cur->next;    
+    }
+    return hdr.next;
+}
+
+//===思路2===
+class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if(head==NULL|| head->next==NULL) return head;
