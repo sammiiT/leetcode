@@ -1,4 +1,12 @@
-    int helper1(vector<int>& nums){
+//===類似題===
+137. Single Number II
+311. Sparse Matrix Multiplication
+1521. Find a Value of a Mysterious Function Closest to Target
+2234. Maximum Total Beauty of the Gardens
+//===思路===
+
+//====
+int helper1(vector<int>& nums){
         int res;
         int n = nums.size();
         sort(nums.begin(),nums.end());
@@ -14,7 +22,10 @@
         }
         return res;
     }
-    int helper0(vector<int>& nums){
+//===思路2===
+
+//=====
+int helper0(vector<int>& nums){
         unordered_map<int,int> m;
         int res =0;
         for(int i=0; i<nums.size(); i++){
