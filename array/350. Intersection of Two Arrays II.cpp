@@ -3,9 +3,10 @@
 2215. Find the Difference of Two Arrays
 2143. Choose Numbers From Two Arrays in Range
 2248. Intersection of Multiple Arrays
-
 //===思路=====
-
+(*)unordered_map<int,int> m;
+- 若有值帶入map中, map就會建立key,對應的值為0
+m[5];//會建立key=5到map中    
 //=======
 vector<int> helper0(vector<int>& nums1, vector<int>& nums2){
     unordered_map<int,int> m;
@@ -22,6 +23,23 @@ vector<int> helper0(vector<int>& nums1, vector<int>& nums2){
     return res;
 }
 
-    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
-        return helper0(nums1,nums2);
+vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+    return helper0(nums1,nums2);
+}
+
+//===failed===
+vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+    vector<int> res;
+    unordered_map<int,int> m;
+        
+    for(auto a:nums1) m[a]++;
+        
+    for(auto a:nums2){
+//        if(m[a]--) res.push_back(a);//這一段會有錯誤,因為map有數值帶入就會產生key
+        if(m[a]){
+            res.push_back(a);
+            m[a]--;
+        }
     }
+    return res;
+}
