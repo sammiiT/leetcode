@@ -4,6 +4,8 @@
 1918. Kth Smallest Subarray Sum
 1482. Minimum Number of Days to Make m Bouquets
 
+374. Guess Number Higher or Lower =>相同類型,題目有提供一個函數計算
+
 //===思路====
 1.題目條件, 第一個出現bad之後, 接下來都是bad;如下圖, o=good, x=bad 
 ooooooxxxxxxx...
@@ -27,7 +29,6 @@ else// >=target
   
   
 //=======
-
 int firstBadVersion(int n) {
     int l = 1, r = n;//nums.size()-1;
     while(l<r){
