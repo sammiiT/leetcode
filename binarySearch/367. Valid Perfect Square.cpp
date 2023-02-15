@@ -1,3 +1,23 @@
+//===類似題===
+368. Largest Divisible Subset
+1250. Check If It Is a Good Array
+1716. Calculate Money in Leetcode Bank
+651. 4 Keys Keyboard
+//===思路===
+(*)binary search
+//======
+bool isPerfectSquare(int num) {
+    long l=1,r=num;
+    while(l<r){
+        long m = l+(r-l)/2;
+        if(m*m<num) l=m+1;
+        else//m*m>=target
+            r = m;
+    }
+    return (r*r==num);
+}
+
+//========
 bool isPerfectSquare(int num) {
         long l = 1, r = num;
         while(l<=r){//target是num  
