@@ -9,6 +9,11 @@
 1.將s加入map
 2.t與map做比對, 存在char則對map做減一;
 3.如果m對應的element不存在, 即解
+
+(*)m[t[i]]--是對map中t[i]這個element做運算,不會刪除,所以用find(), count(), 此element仍然存在 
+用count(key)回傳1或0 => 如果有key存在於map中,回傳1;不存在於map,回傳0
+find(key)回傳iterator或NULL=> 如果key存在於map中,回傳對應的iterator,不存在,回傳end()
+//======
 char findTheDifference(string s, string t) {
         unordered_map<char,int> m;
         char res;
