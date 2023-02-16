@@ -1,3 +1,11 @@
+//===類似題===
+269. Alien Dictionary
+765. Couples Holding Hands
+1980. Find Unique Binary String
+//===思路====
+(*) index 必須等於 array[index]
+(*) 如果 index!=array[index] 就是
+//====
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
