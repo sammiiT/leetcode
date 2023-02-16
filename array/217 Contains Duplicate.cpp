@@ -1,3 +1,18 @@
+//===類似題===
+218. The Skyline Problem
+2357. Make Array Zero by Subtracting Equal Amounts
+//===思路===
+bool helper0(vector<int>& nums) {
+    unordered_map<int,int> m;
+    for(int i=0;i<nums.size();i++){
+        if(m.count(nums[i])){
+            return true;
+        }
+        m[nums[i]]++;
+    }
+    return false;
+}
+//====
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
