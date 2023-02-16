@@ -1,4 +1,29 @@
-﻿class Solution {
+//===類似題===
+229. Majority Element II
+163. Missing Ranges
+352. Data Stream as Disjoint Intervals
+//===思路===
+
+//===
+vector<string> summaryRanges(vector<int>& nums) {
+    vector<string> res;
+    int j = 0,i;
+    string s;
+    if(!nums.size()) return res;
+    for(i=1; i<nums.size(); i++){
+        if(nums[i-1]+1==nums[i]) continue;
+            //如果只有一個數字,則只把單一一個數字加到string中
+        s = (j==(i-1))?to_string(nums[j]):to_string(nums[j])+"->"+to_string(nums[i-1]);
+        res.push_back(s);
+        j = i;//更新開頭index
+    }
+    //最後一段    
+    s = (j==(i-1))?to_string(nums[j]):to_string(nums[j])+"->"+to_string(nums[i-1]);
+    res.push_back(s);
+    return res;
+}
+//===思路2===
+class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
         
