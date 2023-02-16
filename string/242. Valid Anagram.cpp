@@ -21,3 +21,14 @@ bool helper0(string s, string t){
 bool isAnagram(string s, string t) {
   return helper0(s, t);
 }
+
+//===思路2===
+1.將s和t作排列
+2.比較s和t是否相等
+//=====
+bool helper1(string s, string t){
+    if(s.size()!=t.size()) return false;
+    sort(s.begin(),s.end());
+    sort(t.begin(),t.end());
+    return (s==t);
+}
