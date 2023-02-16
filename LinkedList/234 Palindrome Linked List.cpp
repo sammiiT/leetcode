@@ -1,6 +1,18 @@
 //=====類似題======
 235. Lowest Common Ancestor of a Binary Search Tree
 2130. Maximum Twin Sum of a Linked List
+//===思路===
+(*)利用stack紀錄list的另外一半
+(*)linked list求中點, first_middle
+1.建立一個"頭"節點,從頭節點開始找就會找到first_middle; 若從head開始會找到second_middle
+while(r&&r->next){	//至少有兩個節點
+    f=f->next;		//一次走一步
+    r=r->next->next;	//一次走兩步
+}
+2.算完之後f為first_middle, 也可以當作後"半段頭"的"前一個節點"
+3.後半段的每一個節點都放入stack
+4.前半段的每一個節點與stack中的每一個top()元素做比較. 如果不相等就回傳false
+
 //=====
 class Solution {
 public:
