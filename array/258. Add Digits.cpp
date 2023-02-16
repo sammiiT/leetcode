@@ -38,9 +38,6 @@ int helper1(int num){//取餘數,商數
     return n;
 }
 
-
-
-
 int addDigits(int num) {
         return helper0(num);
  }
