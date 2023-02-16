@@ -42,3 +42,47 @@ private:
     stack<int> stk;
     stack<int> stmp;
 };
+
+//=======
+class MyQueue {
+public:
+    MyQueue() {
+    }
+    void push(int x) {
+        stk.push(x);
+    }
+    int pop() {//remove
+        int front;
+        while(!stk.empty()){
+            stktmp.push(stk.top());
+            stk.pop();
+        }
+        front = stktmp.top();
+        stktmp.pop();
+        while(!stktmp.empty()){
+            stk.push(stktmp.top());
+            stktmp.pop();
+        }
+        return front;
+    }
+    int peek() {//front
+        int front;
+        while(!stk.empty()){
+            stktmp.push(stk.top());
+            stk.pop();
+        }
+        front = stktmp.top();
+        
+        while(!stktmp.empty()){
+            stk.push(stktmp.top());
+            stktmp.pop();
+        }
+        return front;
+    }
+    bool empty() {  
+        return stk.empty();
+    }
+private:
+    stack<int> stk;
+    stack<int> stktmp;
+};
