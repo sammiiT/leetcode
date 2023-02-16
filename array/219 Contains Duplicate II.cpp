@@ -22,7 +22,7 @@ bool helper2(vector<int>& nums, int k){
                 return true;
             }
         }
-        m[nums[i]] = i;//udpate 新的位址
+        m[nums[i]] = i;//udpate 新的位址,每一次都要更新
     }
     return false;
 }
