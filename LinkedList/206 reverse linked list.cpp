@@ -5,6 +5,21 @@
 2487. Remove Nodes From Linked List
 //===思路====
 
+//====
+ListNode* helper2(ListNode* head){
+    //沒有節點,或只有一個節點    
+    if(!head||!head->next) return head;
+    ListNode *pre,*cur;
+    pre = NULL;
+    cur = head;
+    while(cur){
+        ListNode* tmp = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = tmp;
+    }
+    return pre;
+}
 //=====
 ListNode* helper1(ListNode* head){
         ListNode *pre,*cur;
