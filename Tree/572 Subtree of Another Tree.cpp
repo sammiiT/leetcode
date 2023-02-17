@@ -13,13 +13,28 @@ bool match(TreeNode* root, TreeNode* subRoot){
     return match(root->left,subRoot->left) && match(root->right,subRoot->right);
 }
 
-
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if(!root) return false;//沒有此項,會有access NULL pointer
-        if(match(root,subRoot)) return true;
-        return isSubtree(root->left, subRoot) || isSubtree(root->right,subRoot);      
-//        return isSubtree(root->left, subRoot->left) || isSubtree(root->right,subRoot->right);//比較錯誤,應該是比較原來subRoot
+bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+    if(!root) return false;//沒有此項,會有access NULL pointer
+    if(match(root,subRoot)) return true;
+    return isSubtree(root->left, subRoot) || isSubtree(root->right,subRoot);      
+//  return isSubtree(root->left, subRoot->left) || isSubtree(root->right,subRoot->right);//比較錯誤,應該是比較原來subRoot
+}
+//===思路2===
+(*)展開Tree的算法,將每一個節點展開,並記錄到queue<TreeNode*>
+//=====
+bool isSubtree(TreeNode* root, TreeNode* subRoot){
+    if(!root) return false;
+    queue<TreeNode*> q;
+    q.push(root);
+    while(!q.empty()){
+        TreeNode* t = q.front();q.pop();
+        if(match(t,subRoot)) return true;
+        if(t->left) q.push(t->left);
+        if(t->right) q.push(t->right);
     }
+    return false;    
+}
+
 //======
 class Solution {
 public:
