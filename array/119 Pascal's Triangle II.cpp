@@ -1,3 +1,7 @@
+//===類似題===
+120. Triangle
+2221. Find Triangular Sum of an Array
+//===思路===
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
