@@ -6,8 +6,8 @@
 //===思路===
 (*)pre-order (DFS)
 1.宣告unorderd_map<int,int>紀錄每一個數值出現的次數
-2.遍歷tree, 將出現的數值出現的次數都記錄在unordered_map中
-3.宣告一變數,紀錄出現"個數"的最大值
+2.宣告一變數,紀錄出現"個數"的最大值
+3.遍歷tree, 將出現的數值出現的次數都記錄在unordered_map中
 
 4.遍歷unordere_map<int,int>, 如果second==最大個數
 -將first記錄到vector<int>中
