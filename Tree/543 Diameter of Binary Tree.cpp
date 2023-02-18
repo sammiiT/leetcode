@@ -3,6 +3,10 @@
 1522. Diameter of N-Ary Tree
 2246. Longest Path With Different Adjacent Characters
 //===思路===
+(*)題議: 路徑可以或不用經過root
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. 
+This path may or may not pass through the root.
+
 (*)post-order算法
 -每一次運算會回傳左節點的長度,和右節點的長度
 -運算完之後, 比較左右長度,回傳較長的那一個; return max(l,r)+1; 加1的目的是當下那一層的節點,也算一個個數, 回傳給上一層
