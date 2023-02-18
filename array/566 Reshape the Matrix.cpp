@@ -1,3 +1,14 @@
+//===類似題===
+567. Permutation in String
+2022. Convert 1D Array Into 2D Array
+//===思路===
+1.把reshape的maxtrix展開成1維的index
+k=i*c+y; =>1維的index 
+
+2.維的index在原matrix中的元素是:
+nums[k/x][k%y]
+
+//===
 class Solution {
 public:
     vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
