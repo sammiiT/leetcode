@@ -5,6 +5,8 @@
 270. Closest Binary Search Tree Value
 //===思路===
 1.建立map<int,int>; <數值,次數>; map<int,int>型態會自動排列內部元素;對key作排列???
+--按照key由小到大作排列
+
 2.遍歷Tree
 3.遍歷map,如果map有"兩個"或"兩個以上"
 --第二個就是second minimum
