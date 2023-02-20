@@ -18,10 +18,23 @@
 root->left = helper(root->left);
 root->right = helper(root->right);
 
-用此方式會上下層節點沒辦法做連接
+用此方式會上下層節點沒辦法做連接: 
 TreeNode* l = helper(root->left);
 TreeNode* r - helper(root->right);
 
+上下層沒辦法做連接, 所以會造成如下錯誤: 少了節點7
+Input root = [5,3,6,2,4,null,8,1,null,null,null,7,9]
+Output =  [1,null,2,null,3,null,4,null,5,null,6,null,8,null,9]
+Expected= [1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
+     6                                                               7  6
+      \                                                               \  \ 
+       8   => 8節點會在此level計算為      7  => 回傳7節點指標給6節點層     \- 8 
+      / \                                 \                                 \
+     7   9                                 8                                 9
+                                            \
+                                             9
+                                             
+(*)但因為沒有做連結,6節點還是連結到8, 而7節點已經改變原來位址, 導致輸出沒有7 
 //=======
 TreeNode* helper(TreeNode* root){
     if(!root) return NULL;
