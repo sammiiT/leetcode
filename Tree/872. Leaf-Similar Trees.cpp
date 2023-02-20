@@ -38,3 +38,33 @@ bool leafSimilar(TreeNode* root1, TreeNode* root2) {
         helper(root2,leaf2);
         return (leaf1==leaf2);
 }
+//===思路2===
+(*)pre-order + return value
+(*) 有return value區注意, 因為bottom leaf一樣,但tree的level有可能不一樣;這樣會導致遇到NULL node時的return 排列
+(*) 如果 if(!root) return "*,"; 會因為tree的level不一樣,而產生不同的string,如下:
+     1             1
+    / \           / \
+   2   x         3   x
+  / \
+ 3   x
+ 
+(*)所以當遇到NULL節點, 回傳 "空" string
+-- return "";
+//===
+string aaa(TreeNode* root){
+    if(!root) return "";
+    string s;
+    if(!root->left &&!root->right){
+        s = to_string(root->val)+",";
+    }
+    string sl = aaa(root->left);
+    string sr = aaa(root->right);
+    return s+sl+sr;
+}
+
+
+
+
+
+
+
