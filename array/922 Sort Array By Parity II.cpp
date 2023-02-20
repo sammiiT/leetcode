@@ -1,4 +1,32 @@
-﻿class Solution {
+//===類似題===
+923. 3Sum With Multiplicity
+2149. Rearrange Array Elements by Sign
+2164. Sort Even and Odd Indices Independently
+//===思路===
+1.建立兩個index, 一個是奇數index,一個偶數index
+2.奇數index從1開始,偶數index從0開始
+3.每次update index; 奇數+=2, 偶數+=2
+4.遍歷數列並宣告一陣列來儲存上述判斷所得到的值
+//===
+vector<int> helper0(vector<int>& nums){
+    int m = nums.size();
+    int i=0,j=1;//i=even; j=odd
+                 //i+=2,  j+=2
+    vector<int> res(m);
+    for(int a:nums){
+        if(a%2){
+            res[j]=a;
+            j+=2;        
+        }else{
+            res[i]=a;
+            i+=2;
+        }
+    }
+    return res;
+}
+//===
+//===思路2===
+class Solution {
 public:
     vector<int> sortArrayByParityII(vector<int>& A) {
         vector<int> g;
