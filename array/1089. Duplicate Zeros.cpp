@@ -10,6 +10,8 @@
 arr.erase(arr.begin()+5,arr.size()-1);//從index=5開始被刪除, arr.size()-1不會被刪除, 是arr.size()-2被刪除
 arr.erase(arr.begin()+5,arr.end());//index=5開始被刪除, 到arr.size()-1 index
 
+(*)erase是用iterator做運算
+
 (*)遍歷數列方法; 依解題方向, 可用不同的遍歷方式
 while(i<n){++i;}
 for(int i=0;i<n;++i){}
