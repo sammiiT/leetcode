@@ -12,9 +12,7 @@ s[i-1]!=c, i==s.size()-1 =>第二種區間
 s[i-1]!=c,s[i+1]!=c =>第三種區間
 每一種區間要做的事情都一樣  
 //=====
-
 string helper0(string s){
-
     for(int i=0; i<s.size(); i++){
         if(s[i]!='?') continue;
         for(char c:"abc"){//s[i]=='?'
@@ -26,7 +24,34 @@ string helper0(string s){
     }
     return s;
 }
-
 string modifyString(string s) {
   return helper0(s);    
+}
+//===思路2===
+(*)for(char c:"abc")
+最後一個character是"",空'\0'
+"abc" size()是3 
+//====
+string helper1(string s){
+    for(int i=0;i<s.size();i++){
+        if(s[i]=='?'){
+            if((i==0)){
+                for(char c:"abc"){
+                    if(s[i+1]!=c){ 
+                        s[i]=c;
+                        break;}}
+            }else if(i==s.size()-1){
+                for(char c:"abc"){
+                    if(s[i-1]!=c){ 
+                        s[i]=c;
+                        break;}}
+            }else{
+                for(char c:"abc"){
+                    if(s[i-1]!=c && s[i+1]!=c){
+                        s[i]=c;
+                        break;}}
+            }
+        }
+    }
+    return s;
 }
