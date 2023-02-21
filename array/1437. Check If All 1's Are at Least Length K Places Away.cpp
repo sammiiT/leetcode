@@ -21,3 +21,33 @@ bool helper0(vector<int>& nums, int k){
 bool kLengthApart(vector<int>& nums, int k) {
     return helper0(nums,k);
 }
+
+//===思路2===
+(*)宣告一變數count,計算0的數目
+1.計算第一個1出現的index
+2.求出第一個1出現的位址之後, 先跳到下一個位置(沒有此動作,會運算錯誤)
+-- i=i+1;    
+3.開始遍歷剩下的的元素,如果遇到0,將count++
+遇到1,判斷count是否滿足題意,若滿足則重新reset count
+若不滿題意,則直接回傳false;
+//===
+bool helper1(vector<int>& nums, int k) {
+    int count =0;
+    int i,j;
+    for(i=0;i<nums.size();i++)
+        if(nums[i]) break;
+    if(i==nums.size()) return true;
+
+    i+=1;//跳到下一個,不從第一個1算起
+    for(;i<nums.size();i++){
+        if(nums[i]==0) count++;
+        else{
+           if(count<k) return false;
+           count=0;
+        }
+    }
+    return true;
+}    
+
+
+    
