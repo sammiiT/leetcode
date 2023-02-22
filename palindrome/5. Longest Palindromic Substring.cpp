@@ -4,7 +4,59 @@
 266. Palindrome Permutation
 214. Shortest Palindrome
 
+//===思路1===
+(*)遍歷所有解;雙迴圈;用往內縮的方式做比較
+i         <-j   => 比對i~j是否為palindrome
+o  o  o  o  o   => (i,j);(i,j-1);(i,j-2)... 
 
+   i      <-j
+o  o  o  o  o   => 比對i~j是否為palindrome      
+//====
+bool check_palindrome(string& s,int left, int right){
+    while(left<right){
+        if(s[left]!=s[right]) return false;
+        left++;right--;
+    }
+    return true;
+}
+string helper2(string s){
+    int mx = 0;
+    string res;
+    for(int i=0; i<s.size(); i++){//i從0開始,到
+        for(int j=s.size()-1; j>=i; j--){
+            if(check_palindrome(s,i,j)){
+                if(mx<(j-i+1)){
+                    mx = (j-i+1);
+                    res = s.substr(i,mx);
+                }
+            }
+        }
+    }
+    return res;
+}
+//===思路2===
+void isPalindrome(string s, int left, int right, string& res){
+    int n = s.size();
+    while(left>=0 && right<=(n-1)){
+//        if(s[left]!=s[right]) return;//wrong;不可以用return不然會記錄不到中間的palindrome
+                                       //"cbbd"   有bb,但遇到cd, return了, 就沒辦法紀錄bb
+        if(s[left]!=s[right]) break;
+        left--; right++;
+    }
+    if((right-left-1)>res.size()){
+        res=s.substr(left+1,(right-left-1));
+    }    
+}
+string helper3(string s){
+    string res;
+    if(s.size()<=1) return s;
+    for(int i=0;i<s.size()-1;i++){
+        isPalindrome(s,i,i,res);
+        isPalindrome(s,i,i+1,res);
+    }
+    return res;
+}
+//======
 void checkPalindrome(string&s ,int left, int right, int& mx, int& start){
         int l = left,r = right;
         while(left<right){
