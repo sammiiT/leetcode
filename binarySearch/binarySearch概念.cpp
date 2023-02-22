@@ -66,9 +66,9 @@ int binarySearch(vector<int>& nums, int target){
 }
 
 
-/******************************************
-*
-*******************************************/
+/***********************************************
+*   分析 first_middle和second_middle對運算的影響
+************************************************/
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
 //    int r = nums.size()-1;
@@ -98,7 +98,8 @@ l = m+1 , r = m 是因為m的運算式為first_middle運算式 => m = l+(r-l)/2;
 如果是用second_middle運算, 則可以用l=m; 不會發生跳不出迴圈, 因為l都會被update
 m = l+(r-l+1)/2; //second_middle, 此時對l和r的更新式如下
 l = m;   ([i]<=target) => 有等於的符號不用+1或-1,但在l取解會有跳不出迴圈的問題
-r = m-1; ([i]>target)
+r = m-1; ([i]>target)  
+???? 用此方法求不出lower_bounded 
 
 //=== first_middle來解題目 ====
 (*)lower_bounded (假設有可能沒有"解")
