@@ -65,13 +65,15 @@ int binarySearch(vector<int>& nums, int target){
     return m;//回傳一個位址, 
 }
 
-//==============================================================
+
+/******************************************
+*
+*******************************************/
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
 //    int r = nums.size()-1;
     int r = nums.size();
     int m = 0;
-    
     while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
         m = l + (r-l)/2;
         if(nums[m]<target){
@@ -98,6 +100,25 @@ m = l+(r-l+1)/2; //second_middle, 此時對l和r的更新式如下
 l = m;   ([i]<=target) => 有等於的符號不用+1或-1,但在l取解會有跳不出迴圈的問題
 r = m-1; ([i]>target)
 
+//=== first_middle來解題目 ====
+(*)lower_bounded (假設有可能沒有"解")
+int r = nums.size();
+while(l<r) { ...
+=> {1,3,4,6,7,9}; target = 10    
+=> 回傳 6
+           
+(*)類lower_bounded(須先假設題目一定有"解")=>因為下列描述不會讓l跳出(nums.size()-1)
+int r = nums.size()-1;
+while(l<r) {
+=> {1,3,4,6,7,9}; target = 10    
+=> 回傳 5 =>因為r最大到[5], 所以當l==r==5的時候,就跳出迴圈
+=>修正: 將 r=nums.size();              
+=>若 r=nums.size()-1; while(l<=r) 還是會出錯, 因為最後不滿足條件 (l=6)>=(r=5)           
+  最後回傳還是r, r並沒有改變;所以錯誤.
+
+//===用seconde_middle來解題目===             
+             
+             
 //==============================================================
 
 (*)找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
