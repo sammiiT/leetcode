@@ -22,4 +22,34 @@ int helper1(string s){
     }       
     return ret;
 }
+//===思路2===
+(*)sliding_window解法
+-遇到第一個重複(第二次出現),則將第一次出現(包含第一次出現之前的所有數值)刪除
+           (1)第一個重複                          (1)第一個重複(第二次出現) 
+          /                                      /
+a  b  c  a  b  c  b  b           a  b  c  d  e  d  a  c  
+ \                                \  \  \  \
+2)刪                             2)刪 刪 刪 刪  
 
+//====
+int helper2(string s){
+    unordered_map<char,int> m;
+    int res = 0;
+    int i=0,left=0;
+    int n = s.size();
+
+    while(i<n){
+        if(!m.count(s[i])){//如果沒有出現過的character
+            m[s[i]]=i;//紀錄出現位址
+            res = max(res,i-left+1);//計算最長數值
+            i++;//更新index
+            continue;
+        }
+//     for(;left<i;left++){ m.erase(s[left]); }
+        int first = m[s[i]];
+        for(; left<=first; left++) m.erase(s[left]);//開始sliding window計算,計算完之後left也更新其位置index
+        m[s[i]]=i;//重新紀錄s[i]出現的位址
+        i++;//index更新
+    }
+    return res;
+}
