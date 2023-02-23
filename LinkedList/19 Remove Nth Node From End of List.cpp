@@ -1,4 +1,50 @@
-﻿class Solution {
+//===類似題===
+20. Valid Parentheses
+1474. Delete N Nodes After M Nodes of a Linked List
+//===思路===
+(*)用兩個stack,這兩個stack將list分成兩部分; "被刪除節點的左半段","被刪除節點的右半段"
+(*)將刪除的節點從兩個stack中刪除, 連結兩個stack的top, 即為解
+-左半段在push至stack前,要多加一個hdr節點, 因為會遇到將原head節點刪除的情況
+-右半段在push至stack前, 要多加一個NULLr節點m 因為會遇到刪除最後一個節點的情況
+//===
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+    stack<ListNode*> stkf,stkb;
+    ListNode hdr(-1);
+    ListNode* cur;
+    cur = &hdr;
+    hdr.next = head;
+
+    while(cur){
+        stkf.push(cur);
+        cur=cur->next;
+    }
+
+    int i=0;
+    stkb.push(NULL);
+    while(i<n){
+        ListNode* t = stkf.top();
+        stkf.pop();
+        stkb.push(t);
+        i++;
+    }
+    stkb.pop();//remove node
+    ListNode* f = stkf.top();
+    ListNode* b = stkb.top();
+    f->next = b;//connect 
+    return hdr.next;
+}
+//===思路2===
+(*)用兩個index,此兩個index距離n個節點
+(*)用第三個index紀錄被刪除節點的前一個節點
+(*)假設 n = 3
+
+            前一個  被刪除節點    其中一個節點(距離被刪除節點有3) 
+              |       /                  |
+hdr -> o  ->  o  ->  o  ->  o ->   o ->  x	
+	
+(*)遍歷一次,只需將pre根被刪除節點的下一個節點做連結, 即可	
+//=====
+class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
     if(head==NULL||head->next==NULL) return NULL;
