@@ -4,6 +4,9 @@
 
 //===思路===
 (*)使用quick sort
+1.quick sort的每一次計算, 都只是將數列分成"大於pivot區間"和"小於pivot區間"
+2.上述兩區間,並沒有再重新作排列, 所以必須分別對這兩區間做quick sort
+3.直到區間運算的邊界 不滿足 (l<r) 即停止
 //=====
 void swap(vector<int>& arr, int x, int y){
     int t = arr[x];
