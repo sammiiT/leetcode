@@ -165,7 +165,7 @@ lower_bound = 找出(>=)大於或等於target的最小值的位置
  =>第一個大於target的數
  =>最後一個不大於target的數
    
-int binarySearch(vector<int>& nums, int target){
+int upper_bounded(vector<int>& nums, int target){
    int left=0, right = nums.size();
    while(left<right){
       int m = left + (right-left)/2;
@@ -174,9 +174,23 @@ int binarySearch(vector<int>& nums, int target){
    }
    return r;
 }
+
+int upper_bounded(vector<int>& nums, int target){
+   int left=0, right = nums.size();
+   while(left<right){
+      int m = left + (right-left)/2;
+      if(nums[m]<target) left = m+1;
+      else if(nums[m]>target) right = m;
+      else { 
+           right = m+1;
+           break;
+      }                
+   }
+   return right;
+}          
+           
 此binary search的回傳值 => upper_bound(v.begin(),v.end(),target)
 upper_bound = 找出(>)大於target的最小值的位置
-
 
 
 //=======分析==============
