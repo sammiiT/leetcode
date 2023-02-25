@@ -1,4 +1,33 @@
-    int helper(vector<int>& nums, int target,int l, int r){
+//===類似題===
+75. Sort Colors
+2468. Split Message Based on Limit
+//===思路===
+(*)用binary search
+1.先搜尋落在哪一個row=> binary_search uppder_bounded
+2.找到對應的row, 再用binary_search搜尋column中的的數值
+//====
+bool helper2(vector<vector<int>>& matrix, int target){
+    int l=0, r = matrix.size();
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(matrix[m][0]==target) return true;
+        else if(matrix[m][0]<target) l = m+1;
+        else if(matrix[m][0]>target) r = m;
+    }//upper_bound
+
+    int tmp = r>0?r-1:r;//落在如果小於第一個數值則upper_bounded為0
+    l = 0;r = matrix[0].size()-1;
+    while(l<=r){//binary_search
+        int m = l+(r-l)/2;
+        if(matrix[tmp][m]==target) return true;
+        else if(matrix[tmp][m]<target) l = m+1;
+        else if(matrix[tmp][m]>target) r = m-1;
+    }
+    return false;
+}
+
+//=====
+int helper(vector<int>& nums, int target,int l, int r){
         while(l<=r){
             int m = l+(r-l)/2;
             if(nums[m]<target){
@@ -30,7 +59,11 @@
         }
         return false;
     }
-//========================================================
+//===思路2====
+1.從rowMax-1, colum=0開始
+2.如果小於,則往前一個row移動
+2.如果大於,則往colum遞增方向移動
+//====
 bool searchMatrix(vector<vector<int>>& matrix, int target) {
         if(matrix.empty()) return false;
         int r = matrix.size();
