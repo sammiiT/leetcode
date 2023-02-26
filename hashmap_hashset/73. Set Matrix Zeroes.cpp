@@ -8,7 +8,7 @@
 (*)in-place:  transforms input using no auxiliary data structure. 只能在input上做運算,不能另創新解
 1.建立row, col陣列, 紀錄出現0的位址
 2.兩次for迴圈, 第一次紀錄出現0的位址
-3.第二次for迴圈, 依據紀錄的0位址,來更改matrix的elemnt
+3.第二次for迴圈, 依據紀錄的0位址,來更改matrix的element
 
 //======
 void helper0(vector<vector<int>>& matrix) {
