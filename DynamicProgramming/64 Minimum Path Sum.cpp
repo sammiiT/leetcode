@@ -1,4 +1,63 @@
-﻿class Solution {
+//===類似題===
+65. Valid Number
+174. Dungeon Game
+741. Cherry Pickup
+2304. Minimum Path Cost in a Grid
+
+//===思路===
+(*)dynamic programming算法
+(*)不用in-place; 新增一dp的matrix儲存每一個點的結果
+1.初始化邊界
+ 1 | 3 | 1          1 | 4 | 5
+---+---+---    =>  ---+---+---      
+ 1 | 5 | 1          2 |   | 
+---+---+---        ---+---+---
+ 4 | 2 | 1          6 |   |
+ 
+2.方程式 dp[i][j]=grid[i][j]+min(dp[i-1][j],dp[j][j-1])    
+      
+//===
+int helper(vector<vector<int>>& grid){
+    int m = grid.size(),n = grid[0].size();
+    vector<vector<int>> dp(m,vector<int>(n,0));
+    
+    dp[0][0]=grid[0][0];
+    for(int i=1;i<m;i++) dp[i][0]=dp[i-1][0]+grid[i][0];
+    for(int i=1;i<n;i++) dp[0][i]=dp[0][i-1]+grid[0][i];
+    
+    for(int i=1;i<m;i++){
+        for(int j=1;j<n;j++){
+            dp[i][j]=grid[i][j]+min(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    return dp[m-1][n-1];
+}
+//===failed===
+不能用下面方式, 因為沒有真正初始化"邊界"
+ 0 | 0 | 0 | 0          0 | 0 | 0 | 0
+---+---+---+---        ---+---+---+---  
+ 0 | 1 | 3 | 1          0 | 1 | 3 | 1  
+---+---+---+---    =>  ---+---+---+---      
+ 0 | 1 | 5 | 1          0 | 1 |   |   
+---+---+---+---        ---+---+---+---
+ 0 | 4 | 2 | 1          0 | 4 |   |   
+-邊界還是一樣,所以計算會錯誤    
+
+int helper0(vector<vector<int>>& grid){
+    int m = grid.size()+1,n = grid[0].size()+1;
+    vector<vector<int>> dp(m,vector<int>(n,0));
+
+    for(int i=1;i<m;i++){
+        for(int j=1;j<n;j++){
+            dp[i][j]=grid[i-1][j-1]+ min(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    return dp.back().back();//dp[m-1][n-1];
+}
+
+
+//===思路2====
+class Solution {
 public:
     int minPathSum(vector<vector<int>>& grid) {
         int m=grid.size(),n=grid[0].size();
