@@ -1,4 +1,46 @@
-﻿class Solution {
+//===類似題===
+64. Minimum Path Sum
+980. Unique Paths III
+2304. Minimum Path Cost in a Grid
+2435. Paths in Matrix Whose Sum Is Divisible by K
+//===思路===
+(*)
+(*)    
+-將Grid轉換計算,  遇到0,則無法做運算, 遇到1,可以做運算
+ 0 | 0 | 0        1 | 1 | 1
+---+---+---      ---+---+--- 
+ 0 | 1 | 0    =>  1 | 0 | 1 
+---+---+---      ---+---+---
+ 0 | 0 | 0        1 | 1 | 1   
+
+-先計算邊界條件;row=0 (0,i)或column=0 (i,0)時的數列,
+--如果前一個是0,代表之後都是0
+--如果前一個是1,當下的初始值就依據(!obastacleGrid)的數值
+
+-在計算dp[i][j]的步數, 需參考dp[i-1][j]+dp[i][j-1]
+--如果(!obastacleGrid==1),則可以經過, 帶入dp[i-1][j]+dp[i][j-1]
+--如果(!obastacleGrid==0),則無法經過, 帶入0
+
+//====
+int helper0(vector<vector<int>>& obstacleGrid){
+    int m = obstacleGrid.size(),n = obstacleGrid[0].size();
+    vector<vector<int>> dp(m,vector<int>(n,0));
+    
+    dp[0][0]=!obstacleGrid[0][0];
+    for(int i=1;i<m;i++) dp[i][0]= (dp[i-1][0]==0)?0:!obstacleGrid[i][0];
+    for(int i=1;i<n;i++) dp[0][i]= (dp[0][i-1]==0)?0:!obstacleGrid[0][i];
+
+    for(int i=1; i<m; i++){
+        for(int j=1; j<n; j++){
+//            dp[i][j]= (!obstacleGrid[i][j])?(dp[i-1][j]+dp[i][j-1]+!obstacleGrid[i][j]):0;
+            dp[i][j]= (!obstacleGrid[i][j])?(dp[i-1][j]+dp[i][j-1]):0;
+        }
+    }
+    return dp.back().back();
+}
+
+//=====
+class Solution {
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int m = obstacleGrid.size(), n = obstacleGrid[0].size();
@@ -33,7 +75,7 @@ public:
     }
 };
 //====================================================================================
-    int helper0(vector<vector<int>>& obstacleGrid){
+int helper0(vector<vector<int>>& obstacleGrid){
         int m = obstacleGrid.size();
         int n = obstacleGrid[0].size();
         
@@ -64,7 +106,7 @@ public:
             }
         }
         return dp[m-1][n-1];
-    }
+}
 //===============================================================
 int helper1(vector<vector<int>>& obstacleGrid){
     if(obstacleGrid.empty()||obstacleGrid[0].empty()||obstacleGrid[0][0]==1) return 0;
