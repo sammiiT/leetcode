@@ -1,4 +1,52 @@
-﻿class Solution {
+//===類似題===
+63. Unique Paths II
+174. Dungeon Game
+2304. Minimum Path Cost in a Grid
+2087. Minimum Cost Homecoming of a Robot in a Grid
+//===思路===
+(*)dp 運算
+(*)設定一dp 的matrix,邊界條件為,第零個column為1,第零個row為1
+-雙迴圈求解
+-dp運算從i=1,j=1開始
+
+(*)設定一dp的陣列, 起始條件(也可視為邊界條件)為1
+-雙迴圈求解
+-dp運算從i=1開始
+
+//===
+int helper0(int m, int n){
+    vector<vector<int>> dp(m,vector<int>(n,0));
+    for(int i=0;i<m;i++) dp[i][0]=1;
+    for(int i=0;i<n;i++) dp[0][i]=1;
+    for(int i=1;i<m;i++){
+        for(int j=1;j<n;j++){
+            dp[i][j]=dp[i-1][j]+dp[i][j-1];
+        }
+    }
+    return dp[m-1][n-1];
+}
+
+int helper1(int m, int n){
+    vector<vector<int>> dp(m,vector<int>(n,1));
+    for(int i=1;i<m;i++){
+        for(int j=1;j<n;j++){
+            dp[i][j]=dp[i-1][j]+dp[i][j-1];
+        }
+    }
+    return dp[m-1][n-1];
+}
+
+int helper2(int m,int n){
+    vector<int> dp(n,1);
+    
+    for(int i=1; i<m; i++)
+        for(int j=1;j<n;j++){
+            dp[j]=dp[j-1]+dp[j];
+    }
+    return dp[n-1];
+}
+//===
+class Solution {
 public:
     int uniquePaths(int m, int n) {
 //dynamic programming
