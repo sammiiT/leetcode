@@ -3,10 +3,31 @@
 45. Jump Game II
 1306. Jump Game III
 1871. Jump Game VII
+//===思路===
+(*)每一次運算都必須判斷前一次的jump數目,如果放到迴圈外才做判斷,會錯誤
+-前一個jump,是否能到達i的位址,
+-減1目的是,前面剩下的jump數目, 是否能到i位置
+dp[i]=max(dp[i-1],nums[i-1])-1;
 
+(*)下面算法會錯誤,因為沒辦法判斷中途的jump數,是否能不能到達下一個位址
+for(int i=1; i<nums.size(); i++)
+    dp[i]=max(dp[i-1],nums[i-1])-1;
+return dp[n-1]>=0?true:false;
+//====
+bool helper0(vector<int>& nums) {
+    vector<int> dp(nums.size(),0);
+    dp[0]=nums[0];
+    for(int i=1; i<nums.size(); i++){
+        dp[i]=max(dp[i-1],nums[i-1])-1;
+        //if(dp[i]==0 && i<nums.size()-1){
+        if(dp[i]<0){//再每一次計算中都必須判斷, 前一次的jump是否能到達第i個位址
+            return false;
+        }            
+    }
+    return true;
+}
 
-
-
+//====
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
