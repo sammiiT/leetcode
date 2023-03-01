@@ -6,7 +6,21 @@
 //====思路===
 
 //=====
-    vector<vector<int>> helper0(vector<vector<int>>& intervals, vector<int>& newInterval){
+vector<vector<int>> helper2(vector<vector<int>>& intervals, vector<int>& newInterval){
+    vector<vector<int>> res;
+    intervals.push_back(newInterval);
+    sort(intervals.begin(),intervals.end(),[](vector<int> a,vector<int> b){return a[0]<b[0];});
+    res.push_back(intervals[0]);
+    for(int i=1; i<intervals.size(); i++){
+        if(res[res.size()-1][1]>=intervals[i][0])
+            res[res.size()-1][1]=max(res[res.size()-1][1],intervals[i][1]);
+        else 
+            res.push_back(intervals[i]);
+    }
+    return res;
+}
+//=============
+vector<vector<int>> helper0(vector<vector<int>>& intervals, vector<int>& newInterval){
         vector<vector<int>> res;
         intervals.push_back(newInterval);
         sort(intervals.begin(),intervals.end(),[](vector<int> a,vector<int> b){return a[0]<b[0];});
@@ -22,7 +36,7 @@
             }
         }
         return res;
-    }
+}
     
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
         return helper0(intervals, newInterval);
