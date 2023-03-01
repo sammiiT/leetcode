@@ -2,7 +2,7 @@
 57. Insert Interval
 252. Meeting Rooms
 253. Meeting Rooms II
-
+495. Teemo Attacking
 //====思路====
 0. 先sort一次
 2.新建且定義解 vector<vector<int>> res 
@@ -12,6 +12,32 @@
 5.1 做合併
 
 //=======
+vector<vector<int>> helper2(vector<vector<int>>& intervals){
+    vector<vector<int>> res;
+    sort(intervals.begin(),intervals.end(),[](vector<int> a, vector<int> b){ return a[0]<b[0];});     
+    res.push_back(intervals[0]);
+    for(int i=1;i<intervals.size();i++){
+        if(res.back().back()>=intervals[i][0]) res.back().back()=max(res.back().back(),intervals[i][1]);
+        else res.push_back(intervals[i]);
+    }
+    return res;
+}
+
+vector<vector<int>> helper1(vector<vector<int>>& intervals){
+    vector<vector<int>> res;
+    sort(intervals.begin(),intervals.end(),[](vector<int> a, vector<int> b){ return a[0]<b[0];});     
+    res.push_back(intervals[0]);
+    for(int i=1;i<intervals.size();i++){
+        if(res[res.size()-1][1]>=intervals[i][0]) res[res.size()-1][1]=max(res[res.size()-1][1],intervals[i][1]);
+        else res.push_back(intervals[i]);
+    }
+    return res;
+}
+
+
+
+
+//====
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals){
