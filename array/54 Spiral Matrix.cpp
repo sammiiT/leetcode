@@ -111,7 +111,69 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
                     
         }
     }    
-    return res;
-        
+    return res;  
 }
 };
+
+//======
+vector<int> helper1(vector<vector<int>>& matrix){
+    vector<int> res;
+    int m = matrix.size(), n = matrix[0].size();
+    int cnt = 0;
+    int rmin=0,rmax=m-1;
+    int cmin=0,cmax=n-1;
+    enum{LEFT,RIGHT,UP,DOWN};
+    int action = RIGHT;
+    int i = 0, j = 0;
+    
+//先寫,再移動    
+    while(cnt<m*n){
+        res.push_back(matrix[i][j]);
+        if(++cnt<m*n){
+            switch(action){
+                case(RIGHT):
+                    if(j+1<=cmax){
+                        j++;
+                    }else{
+                        i++;
+                        rmin++;
+                        action = DOWN;
+                    }               
+                break;
+            
+                case(LEFT):
+                    if(j-1>=cmin){
+                        j--;
+                    }else{
+                        i--;
+                        rmax--;
+                        action = UP;
+                    }
+                break;
+            
+                case(UP):
+                    if(i-1>=rmin){
+                        i--;
+                    }else{
+                        j++;
+                        cmin++;
+                        action = RIGHT;
+                    }
+                break;
+            
+                case(DOWN):
+                    if(i+1<=rmax){
+                        i++;
+                    }else{
+                        j--;
+                        cmax--;
+                        action = LEFT;
+                    }
+                    
+                break;
+            }
+        }
+    }
+    return res;
+}
+
