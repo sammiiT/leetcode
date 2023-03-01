@@ -69,6 +69,31 @@ int binarySearch(vector<int>& nums, int target){
 /***********************************************
 *   分析 first_middle和second_middle對運算的影響
 ************************************************/
+
+//===討論 0-index和1-index的 數字中點====
+(*)1~10, 計算中點
+10/2 = 5; 
+=>此算法是 0-index的算法
+=>0+(10-0)/2= 10/2 = 5 =>計算出first middle [0,1,2,3,4,5,6,7,8,9,10]
+                                                       \--first middle
+(*)1~11, 計算中點
+11/2 = 5;
+=>此算法是 0-index的算法
+=>0+(11-0)/2 = 11/2 = 5 =>計算出first middle [0,1,2,3,4,5,6,7,8,9,10,11]
+                                                        \--first middle
+
+
+(*)1~10, 計算中點, 1-index算法
+1+(10-1)/2 = 1+9/2=1+4=5    [1,2,3,4,5,6,7,8,9,10] 
+                                      \--first middle
+           
+1~11, 計算中點, 1-index算法  
+1+(11-1)/2 = 1+10/2=1+5=6   [1,2,3,4,5, 6, 7,8,9,10,11]
+                                         \--first middle
+                                         
+====> 兩者first middle算出的數值是不一樣的
+
+//====
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
 //    int r = nums.size()-1;
