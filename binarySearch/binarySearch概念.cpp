@@ -91,7 +91,7 @@ int binarySearch(vector<int>& nums, int target){
 1+(11-1)/2 = 1+10/2=1+5=6   [1,2,3,4,5, 6, 7,8,9,10,11]
                                          \--first middle
                                          
-====> 兩者first middle算出的數值是不一樣的
+====> 兩者first middle算出的數值是不一樣的; 當遇到左右兩邊數目一樣時,first middle在0-index和1-index是不一樣的
 
 //====
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
