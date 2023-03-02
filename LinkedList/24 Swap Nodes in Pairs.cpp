@@ -1,4 +1,41 @@
-﻿class Solution {
+//===類似題===
+25. Reverse Nodes in k-Group
+1206. Design Skiplist
+439. Ternary Expression Parser
+1171. Remove Zero Sum Consecutive Nodes from Linked List
+//===思路===
+(*)至少要有兩個節點,才能計算
+- while(r&&r->next){} //至少有兩個節點
+
+(*)要有三個節點;假設為f,r,t; 其中t為r->next
+
+   f  r  t                       f  t  r                                   f  r  t=r->next  
+   h  o  o  o  o  o  o  x    =>  h  o  o  o  o  o  o  x   =>更新指標  h  o  o  o  o  o  o  x       
+
+f作為連結前一個list的節點
+r,t作為兩者交換的節點
+//======
+    ListNode* swapPairs(ListNode* head) {
+        ListNode hdr(-1);
+        ListNode *f,*r;//,*c;
+        hdr.next = head;
+        f = &hdr;
+        r = hdr.next;
+    
+// f r t
+        while(r&&r->next){
+            ListNode *t = r->next;
+            r->next = t->next;
+            t->next = r;
+            f->next = t;
+
+            f = r;
+            r = r->next;
+        }
+        return hdr.next;
+    }
+//======
+class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
         if(head==NULL||head->next==NULL) return head;
