@@ -29,9 +29,34 @@ string helper0(int n){
         pre = res + "#";//每次運算的時候都加上一個非數字字元
     }
     return res;
-} 
-    
-
+}
 string countAndSay(int n) {
         return helper0(n);
 }
+
+//=====failed===
+(*)底下unordered_map方式錯誤
+-[1121]會變成3112
+-因為unordered_map存的"1",沒有被截斷, 所以會算出3個1
+string helper1(int n){
+    string s = "1";
+    int i=2;
+    unordered_map<int,int> m;
+    vector<int> val;
+    while(i<=n){
+        for(char a:s){
+            if(m.count(a-'0')) m[a-'0']++;
+            else{
+                m[a-'0']++;
+                val.push_back(a-'0');
+            }
+        }
+        s.clear();
+        for(int a:val) s = s+ to_string(m[a])+ to_string(a);
+        i++;
+        val.clear();
+        m.clear();
+    }
+    return s;
+}
+
