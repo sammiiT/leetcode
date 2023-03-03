@@ -1,3 +1,30 @@
+//===類似題===
+87. Scramble String
+2161. Partition Array According to Given Pivot
+//===思路====
+
+//===
+ListNode* helper1(ListNode* head, int x) {
+    ListNode *l,*r,*cur;
+    ListNode hdl(-1),hdr(-1);
+    l = &hdl;
+    r = &hdr;
+    cur = head;
+    while(cur){
+        if(cur->val<x){
+            l->next = cur;
+            l = l->next;
+        }else{
+            r->next = cur;
+            r = r->next;
+        }
+        cur=cur->next;
+    }
+    l->next = hdr.next;
+    r->next = NULL;
+    return hdl.next;
+}
+//===
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
