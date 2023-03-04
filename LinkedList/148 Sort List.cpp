@@ -8,6 +8,42 @@
 3.split函式回傳左半邊,右半邊以排序的數列
 4.最後入combine函式,做排列
 //=====
+ListNode* merge(ListNode* l, ListNode* r){//combine函式
+    ListNode hdr(-1);
+    ListNode* cur=&hdr;
+    while(l||r){
+        int vall = l?l->val:INT_MAX;
+        int valr = r?r->val:INT_MAX;
+        if(vall<valr){
+            cur->next = l;
+            cur=cur->next;
+            l=l?l->next:NULL;
+        }else{//vall>=valr
+            cur->next = r;
+            cur=cur->next;
+            r = r?r->next:NULL;
+        }
+    }
+    return hdr.next;
+}
+ListNode* split(ListNode* head){
+    if(!head||!head->next) return head;   
+    ListNode hdr(-1);
+    ListNode *l,*r,*t;
+    l=r=&hdr;
+    hdr.next = head;
+    while(r&&r->next){
+        l=l->next;
+        r=r->next->next;
+    }
+    t = l->next;
+    l->next = NULL;
+    ListNode* left = split(hdr.next);//left
+    ListNode* right =split(t);//right
+    return merge(left,right);
+}
+
+//=====
 ListNode* combine(ListNode* l, ListNode* r){
     ListNode vnd(-1);
     ListNode* t = &vnd;
