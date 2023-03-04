@@ -5,7 +5,6 @@
 //===思路====
 1.如果做in-lplace運算,會比較複雜,因為
 space出現的位置可能在字串首,也可能在字串尾,而且中間有連續出現space的可能
-
 2.所以把每一個單詞從字串中挑選出來,做reverse之後,再加上' '重新組合.
 
 //====
@@ -46,6 +45,30 @@ string helper1(string s){
         }
         return r;
 }
+string helper2(string s){
+    vector<string> res;
+    int n = s.size();
+    string t;
+    for(int i=0;i<n;i++){
+        //if(s[i]==' ' && (i==0||i==n-1)) continue;
+        if(s[i]==' '){
+            if(t.size()){//防止連續兩個
+                res.push_back(t);
+                t.clear();
+            }
+        }else { t+=s[i]; }
+    }
+    if(t.size())//要加上這一個,不然會多出一個空格,因為最後有可能出現兩個以上的空格 
+        res.push_back(t);//最後一個string
+    t.clear();
+    
+    reverse(res.begin(),res.end());
+    for(string a:res){
+        t+= a+' ';
+    }
+    return t.substr(0,t.size()-1);
+}
+
 
 string reverseWords(string s) {
         return helper0(s);
