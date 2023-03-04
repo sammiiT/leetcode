@@ -1,4 +1,25 @@
-﻿class Solution {
+//===類似題===
+153. Find Minimum in Rotated Sorted Array
+198. House Robber
+//===思路===
+(*)Maximum sum subarry參考
+-要有截斷點  cur = max(cur+nums[i],nums[i]);
+--其中nums[i]就是截斷點, max((-5+4),4)
+    
+(*)product比較麻煩,因為會遇到負負, 正負
+-所以要有兩個比較基準點, 一個是mx,一個是mi
+max(max(mx*nums[i],mi*nums[i]),nums[i])
+--先比較前一個mx和mi, 乘上當下節點數值      
+--比較maximum和minimum
+---max(mx*nums[i],mi*nums[i])
+   min(mx*nums[i],mi*nums[i])
+
+-再與當下的數值nums[i]做比較, 比較maximum和minimum
+
+-求每次subarray的maximum數值  
+-- res = max(mx,res);
+//=====
+class Solution {
 public:
     int maxProduct(vector<int>& nums) {
         vector<int> mx(nums.size(),0);
