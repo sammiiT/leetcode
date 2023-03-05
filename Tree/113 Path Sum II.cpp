@@ -15,8 +15,9 @@ void helper(TreeNode* root , int targetSum, vector<int> nums,vector<vector<int>>
     if(!root->left && !root->right){
         if(targetSum==0){
             res.push_back(nums);
-            return;
+//            return;
         }
+        return;//放在這邊比較好,不用在往下一個level執行
     }
     helper(root->left,targetSum,nums,res);    
     helper(root->right,targetSum,nums,res);
