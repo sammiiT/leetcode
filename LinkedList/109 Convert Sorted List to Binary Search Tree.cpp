@@ -1,4 +1,18 @@
-﻿class Solution {
+//===類似題=====
+110. Balanced Binary Tree
+2196. Create Binary Tree From Descriptions
+
+//===思路====
+(*)同Convert Sorted Array to Binary Search Tree
+-用post-order + pre-order
+-每次都找second-middle
+(*)每次都要找second-middle, second-middle的前一個節點,second-middle的後一節點
+(*)如果遞迴帶入
+-沒有節點:回傳NULL
+-只有一個節點:建立一個TreeNode節點,回傳
+//=====
+
+class Solution {
 public:
     TreeNode* sortedListToBST(ListNode* head){
         if(head==NULL) return NULL;
