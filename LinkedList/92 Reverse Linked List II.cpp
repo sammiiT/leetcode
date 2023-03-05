@@ -23,6 +23,22 @@ h->o->&->$->#->@->*->o->x
    p              c
    |  |           | 
 h->o->*->&->$->#->@->o->x
+//====思路===
+             left   right 
+              V     V  
+           f  r  t 
+      hdr  1  2  3  4  5  6  x
+
+ NO1       f  t  r  
+===>  hdr  1  3  2  4  5  6  x
+  
+update     f     r  t  
+===>  hdr  1  3  2  4  5  6  x
+  
+ NO2       f  t     r
+===>  hdr  1  4  3  2  5  6  x
+
+(*)先聯r,再連t,再連f
 
 //====
 ListNode* helper0(ListNode* head, int left, int right){
