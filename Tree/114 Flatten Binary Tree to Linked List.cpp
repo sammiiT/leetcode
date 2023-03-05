@@ -28,6 +28,19 @@
       \
        R
 //========
+void helper3(TreeNode* root) {
+    if(!root) return ;
+    helper3(root->left);
+    helper3(root->right);
+    if(root->left){
+        TreeNode* tmp = root->right;
+        root->right = root->left;
+        root->left = NULL;
+        while(root->right) root = root->right;
+        root->right = tmp;
+    }
+}
+
 void helper0(TreeNode* root){
     if(!root) return;
     helper0(root->left);
