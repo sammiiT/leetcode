@@ -7,6 +7,54 @@
 
 //===思路1====
 (*)inorder概念
+-遍歷過程, 可以記錄前一個節點; 依照inorder特性,與當下節點做比較 
+--遍歷下面的tree, 會先到O4
+
+      O1  
+     / \
+   O2   O3
+  /     / \ 
+O4    O5   O6
+            \
+             O7
+
+列出 每一個節點,cur和pre的關係
+O2: cur ; O4: pre
+O2: pre ; O1: cur
+
+O1: pre ; O5: cur
+O5: pre ; O3: cur
+O3: pre ; O6: cur
+
+
+
+(*)inorder遍歷
+-進入left節點, 會一直往下找left => left->left->left->left
+-進入right節點,會轉到left      =>right->left->left->left
+
+--如果left沒有, 比較right和上一層節點的數值
+right->left
+   \     \---(1)不存在,回到上一層的right
+    \    
+     \----(2)right為當下節點, 則pre節點是right的上一層; 比較 pre和right->val
+     
+     
+(*)
+如果是left, 先比較下層,再往上層比較
+-比較(O2,O4), 再比較(O1,O2)
+
+如果是right, 先比較上層,再往下層比較
+-比較(O1,O3),再(O3,O6),再(O6,O7)
+
+      O1  
+     /  \
+   O2    O3
+  /        \ 
+O4          O6
+              \
+               O7
+    
+
 //=====
 int helper1(TreeNode* root, long& pre){
     if(!root) return true;
