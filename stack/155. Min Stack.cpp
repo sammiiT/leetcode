@@ -19,6 +19,19 @@ stk2的概念與min概念一樣:
 - stk2有紀錄每一個區間的最小數值, 
 - min(x,y)是會排除前面區間最小的數值
 
+(*)
+數列[13,14,10,11,8,20,7]
+stk1:
+13,14,10,11,8,20,7
+
+stk2:
+13,x ,10,x ,8,x ,7 => 13,10,8,7    
+
+-getMin(),會直接從stk2中找top()
+-top(),會從stk1中找top()
+-pop(), 要從stk1中pop數值, 也要從stk2中pop數值(當stk2.top==stk1.top時);不做此動作,下次getMin會取到舊的數值.    
+    
+    
 //=====
 class MinStack {
 public:
