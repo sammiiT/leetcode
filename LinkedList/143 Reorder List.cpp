@@ -1,4 +1,78 @@
-﻿class Solution {
+//===類似題===
+144. Binary Tree Preorder Traversal
+2516. Take K of Each Character From Left and Right
+//===思路====
+(*)利用stack紀錄後半段
+1.
+   left  |  right
+ a  b  c | d  e  g
+
+2.
+ f  r
+ a  b  c  x
+
++---+---+---+- 
+| d | e | g | <---push
++---+---+---+- 
+
+3.	
++---+---+---+- 
+| d | e |  --> pop "g"
++---+---+---+- 
+	
+f     r                   f  r
+a->g->b->c->x   =>  a->g->b->c->x 	
+	
+4.
++---+---+---+- 
+| d |      --> pop "e"
++---+---+---+- 
+
+      f     r                      f  r 
+a->g->b->e->c->x  =>   a->g->b->e->c->x
+	
+5.
++---+---+---+- 
+|          --> pop "d"
++---+---+---+- 
+
+	    f  r                          f (r不存在)
+a->g->b->e->c->x  =>	a->g->b->e->c->e->x	
+	
+//=====
+void reorderList(ListNode* head) {
+    stack<ListNode*> stk;
+    ListNode hdr(-1);
+    ListNode *f,*r;
+    hdr.next=head;
+    f=r=&hdr;
+
+    while(r&&r->next){
+        f=f->next;
+        r=r->next->next;
+    }//f = first_middle
+    
+    ListNode *t = f->next;//右半邊
+    f->next=NULL;//左半邊截斷
+    while(t){//右半邊放入stack
+        stk.push(t);
+        t=t->next;
+    }
+    
+    f = head;
+    r = f->next;
+    while(!stk.empty()){
+        ListNode* p = stk.top();
+        stk.pop();
+        f->next = p;
+        p->next = r;
+        f=r;
+        r=f?f->next:NULL;
+    }
+}
+
+//=====
+class Solution {
 public:
     void reorderList(ListNode* head){
        if(head==NULL||head->next==NULL) return;
