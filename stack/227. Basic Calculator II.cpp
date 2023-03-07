@@ -65,3 +65,51 @@ int calculate(string s) {
 }
 
 //====思路2====
+(*)先將運算元,運算子分開, 並放到同一個vector<string>的陣列中
+- string s = "3+2*24";
+-- vector<string>  =>  "3","+","2","*","24"
+===> 這個算法會在leetcode出現stoi terminate, 但其他compiler不會有此問題
+int calculate(string s) {
+   stack<int> stk;
+   vector<string> cal;
+   enum{ADD,SUB,MUL,DIV};
+   int action = ADD;
+   int res =0;
+   
+   string p;//先將運算元,運算子分開, 並放到同一個vector<string>的陣列中
+   for(int i=0;i<s.size();i++){
+      if(i==s.size()){
+         cal.push_back(p);
+         break;
+      }
+      if(s[i]<'0'||s[i]>'9'){
+         string tmp;
+         tmp+=s[i];
+         cal.push_back(p);
+         p.clear();
+         cal.push_back(tmp);
+      }else{ p+=s[i]; }
+   }
+   
+   for(int i=0; i<cal.size(); i++){
+      if(cal[i]=="+"){ action = ADD;
+      }else if(cal[i]=="-"){ action = SUB;
+      }else if(cal[i]=="*"){ action = MUL;
+      }else if(cal[i]=="/"){ action = DIV;
+      }else{
+         if(action==ADD) stk.push(stoi(cal[i]));
+         else if(action==SUB) stk.push(stoi(cal[i])*(-1));
+         else if(action==MUL) stk.top() = stk.top()*stoi(cal[i]);
+         else if(action==DIV) stk.top() = stk.top()/stoi(cal[i]);
+      }
+   }
+   int res = 0;
+   while(!stk.empty()){
+      res+=stk.top();
+      stk.pop();
+   }
+   return res;
+}
+
+
+
