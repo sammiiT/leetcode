@@ -27,6 +27,7 @@ vector<int> helper0(vector<int>& asteroids) {
     for(int i=0; i<asteroids.size(); i++){
         int exist = 1;
         while(!stk.empty() && stk.back()>asteroids[i] && ((stk.back()^asteroids[i])>>31)){//少了判斷符號相同,相異; 在[-2,-2,-1,-5]輸入, 會出錯
+//        while(!stk.empty() && stk.back()>0 && asteroids[i]<0){//這一個描述也可以
             if(stk.back()==abs(asteroids[i])){
                 exist = 0;
                 stk.pop_back(); //=> cause stack = 0
