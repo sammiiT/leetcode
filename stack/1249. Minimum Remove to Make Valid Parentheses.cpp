@@ -17,8 +17,34 @@
 
 3.最後依據stack中的元素, 從top開始做pop, 根據top的)或(位置, 將其移除
 s.erase(s.begin()+ 9), 第九個
-
 //=====
+string helper1(string s){
+    stack<pair<char,int>> stk;
+    for(int i=0;i<s.size();i++){
+        if(s[i]>='a' && s[i]<='z') continue;
+        if(s[i]=='('){
+            stk.push({'(',i});
+        }else{//')'
+            if(!stk.empty()){
+                if(stk.top().first=='(') stk.pop();
+                else//')'
+                    stk.push({')',i});
+            }else{ stk.push({')',i}); }
+        }
+    }
+/*    for(int i=s.size()-1; i>=0; i--){//time limit exceeded
+        if(!stk.empty() && stk.top().second==i){
+            stk.pop(); continue;
+        }
+        res = s[i] + res;
+    }*/
+    while(!stk.empty()){
+        s.erase(s.begin()+stk.top().second);
+        stk.pop();
+    }
+    return s;
+}
+
 string helper0(string s){
     vector<pair<char,int>> stk;
     for(int i=0; i<s.size(); i++){
