@@ -2,7 +2,33 @@
 2131. Longest Palindrome by Concatenating Two Letter Words
 763. Partition Labels
 654. Maximum Binary Tree
+//===思路2===
+int helper2(ListNode* head) {
+    int res=0;
+    stack<ListNode*> stk;
+    ListNode hdr(-1);
+    ListNode *f,*b;
+    hdr.next = head;
+    f = b = &hdr;
+    while(b&&b->next){
+        f=f->next;
+        b=b->next->next;
+    }
+    b = f->next;
+    while(b){
+        stk.push(b);
+        b=b->next;
+    }
+    f = hdr.next;
+    while(!stk.empty()){
+        res = max(res,(stk.top()->val+ f->val));
+        stk.pop();
+        f = f->next;
+    }
+    return res;
+}
 
+//===思路===
 int helper0(ListNode* head){
         ListNode *f,*r;
         ListNode hdr(-1);
@@ -18,7 +44,7 @@ int helper0(ListNode* head){
         }
 
         r = f->next;
-        f->next=NULL;//截斷,少了這個會錯
+        f->next=NULL;//截斷,少了這個會錯,用stack做,不用考慮此
         f=hdr.next;
         while(f){
             stk.push(f);
