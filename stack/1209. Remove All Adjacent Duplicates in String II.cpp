@@ -19,6 +19,25 @@
   
 (*)跟最後一個做判斷 ==> 用stack
 //======
+string helper1(string s, int k){
+    string res;
+    vector<pair<char,int>> stk;
+    stk.push_back({'@',0});
+    for(int i=0; i<s.size(); i++){
+        if(stk.back().first!=s[i]){
+            stk.push_back({s[i],1});
+        }else{//stk.back().first==s[i]
+            if(++stk.back().second==k) stk.pop_back();
+        }
+    }
+    while(!stk.empty()){//也可以用append; res.append(stk.back().second,stk.back().first);
+        string t(stk.back().second,stk.back().first);
+        res = t + res;
+        stk.pop_back();
+    }
+    return res;
+}
+
 string helper0(string s, int k){
     vector<pair<int,char>> stk{{0,'#'}};
     string res;
