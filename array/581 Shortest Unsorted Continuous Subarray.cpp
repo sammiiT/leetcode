@@ -1,3 +1,28 @@
+//===類似題===
+582. Kill Process
+1686. Stone Game VI
+2425. Bitwise XOR of All Pairings
+1090. Largest Values From Labels
+//===思路===
+(*)建立參考數列,此數列是重新ascending排列
+-並比較這兩數列
+
+1.從左至右,找到第一個需要排列的index
+2.從右到左,找到第一個需要排列的index
+3.兩個index相減 再加1,就是range
+
+//======
+int findUnsortedSubarray(vector<int>& nums) {
+    int n=nums.size(),i=0,j=n-1;
+    vector<int> t=nums;
+        
+    sort(t.begin(),t.end());
+    while(i<n && t[i]==nums[i]) i++;
+    while(j>i && t[j]==nums[j]) j--;
+    return j-i+1;        
+}
+
+//======
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
