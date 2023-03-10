@@ -59,3 +59,26 @@ vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2){
     return res;
 }
 
+//===思路2====
+(*)可以用stack計算, stack思路可以加快執行效率
+(*)建立unordered_map, 建立對應的數值和next_greater_element關係
+- nums2 = [4,3,2,1,5]
+
+vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2){
+    unordered_map<int,int> mp;//element_value, first_greater_value
+    vector<int> stk;
+    
+    for(int i=0;i<nums2.size();i++){
+         while(!stk.empty() && stk.back()<nums2[i]){
+             mp[stk.back()] = nums2[i];
+             stk.pop_back();
+         }
+         stk.push_back(nums2[i]);
+    }
+    for(int i=0;i<nums1.size();i++){
+        if(mp.count(nums1[i])) res.push_back(mp[nums1[i]]);
+        else res.push_back(-1);
+    }
+    return res;
+}
+
