@@ -61,8 +61,41 @@ vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2){
 //===思路2====
 (*)可以用stack計算, stack思路可以加快執行效率
 (*)建立unordered_map, 建立對應的數值和next_greater_element關係
-- nums2 = [4,3,2,1,5]
+ex1:
+nums2 = [4,3,2,1,5]; stack的變化
 
+4|3|2|1| <---5 push
+紀錄"1"的next_greater=5 => pop_back()   
+
+4|3|2| <---5 push
+紀錄"2"的next_greater=5 => pop_back()         
+
+4|3| <---5 push
+紀錄"3"的next_greater=5 => pop_back()         
+         
+4| <---5 push
+紀錄"4"的next_greater=5 => pop_back()         
+
+5|  =>stack最後的element;  同時也記錄了,4,3,2,1的greater_element
+
+ex2:
+nums2 = [4,1,2,3,5]
+4|1| <---2 push
+紀錄"1"的next_greater=2 => pop_back()   
+4|2| =>stack最後的element
+    
+4|2| <---3 push
+紀錄"2"的next_greater=3 => pop_back()   
+4|3| =>stack最後的element
+
+4|3| <---5 push
+紀錄"3"的next_greater=5 => pop_back()   
+4|   <---5 push
+紀錄"4"的next_greater=5 => pop_back()   
+
+5|  =>stack最後的element;  同時也記錄了,4,3,2,1的greater_element
+         
+//===========================         
 vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2){
     unordered_map<int,int> mp;//element_value, first_greater_value
     vector<int> stk;
