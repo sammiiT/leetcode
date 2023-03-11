@@ -1,3 +1,58 @@
+//===類似題===
+446. Arithmetic Slices II - Subsequence
+1634. Add Two Polynomials Represented as Linked Lists
+//===思路====
+(*)從後面開始算, 所以需要兩個stack
+(*)每次pop出的數值做相加,同時計算進位 
+(*)直到兩個stack為empty()
+(*)最後再判斷是否有進位, 如果有進位再加一個node.
+//=========
+    ListNode* helper0(ListNode* l1, ListNode* l2) {
+        stack<int> stk1;
+        stack<int> stk2;
+        ListNode *h1,*h2;
+        int carry = 0;
+        ListNode hdr(-1);
+        ListNode* cur=&hdr;
+        h1 = l1;
+        h2 = l2;
+
+        while(h1){
+            stk1.push(h1->val);
+            h1 = h1->next;
+        }
+        while(h2){
+            stk2.push(h2->val);
+            h2 = h2->next;
+        }
+
+        while(!stk1.empty()||!stk2.empty()){
+            int val1 = 0; 
+            int val2 = 0;
+            int sum = 0;
+            if(!stk1.empty()){
+                val1 = stk1.top();
+                stk1.pop();
+            }
+            if(!stk2.empty()){
+                val2 = stk2.top();
+                stk2.pop();
+            }            
+            sum = carry + val1+val2;
+            carry = sum/10;
+            ListNode *t = new ListNode(sum%10);
+            t->next = cur->next;
+            cur->next = t;
+        }
+        if(carry) {
+            ListNode* t = new ListNode(1);
+            t->next = cur->next;
+            cur->next = t;
+        }
+        return hdr.next;
+    }
+
+//======
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
