@@ -6,6 +6,65 @@
 (*)用stack來做
 (*)用vector<T> 來模擬stack, 因為vector有clear功能, 能滿足題目visit定義
 
+//=====
+string cur;
+vector<string> b;
+vector<string> f;
+
+BrowserHistory(string homepage) {
+        cur = homepage;
+    }
+    void visit(string url) {
+        b.push_back(cur);
+        f.clear();//while(!f.empty()) f.pop();
+        cur = url;
+    }
+    
+string back(int steps) {
+    if(b.size()){//要先判斷b stack是否有元素,如果沒有此判斷會錯誤
+        f.push_back(cur);
+        if(b.size()<=steps) {
+            while(b.size()>1){
+                //string t = b.back();
+                //f.push_back(t);
+                f.push_back(b.back());
+                b.pop_back();
+            }
+        }else{
+            while(--steps){
+                //string t = b.back();
+                //f.push_back(t);
+                f.push_back(b.back());
+                b.pop_back();
+            }
+        }
+        cur = b.back();b.pop_back();
+    }    
+    return cur;   
+}
+    
+string forward(int steps) {
+    if(f.size()){//要先判斷f stack是否有元素,如果沒有此判斷會錯誤
+        b.push_back(cur);
+        if(f.size()<=steps){
+            while(f.size()>1){
+                //string t = f.back();
+                //b.push_back(t);
+                b.push_back(f.back());
+                f.pop_back();
+            }
+        }else{
+            while(--steps){
+                //string t = f.back();
+                //b.push_back(t);
+                b.push_back(f.back());
+                f.pop_back();
+            }
+        }
+        cur = f.back();f.pop_back();
+    }
+        return cur;   
+}
 //====
 class BrowserHistory {
 public:
