@@ -16,7 +16,9 @@
 3 pop完之後, 第二個stack會剩下1個element, 直到5也被pop, 才不會被討論, mxfreq再減1
 3.3 每次pop完一個數值之後, 都要對其次數減1, 此資訊存在於另外一個map中
 
-
+(*)unordered_map<int,vector<int>> m;//出現次數相等的 "數值",所建立的stack
+- int 次數, vector<int>  相同次數的stack
+(*)unordered_mcap<int,int>//每一個數值出現的總數<數值,總數>
 //=======
 class FreqStack {
 public:
