@@ -1,4 +1,20 @@
-﻿class Solution {
+//===類似題===
+92. Reverse Linked List II
+639. Decode Ways II
+1977. Number of Ways to Separate Numbers
+2266. Count Number of Texts
+
+//===思路===
+(*)dynamic_programming
+(*)非in-place計算, 需要建立一新的"解",從原本的string來判斷求解
+(*)dp[i]=(s[i-1]=='0')?0:dp[i-1];
+-[i]是經過[i-1]之後的結果, 但尚未將[i]考慮進去  ====> 利用此口絕來做題
+-dp[i]=>新建, dp[i]有初始值,此初始值由"題意,數列結構"決定
+--dp[0]=1, 前一個數值為1, 則有1種解
+-s[i-1]=>原數值
+
+//=====
+class Solution {
 public:
     int numDecodings(string s) {
         
