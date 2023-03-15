@@ -20,7 +20,7 @@
 (*) (maximum_subarray>0)? max(maximum_subarray,total-minimum_subarry):maximum_subarray; 
 
 
-
+(*)此算法跟 一題  subarray maximum product
 //====
 int maxSubarraySumCircular(vector<int>& nums) {
     int curmax = 0,curmin = 0; 
