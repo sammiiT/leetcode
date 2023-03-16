@@ -1,5 +1,8 @@
 //===STL container 常用操作====
 
+//====map<key,value>===
+(*)會自動依照key的大小排序; acesnding
+
 
 //=== set ===  
 
