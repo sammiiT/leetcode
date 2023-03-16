@@ -12,7 +12,32 @@
 -如果是陣列,則必須將其展開為"數字的NestedInteger型態"再push至stack中
 -如果stack中沒有NestedInteger物件,則回傳false
 
+NestedInteger 
+-可以是單一個數值 [1] => vector<NestedInteger>
+-可以是一個數值陣列 [1,2,3,4,5] =>vector<NestedInteger>: 用到5個NestedInteger, 用 getInteger(), isInteger()就可以判斷
+-可以是一個nested數值陣列 [[1,2],[3,4]]=>vector<NestedInteger>:用到2個NestedInteger,用isInteger判斷為false,接著用getList
+-可以是一個nested數值陣列 + 數值 [[1,2],3,[4,5]]=>vector<NestedInteger>:
+                                 |    |   \
+                                 |    |    \--->NestedInteger:用isInteger判斷為false,接著用getList
+                                 |    |
+                                 |     \---> NestedInteger:用isInteger判斷為true, 接著用getInteger
+                                  \--->NestedInteger: 用isInteger判斷為false,接著用getList
 
+
+(*)
+1.將vector<NestedInteger>所有的NestedInteger元素,從後到前 push至stack中
+[[1,2],3,[4,5]] => [4,5] | 3 | [1,2] 
+                  
+2.hasNext從stack.top()取出一個NestedInteger元素,如果此元素是一個vector<NestedInteger>,則重複1動作,將其轉換成NestedInteger再push回stack中
+[4,5] | 3 | [1,2] => [4,5] | 3 | 2 | 1
+                                                                            
+3.hasNext就是把vector<NestedInteger>轉換成 isIngeter()==true的NestedInteger元素
+[4,5] | 3 | [1,2] => 5| 4| 3| 2| 1
+[4,5]的轉換,必須先將1,2,3 pop出來才會做到運算                   
+                                      
+                                      
+4.next是用來讀取stack中的數值,並將其做pop動作
+                                      
 //=====
 public:
     NestedIterator(vector<NestedInteger> &nestedList) {
