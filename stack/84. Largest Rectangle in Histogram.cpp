@@ -49,6 +49,7 @@ int largestRectangleArea(vector<int> &height) {
     for(int i=0;i<height.size(); i++){
         while(!stk.empty() && height[stk.top()]>=height[i]){
             int t = stk.top();stk.pop();
+            //減1是不將當下的節點位置算進去,只計算height[stk.top()](包含height[stk.top()])之前的位置
             res = max(res,height[t]*(stk.empty()?i:(i-stk.top()-1)));
         }
         st.push(i);
