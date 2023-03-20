@@ -42,3 +42,7 @@ string strWithout3a3b(int a, int b) {
     }
     return res;  
 }
+
+//====思路====
+
+
