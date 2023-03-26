@@ -14,7 +14,8 @@
 
 
 (*)"至少間隔", "最多不能重複"
-Task Schedule題目
+Task Schedule題目, 屬於"至少間隔"類型, 每一個字元要"盡可能地遠離"
+Longest Happy String題目,屬於"最多不能重複"類型, 每一個字元要"盡可能地靠近"        
 //===
 string helper1(int a, int b, int c) {
         int A=0,B=0,C=0;
