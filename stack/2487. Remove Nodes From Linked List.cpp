@@ -45,6 +45,9 @@ ListNode* helper0(ListNode* head){
 }
 
 //===思路2==== check again
+(*)思路同上,只是將NodeList連接的動作在"比較過程中"執行
+
+
 
 ListNode* helper1(ListNode* head){
     vector<ListNode*> stk;
@@ -58,16 +61,17 @@ ListNode* helper1(ListNode* head){
         while(!stk.empty() && (stk.back()->val < cur->val)){
             stk.pop_back();
         }
-
-        if(!stk.empty()) {
+        if(!stk.empty()) stk.back()->next = cur;//將新list中的最後一個與當下判斷後的節點做連結
+        stk.push_back(cur);
+        cur=cur->next;
+/*        if(!stk.empty()) {
             tmp = stk.back();
             tmp->next = cur;
         }
-        
         stk.push_back(cur);
         stk.back()->next = NULL;
-        cur=cur->next;
+        cur=cur->next;*/
     }
-    
+    stk.back()->next = NULL;//最後一個節點的next要設定為NULL
     return stk[0];
 }
