@@ -46,7 +46,7 @@ ListNode* helper0(ListNode* head){
 
 //===思路2==== check again
 (*)思路同上,只是將NodeList連接的動作在"比較過程中"執行
-
+(*)用vector<ListNode*>來模擬 stack行為, 才可以在return的時候回傳第0個數值
 
 
 ListNode* helper1(ListNode* head){
