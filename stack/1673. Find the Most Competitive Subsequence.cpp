@@ -40,6 +40,8 @@ vector<int> helper1(vector<int>& nums, int k) {
 
 }
 
+
+//====用vector 會 time limited exceeded====
 vector<int> helper0(vector<int>& nums, int k) {
     int n = nums.size(),i;
     vector<int> stk;
