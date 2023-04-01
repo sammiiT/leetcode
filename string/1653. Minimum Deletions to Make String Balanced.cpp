@@ -43,3 +43,5 @@ int minimumDeletions(string s) {
     }
     return res;
 }
+//===思路====
+用Dynamic Programming
