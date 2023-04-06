@@ -22,6 +22,8 @@
   |     \                            \
    \     遇到')';將cde反轉         反轉的string加上vector<string>的back();當作新的string,繼續與後面的char做計算 ;    
    在vector<string>的back()        (*)要將back()刪除
+   
+6.遍歷完字串後, 最終的string即為解   
 //====
 string reverseParentheses(string s) {
     vector<string> vstr;
