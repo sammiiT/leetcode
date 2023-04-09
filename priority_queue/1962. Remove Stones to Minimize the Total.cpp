@@ -22,10 +22,10 @@ int helper0(vector<int>& piles, int k){
     while(k--){
         int t = pq.top();
         pq.pop();
-        t = t-t/2;
-        pq.push(t);
+        t = t-t/2;//piles[i]-floor(piles[i]/2);
+        pq.push(t);//再將此值push回pq中
     }
-    while(!pq.empty()) {
+    while(!pq.empty()) {//pq中的值累加即為解
         sum+=pq.top();
         pq.pop();
     }
@@ -42,7 +42,7 @@ int helper1(vector<int>& piles, int k){
     while(k--){
         int t = pq.top();
         pq.pop();
-        sum-=t/2;
+        sum-=t/2;//每次運算,順便減去floor(piles[i]/2)
         t-=t/2;
         pq.push(t);
     }
