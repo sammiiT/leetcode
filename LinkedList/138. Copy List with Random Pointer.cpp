@@ -32,5 +32,28 @@ Node* copyRandomList(Node* head) {
       cur = cur->next;
   }
   return res;
+}
 
+//====思路2===
+(*)DFS算法
+  
+1.先新節點建立; 方向 --->                              
+        nxt1  nxt2  nxt3  nxt4
+        O ->  O ->  O ->  O -> X
+        rnd4  rnd3  rnd2  rnd1
+        
+2.再建立random節點; 方向 <---                     
+
+  
+  
+Node* helper(Node* node, unordered_map<Node*, Node*>& m){
+    if(!node) return NULL;
+    if(m.count(node)) return m[node];
+    
+    Node* n = new Node(node->val,NULL,NULL);
+    m[node]=n;
+    n->next = helper(node->next,m);//DFS會先遍歷完 linked-list
+    n->random = helper(node->random,m);//遍歷到最後一個, list的random才會開始計算
+                                     //因為random還沒開始計算, 所以(!node)不會成立, 而是(m.count(node))會成立
+    return n;                        //計算完random就回往上傳, 不會node->next做DFS; 所以不會重複計算
 }
