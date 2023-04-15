@@ -1,7 +1,23 @@
 //====類似題=====
 2121. Intervals Between Identical Elements
 524. Longest Word in Dictionary through Deleting
+//====思路===
 
+(*)概念1
+(a + b + c)%k == (a%k + b%k + c%k)
+
+(*)概念2
+
+index     0  1  2   3  4   5   6
+sum_rem   3  2  7   5  4   2   1
+             |              \
+             \               餘2   
+              餘2
+              
+index5_sum - index1_sum ==0 ; 
+sum[1:5] 可以整除 k             
+              
+//=====
 //return bool=> 只要發生, 就會回傳, 就算有其他解, 也不用管 =>所以只討論發生的第一次.
 //=>如 m[sum]有很多發生的次數, 所以只討論發生的第一次...
 
