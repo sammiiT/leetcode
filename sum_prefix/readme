@@ -1,1 +1,8 @@
 
+
+subarray 是 等於一個數 => subarray可以是任意長度 => 0<subarray.size()<=array.size()
+subarray 是 max => subarray可以是任意長度 => 0<subarray.size()<=array.size()
+subarray 是整除k  (且xxx) => subarray可以是任意長度 => 0<subarray.size()<=array.size()
+
+
+subarray長度是固定數, 可以用sum array來做題
