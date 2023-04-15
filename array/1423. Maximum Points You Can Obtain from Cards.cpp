@@ -14,13 +14,17 @@
   
   
 (*)  
-               V 
-數列: a, b, c, d, e, d, g
+數列: a, b, c, "d", e, d, g
 1.先計算 a~d總和
 
 2.從d開始減, 變成選取的數列為 a,b,c, ...  g
 3.刪除c, 變成選取的數列為 a,b, ...  d,g
 4.依照此操作, 算出每次的maximum ,最後的maximum即為解
+
+(*)
+ 同時計算從i=0開始, i從n-1開始
+ [0]  [n-1-i]
+ 
 
 //=====
 int helper(vector<int>& cardPoints, int k){
