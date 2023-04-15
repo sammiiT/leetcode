@@ -2,7 +2,9 @@
 2121. Intervals Between Identical Elements
 524. Longest Word in Dictionary through Deleting
 //====思路===
-
+(*)
+subarray:數值連續, 不可分割
+  
 (*)概念1
 (a + b + c)%k == (a%k + b%k + c%k)
 
