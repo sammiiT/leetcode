@@ -8,6 +8,8 @@
 - 此題的陣列是vector<string> wordDict
 - 因為陣列元素可以reused,所以每進入下一層, loop迴圈都從i=0開始
 
+0. segment 是要連續,不能中間斷掉, 左半部和右半部連接
+
 1.宣告 string& out, 紀錄每一個滿足條件的string
 2.宣告 vector<string>& res, 紀錄滿足最後條件的string
 3.每一次substring都要從string[0]開始,
