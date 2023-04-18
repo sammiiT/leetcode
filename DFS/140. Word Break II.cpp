@@ -18,6 +18,12 @@
 跳回上一層要把append刪除; out = out.substr(0,size);//size維之前out的長度
 
 5.最回傳res
+
+
+(*)
+ cout<<str.substr(pos, str.size()-pos)<<endl;
+   //str.size()是1-index, pos是0-index    相減?????? 
+
 //=====
 void helper(string s ,vector<string>& wordDict, string& out, vector<string>& res){
     if(s.size()==0){
