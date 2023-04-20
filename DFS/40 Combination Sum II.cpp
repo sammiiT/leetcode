@@ -24,7 +24,8 @@ void helper1(vector<int>& candidates,
         return;
     }
     for(int i=start;i<candidates.size();i++){
-        if(i>0 && candidates[i]==candidates[i-1]) continue;
+//        if(i>0 && candidates[i]==candidates[i-1]) continue;//錯誤描述
+        if(i>start && candidates[i]==candidates[i-1]) continue;//同一層出現重複數字
         out.push_back(candidates[i]);
         helper1(candidates,target-candidates[i],i+1,out,res);
         out.pop_back();
