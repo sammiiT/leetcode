@@ -9,6 +9,23 @@
 4.由3, 因為每次從0開始, 所以要有一個紀錄重複計次的vector
 
 (*)回到上一層是因為 1.本層的for迴圈執行完畢 2.滿足條件,跳回上一層
+
+
+(*)permutation, subset題型差異
+permutation:排列
+-從array取出的element順序可以換
+-因為順序可以對調, 所以loop中 (int i=0; i<num.size(); ++i)
+--每一個root節點的下一個child節點, 都可以從"頭"開始選取
+-每下一層level都會從位置"0"開始選起,要避免重複, 就要用visited[i]紀錄已經使用過的數值
+
+subset:
+-element從array取出不用連續
+-element從array取出,"順序不能變" 
+=>所以在loop中有 (int i=start;i<nums.size();++i)描述
+=>每一層的開始,都從下一個節點開始
+
+(*)數字不重複, 選取的位置不重複, 
+
 //======
 void helper0(vector<int>& nums, 
                  int level, 
