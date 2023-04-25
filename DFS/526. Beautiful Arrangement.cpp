@@ -5,6 +5,20 @@
 1970. Last Day Where You Can Still Cross
 
 //===思路===
+[1,2] => 從1再2
+1  1/1
+2  2/2
+
+
+[2,1] => 從2再1
+2  2/1
+1  2/1
+
+(*)visit過的數字不能再被使用
+(*)每次進入下一層,都從頭開始
+(*)如果i滿足題意 perm[i]%i==0   或 i%perm[i], 則繼續, 往下一層執行
+- 直到count==n, 代表beautitul arrangement
+-如果中途有一個不滿足, 則return. 
 
 
 //=====
