@@ -49,3 +49,15 @@ string breakPalindrome(string palindrome) {
     palindrome.back() = 'b';
     return palindrome;
 }
+//========================
+void helper1(string& s){
+    int m = s.size()/2;//second-middle計算, 可以運算到前半段
+    int i;
+    for(i=0; i<m; ++i){
+    	if(s[i]!='a') { 
+	    s[i]='a';
+	    break;
+	}
+    }
+    if(i==m) s[s.size()-1] = 'b';
+}
