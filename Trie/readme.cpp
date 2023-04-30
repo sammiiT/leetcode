@@ -78,5 +78,53 @@ private:
 }
 //===========用 map 來表示 ==========
 
+class Trie{
+public:
+    Trie(){
+        root = new TrieNode();
+    }
+    void insert(string word){
+        Trie *cur = root;
+        for(char c:word){
+            if(!cur->mp.count(c)){
+                cur->mp[c]=new TrieNode();
+            }
+            cur = cur->mp[c];
+        }
+        cur->isEndOfWord = true;
+    }
+    bool search(string word){
+        Trie* cur = root;
+        for(char c: word){
+            if(!cur->mp.count(c)) return false;
+            cur = cur->mp[c];
+        }
+        return cur->isEndOfWord;
+    }
+    bool startWith(string word){
+        Trie *cur = root;
+        for(char c:word){
+            if(!cur->mp.count(c)) return false;
+            cur = cur->mp[c];
+        }
+        return true;
+    }
+private:
+    struct TrieNode{
+        TrieNode(){
+            isEndOWord = false;
+        }
+        ~TrieNode(){
+            for(auto child:mp){
+                if(child.second) delete child.second;
+            }
+        }
+        unordered_map<char,TrieNode*> mp;
+        bool isEndOfWord;
+    }        
+    
+    TrieNode* root;    
+};
 
+} 
 
