@@ -76,3 +76,7 @@ vector<TrieNode*> children;
 private:
   TrieNode* root;
 }
+//===========用 map 來表示 ==========
+
+
+
