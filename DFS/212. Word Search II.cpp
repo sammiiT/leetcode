@@ -54,7 +54,7 @@ void helper(vector<vector<char>>& board,
         }
     }
 //----- 下一層 ----
-    if(x+1<board.size()){ 
+    if(x+1<board.size()){ //要先做x,y位置判斷, 因為參數board會牽扯到邊界問題
         helper(board, p->child[board[x+1][y]-'a'], out, x+1, y, visited, res,mp); }
     if(x-1>=0){            
         helper(board, p->child[board[x-1][y]-'a'], out, x-1, y, visited, res,mp); }
