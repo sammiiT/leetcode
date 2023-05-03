@@ -116,14 +116,30 @@ public:
     }
 };
 
+//====
+bool search(vector<vector<char>> &board,
+                string word,
+                int idx,
+                int i,
+                int j,
+                vector<vector<bool>> &visited){
+        
+//        if(idx==word.size()) return true;
+    if(i<0||j<0||i>row-1||j>col-1   //(i,j)不在board範圍之內
+       ||visited[i][j]          //重複讀取
+       ||board[i][j]!=word[idx])//獨取到的數值不滿足word的條件 
+        return false;
+    
+    if(idx==word.size()-1) return true;//放在這邊要word.size()-1
+         
+    bool res;
+    visited[i][j] = true;
+    res = search(board,word,idx+1,i-1,j,visited)//當下的點往左
+        ||search(board,word,idx+1,i+1,j,visited)//當下的點往右
+        ||search(board,word,idx+1,i,j-1,visited)//當下的點往下
+        ||search(board,word,idx+1,i,j+1,visited);//當下的點往上
+    visited[i][j]=false;
+    return res;
+}
 
 
-        // std::unordered_map<char,int> m;
-        // for(int i=0;i<board.size();++i){
-        //     for(int j=0;j<board[0].size();++j){m[board[i][j]]++;}
-        // }
-        // for(int i=0;i<word.size();++i){
-        //     if(m[word[i]] && (--m[word[i]]>=0)){}
-        //     else{return false;}    
-        // }
-        // return true;
