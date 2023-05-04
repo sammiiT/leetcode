@@ -34,6 +34,27 @@ int helper(vector<NestedInteger> ni, int level){
     return res;
 }
 
+//===思路3===
+void helper(NestedInteger& nestInteger, int level, int& res){        
+    if(nestInteger.isInteger()) {
+        res+=(level * nestInteger.getIntger());
+        return;
+    }   
+    for(int i=0;i<nestInteger.getList().size(); ++i){
+        helper(nestInteger.getList()[i],level+1,res);
+    }
+}
+int depthSum(vector<NestedInteger>& nestedList) {
+    int res = 0;
+    for(int i=0; i<nestedList.size(); ++i){
+        helper(nestedList[i],1,res);
+    }
+    return res;
+}
+
+
+
+
 
 /*
 class NestedInteger {
