@@ -62,11 +62,30 @@ int helper1(int perm, int i, vector<int>& visited){
     }
     return count;
 }
-
 int countArrangement(int n) {
     vector<int> visited(n+1,0);
     return helper1(0,0,visited);
 }
+//===思路2的另一種表示====
+(*)用return方式, 計算起來較慢
+int helper1(int level, vector<bool>& visited){
+    if(level==visited.size()) return 1;
+    int count = 0;
+    for(int perm=1; perm<visited.size(); ++perm){
+        if(visited[perm]) continue;
+        visited[perm]=true;
+        if(level%perm==0 || perm%level==0)
+            count = count + helper1(level+1,visited);
+        visited[perm]=false;
+    }            
+    return count;
+}
+
+int countArrangement(int n){
+    vector<bool> visited(n+1,false);
+    return helper1(1,visited);
+}
+
 
 //===思路3===
 (*)思路1的修正,優化
