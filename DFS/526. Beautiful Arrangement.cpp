@@ -15,7 +15,7 @@
 1  2/1
 
 (*)visit過的數字不能再被使用
-(*)每次進入下一層,都從頭開始
+(*)每次進入下一層,都從頭開始; 每進入下一層,就是下一個數值
 (*)如果i滿足題意 perm[i]%i==0   或 i%perm[i], 則繼續, 往下一層執行
 - 直到count==n, 代表beautitul arrangement
 -如果中途有一個不滿足, 則return. 
@@ -67,3 +67,24 @@ int countArrangement(int n) {
     vector<int> visited(n+1,0);
     return helper1(0,0,visited);
 }
+
+//===思路3===
+(*)思路1的修正,優化
+
+void helper(int n, int level, vector<bool>& visited, int& res){
+    if(level==n+1) {//每一個數值都有用到,且排列
+        res++;
+        return;
+    }
+    for(int perm=1; perm<=n; ++perm){
+        if(visited[perm]) continue;
+        visited[perm]=true;
+        if(level%perm==0 || perm%level==0)
+            helper(n,level+1,visited,res);
+        visited[perm]=false;
+        
+    }
+}
+
+
+
