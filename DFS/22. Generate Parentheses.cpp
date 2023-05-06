@@ -39,3 +39,34 @@ vector<string> generateParenthesis(int n) {
     helper(n,n,"",res);
     return res;
 }
+
+//===思路2====
+(*) Parentheses 會用到 stack概念
+
+void helper2(int n, 
+       char c, 
+       string stk, 
+       string& out, 
+       vector<string>& res){
+    if(!stk.empty()&& (stk.back()=='('&&c==')')) stk.pop_back();
+    else stk.push_back(c);
+
+    out.push_back(c);
+    if(out.size()==n){//
+        if(stk.empty()) res.push_back(out);
+        out.pop_back();
+        return;
+    }
+    helper2(n,'(',stk,out,res);
+    helper2(n,')',stk,out,res);
+    out.pop_back();
+}
+
+vector<string> generateParenthesis(int n) {
+    vector<string> res;
+    string stk,out;
+
+    helper2(2*n,'(',stk,out,res);
+    return res;
+}
+
