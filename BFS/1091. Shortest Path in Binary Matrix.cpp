@@ -32,3 +32,41 @@ int shortestPathBinaryMatrix(vector<vector<int>>& grid){
     }
     return -1;
 }
+
+//===思路2===
+time limited exceeded
+
+void helper(vector<vector<int>>& grid, 
+            int x, 
+            int y, 
+            vector<vector<bool>>& visited, 
+            int path, 
+            int& minPath){
+    if(x==grid.size() && y == grid[0].size()) {
+        minPath = min(minPath, path);
+        return;
+    }
+    if(x<0||x>=grid.size()||y<0||y>=grid[0].size()||visited[x][y]||grid[x][y]==1) return;
+
+// grid[x][y]==0;
+    path+=1;
+    visited[x][y]=true;
+    
+    helper(grid,x+1,y,visited,path,minPath);
+    helper(grid,x-1,y,visited,path,minPath);
+    helper(grid,x,y+1,visited,path,minPath);
+    helper(grid,x,y-1,visited,path,minPath);
+    
+    helper(grid,x+1,y+1,visited,path,minPath);
+    helper(grid,x-1,y-1,visited,path,minPath);
+    helper(grid,x+1,y-1,visited,path,minPath);
+    helper(grid,x-1,y+1,visited,path,minPath);
+    visited[x][y]=false;
+}
+
+int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+    vector<vector<bool>> visited(grid.size(),vector<bool>(grid[0].size(),false));
+    int minPath = INT_MAX;
+    helper(grid,0,0,visited,0,minPath);
+    return (minPath==INT_MAX)?(-1):minPath;        
+}
