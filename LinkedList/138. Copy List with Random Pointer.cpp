@@ -7,6 +7,10 @@
 //===思路===
 (*)deep copy概念:
 變數拷貝,數值一樣,但位址不一樣
+(*)遍歷舊的, 順便建立新的
+1.先建立新的鏈結
+2.建立random的map
+3.再依據random map建立新連結的random
 
 //=======
 Node* copyRandomList(Node* head) {
@@ -44,8 +48,6 @@ Node* copyRandomList(Node* head) {
         
 2.再建立random節點; 方向 <---                     
 
-  
-  
 Node* helper(Node* node, unordered_map<Node*, Node*>& m){
     if(!node) return NULL;
     if(m.count(node)) return m[node];
