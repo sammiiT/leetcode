@@ -60,3 +60,22 @@ TreeNode* helper2(ListNode* head) {
     n->right = r;
     return n;
 }
+//===思路3====
+TreeNode* helper3(ListNode* head){
+    if(!head || !head->next){
+        return !head?NULL:new TreeNode(head->val);
+    }
+    ListNode *f,*r,*m=NULL;
+    f=r=head;
+    while(r && r->next){
+        m = f;
+        f = f->next;
+        r = r->next->next;
+    }
+    m->next = NULL;
+    TreeNode* cur = new TreeNode(f->val);
+    cur->left= helper3(head);
+    cur->right= helper3(f->next);
+    return cur;
+}
+
