@@ -17,17 +17,13 @@ class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         if(nums.empty()) return NULL;
-
-		//need second middle: mid = size()/2 +1;   
-		//					index mid = size()/2+1-1;
-		//					index mide = size()/2;
-
+	//need second middle: mid = size()/2 +1;   
+	//					index mid = size()/2+1-1;
+	//					index mide = size()/2;
         int mid = nums.size()/2;//middle node in linked list
         TreeNode* cur = new TreeNode(nums[mid]);
-    
-        vector<int> left(nums.begin(),nums.begin()+mid);
+    	 vector<int> left(nums.begin(),nums.begin()+mid);
         vector<int> right(nums.begin()+mid+1,nums.end());
-        
         cur->left = sortedArrayToBST(left); 
         cur->right= sortedArrayToBST(right);
         return cur;
@@ -35,18 +31,28 @@ public:
     
     TreeNode* sortedArrayToBST_OK(vector<int>& nums) {
         if(nums.empty()) return NULL;
-        
         int s=0,e=nums.size()-1;
         int mid = s+(e-s)/2;
         TreeNode* cur =new TreeNode(nums[mid]);
-        
         vector<int> l(nums.begin(),nums.begin()+mid);//不包含mid
         vector<int> r(nums.begin()+mid+1,nums.end());
-        
         cur->left = sortedArrayToBST(l);
         cur->right= sortedArrayToBST(r);
-        
-        return cur;
-        
+        return cur;   
     }
 };
+
+//===思路2===
+(*)多加兩個參數 start_index和 end_index
+
+TreeNode* helper(vector<int>& nums, int start, int end){
+    if(start>end) return NULL;
+    
+    int mid = start + (end-start+1)/2;
+    TreeNode* cur = new TreeNode(nums[mid]);
+    cur->left = helper(nums,start,mid-1);
+    cur->right= helper(nums,mid+1,end);
+    return cur;
+}
+
+
