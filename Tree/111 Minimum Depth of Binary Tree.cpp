@@ -35,7 +35,7 @@ int minDepth_OK(TreeNode* root){
 		if(root->right) r = minDepth(root->>right);
 		return 1+min(l,r);
 	*/
-	return 1 + min(minDepth(root->left, root->right));
+	return 1 + min(minDepth(root->left), minDepth(root->right));
 }
 
 
