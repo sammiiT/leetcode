@@ -12,6 +12,8 @@
 -每階層的post-order求算完,先計算一次左右兩子節點所構成的depth差值. 並與每層比較,紀錄最大差值
 -回傳最大的depth給上一層,繼續做運算比較
 
+(*)balanced-tree = height balanced-tree
+subtree的左右子樹depth差值不超過"1"
 //=======
 class Solution {
 public:
