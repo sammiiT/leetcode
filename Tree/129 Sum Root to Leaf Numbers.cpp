@@ -14,7 +14,6 @@ public:
         helper(root,"",res);
         return res;
     }
-    
     void helper(TreeNode* root,string s ,int& res){
         if(!root) return;
         
@@ -41,3 +40,22 @@ Explanation :
 	The root - to - leaf path 4->9->1 represents the number 491.
 	The root - to - leaf path 4->0 represents the number 40.
 	Therefore, sum = 495 + 491 + 40 = 1026.
+
+//======思路2=====
+(*)不用string
+每一層進入, 都會在對原來的數值"x10", 再加上當下的root->val
+
+void helper(TreeNode* root, int val, int& res){
+    if(!root) return;    
+    val = val*10+root->val;
+    if(!root->left && !root->right){
+        res+=val;
+        return;
+    }
+    helper(root->left,val,res);
+    helper(root->right,val,res);
+}
+		
+		
+		
+		
