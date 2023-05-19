@@ -17,8 +17,6 @@ void helper0(Node* root, int level, vector<vector<Node*>>& res){
     helper0(root->left, level+1, res);
     helper0(root->right, level+1,res);    
 }
-
-
 Node* connect(Node* root) {
         vector<vector<Node*>> res;
         helper0(root,0,res);
@@ -30,3 +28,19 @@ Node* connect(Node* root) {
         }    
         return root;    
 }
+//===思路2====
+void helper1(Node* root, int level, vector<vector<Node*>>& res){
+    if(!root) return;
+    if(res.size()==level) res.push_back({});
+    if(res[level].size()>0){
+        res[level].back()->next = root;
+    }
+    res[level].push_back(root);
+    root->next = NULL;
+    helper1(root->left,level+1,res);
+    helper1(root->right,level+1,res);
+}
+
+
+
+
