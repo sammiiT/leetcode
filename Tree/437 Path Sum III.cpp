@@ -16,7 +16,7 @@
 void helper(TreeNode* root,long targetSum, int& res){
     if(!root) return;
     targetSum-=root->val;
-    if(targetSum==0) res++;    
+    if(targetSum==0) res++;  //繼續運算下去, 因為有可能接下來的節點也會滿足題意  
 
     if(root->left) helper(root->left,targetSum,res);
     if(root->right) helper(root->right,targetSum,res);
