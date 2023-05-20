@@ -6,6 +6,14 @@
 //===思路===
 (*)方法1:(1-index) k遞減, 每操作一次,就遞減一次, 當k=0,代表執行k次.  => 概念背
 (*)方法2: inoder遍歷tree,並用array紀錄每一個節點, 最後回傳array[k-1]即可
+
+(*)in-order遍歷.
+... 走到下一層的判斷式...       
+inorder(root->left);
+... 回到上一層的判斷式....
+inorder(root->right);
+
+
 //=====
 void helper2(TreeNode* root, int& k, int& res){
         if(!root) return;
