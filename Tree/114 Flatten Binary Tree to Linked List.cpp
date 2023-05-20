@@ -55,6 +55,19 @@ void helper0(TreeNode* root){
     root->right = tmp;
 }
 
+TreeNode* helper4(TreeNode* root){//有return value會造成運算時間拖長
+    if(!root) return NULL;
+    TreeNode* l = helper4(root->left);
+    TreeNode* r = helper4(root->right);
+    if(l){
+        root->left = NULL;
+        root->right = l;
+        while(l->right) l=l->right;
+        l->right = r;
+    }
+    return root;
+}
+
 //===思路====
 class Solution {
 public:
