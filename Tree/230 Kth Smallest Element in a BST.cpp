@@ -18,11 +18,24 @@ void helper2(TreeNode* root, int& k, int& res){
 void helper3(TreeNode* root, vector<int>& res){
     if(!root) return;
     helper2(root->left,res);
-    res.push_back(root->val);    
+    res.push_back(root->val);//最後求[k-1]的數值,即是解    
     helper2(root->right,res);
 }
 
-
+void helper4(TreeNode* root, int& k, int& res){
+    if(!root) return;
+    if(k==0) return;//走到下一層的判斷式.
+    helper4(root->left,k,res);
+    if(k==0) return;//回到上一層時的判斷式
+    if(k>0){
+        --k;
+        if(k==0){
+            res = root->val;
+            return;
+        }
+    }
+    helper4(root->right,k,res);
+}
 
 //======
 class Solution {
@@ -41,7 +54,6 @@ public:
     
     void helper(TreeNode* root, int& k, int& res){
         if(!root) return;
-        
         helper(root->left,k,res);
         k--;
         if(k==0){
@@ -53,7 +65,6 @@ public:
     
     void helper_(TreeNode *node, int k, int& count, int& res){
         if(node==NULL) return;
-        
         helper_(node->left, k, count, res);
         count+=1;
         if(count==k){
