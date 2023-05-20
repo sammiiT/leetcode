@@ -16,7 +16,7 @@ void helper(TreeNode* root, int& res){
 //        return;//有這一行會發生錯誤,因為還有root->right沒有判斷到
     }
     helper(root->left,res);
-    helper(root->right,res);
+    helper(root->right,res);//如果上面有return描述,則此root->right沒有判斷到
 }
 int sumOfLeftLeaves(TreeNode* root) {
         int res = 0;
