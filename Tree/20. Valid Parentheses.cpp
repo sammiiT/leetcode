@@ -11,8 +11,7 @@
 (*)如果stak中沒有element,則stack.top()會錯誤, 
 所以if((stk.top()=='('&&s[i]==')')||(stk.top()=='['&&s[i]==']')||(stk.top()=='{'&&s[i]=='}'))
 沒有任何element在stack中, 則stk.top()造成執行錯誤
-在前面要加上 if(stk.empty()) return false;
-
+在前面要加上 if(stk.empty()) return false;      
 //=====
  bool helper0(string s){
         stack<char> stk;
@@ -28,7 +27,21 @@
         }
         return stk.empty()?true:false;
 }
-
 bool isValid(string s) {
         return helper0(s);
 }
+//====stack概念====
+(*)Stack概念, 此思路比較容易理解
+bool helper3(string s){
+    stack<char> stk;
+    for(int i=0; i<s.size(); ++i){
+        if(!stk.empty()&&(stk.top()=='('&&s[i]==')'||stk.top()=='{'&&s[i]=='}'||stk.top()=='['&&s[i]==']')){
+            stk.pop();        
+        }else{
+            stk.push(s[i]);
+        }
+    }
+    return stk.empty()?true:false;
+}    
+      
+      
