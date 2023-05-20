@@ -20,16 +20,20 @@ isSymetric , isValid 概念一樣:中途遇到就回傳, 做截斷,不會往下�
    此時是找到但一一個節點
 2. 當遇到(l&&r)回傳parent_node,此時在上層的每一層變成判斷l?l:r
 
+
+(*)如何解釋當lowest anscetor等於p或q的情況???
+如果此狀況發生, 則return的描述永遠只會執行return l?l:r;//只會有一個滿足題意, 由post-order遍歷,只會找到一個節點   
+若p和q不在同一個lowest ancestor上, if(l&&r) return root; 會被執行到一次;會找到兩個節點p和q   
 //===
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root==NULL||root==p||root==q) return root;
+        if(root==NULL||root==p||root==q) return root;//截斷下一層, 不往下一層執行
         
         TreeNode* left = lowestCommonAncestor(root->left,p,q);
         TreeNode* right= lowestCommonAncestor(root->right,p,q);
         
-        if(left && right) return root;
+        if(left && right) return root;//回傳上一層, 此層結果傳給上一層; 下一層結果傳給上一層 
         return left?left:right;
         
     }
