@@ -22,10 +22,18 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p){
             }
         }
     }
-    if(cur){//找到p, 判斷有沒有successor
-        if(!stk.empty()) return stk.top();//    
-        if(cur->right) return cur->right;
+    if(cur){
+        if(cur->right){//要先判斷是否有right節點(不能先判斷stk.empty); 先判斷right路徑是inorder的定義; 
+            TreeNode* r = cur->right;
+            while(r->left){ r = r->left; }
+            return r;
+        }
+        if(!stk.empty()) return stk.top();//right路徑, 判斷完之後才能判斷left-route
     }
+/*    if(cur){//找到p, 判斷有沒有successor
+        if(!stk.empty()) return stk.top();//先判斷left-route會有錯誤    
+        if(cur->right) return cur->right;
+    }*/
     return NULL;//沒有找到p,或有找到p但沒有下一個節點(successor)
 }
 //===思路===
