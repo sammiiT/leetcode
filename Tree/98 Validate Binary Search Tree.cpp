@@ -4,7 +4,6 @@
 1104. Path In Zigzag Labelled Binary Tree
 339. Nested List Weight Sum
 
-
 //===思路1====
 (*)inorder概念
 -遍歷過程, 可以記錄前一個節點; 依照inorder特性,與當下節點做比較 
@@ -25,8 +24,6 @@ O2: pre ; O1: cur
 O1: pre ; O5: cur
 O5: pre ; O3: cur
 O3: pre ; O6: cur
-
-
 
 (*)inorder遍歷
 -進入left節點, 會一直往下找left => left->left->left->left
@@ -53,8 +50,6 @@ right->left
 O4          O6
               \
                O7
-    
-
 //=====
 int helper1(TreeNode* root, long& pre){
     if(!root) return true;
@@ -83,6 +78,23 @@ bool isValidBST(TreeNode* root){
     helper0(root,pre,res);
     return res;
 }
+//===思路1-1====
+(*)用inoder,且每次函式return
+(*)
+...(描述) 截斷往下層的運算
+helper(root->left);
+...(描述) 運算當下,且回傳給上層
+helper(root->right);
+
+bool helper3(TreeNode* root,int& pre){
+    if(!root) return true;
+    if(!helper3(root->left)) return false;
+    if(pre>=root->val) return false;
+    pre=root->val;
+    if(!helper3(root->right)) return false;
+    return true;
+}
+
 
 //===思路2===
 (*)pre-order概念
