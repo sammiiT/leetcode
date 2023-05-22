@@ -17,7 +17,20 @@ void inorder(TreeNode* root, int& sum){
         root->val = sum;
         inorder(root->right, sum);
  }
-    
+
+void revInorder(TreeNode* root, int& sum){
+   if(!root) return;
+   //加上這段描述會比較好理解 inorder算法.
+   if(!root->left && !root->right){
+       sum+=root->val;
+       root->val = sum;
+       return;
+   }
+   revInorder(root->right,sum);
+   sum+=root->val;
+   root->val = sum;
+   revInorder(root->left,sum);
+}
 void revInorder(TreeNode* root, int& sum){
         if(!root) return;
         revInorder(root->right,sum);
