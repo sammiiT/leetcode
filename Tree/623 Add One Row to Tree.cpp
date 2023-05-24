@@ -4,7 +4,17 @@
 1650. Lowest Common Ancestor of a Binary Tree III
 2049. Count Nodes With the Highest Score
 //===思路1==== 
-
+(*)停在目標level的"前"一層做運算
+- 新增節點連接下一層, 並指派給當下節點的left 和right
+      O      1
+     / \
+    O   O    2
+   / \ / \ 
+  O  O O  O  3
+    
+depth = 3 ;停在level_2做運算 
+-在level_2做運算,要一次連結兩個節點, left和right; left和right個別由一個節點做連結
+-連接下一層,還要連結上一層    
 //======
 TreeNode* helper1(TreeNode* root, int level, int val, int depth){
     if(!root) return root;
@@ -17,20 +27,7 @@ TreeNode* helper1(TreeNode* root, int level, int val, int depth){
         root->right = r;
         return root;
     }    
-/*    if(level==depth-1){
-        TreeNode *l =NULL,*r=NULL;
-        if(root->left){
-            l = new TreeNode(val);
-            l->left = root->left;
-        }
-        if(root->right){
-            r = new TreeNode(val);    
-            r->right = root->right;
-        }
-        root->left = l;
-        root->right = r;
-        return root;
-    }*/
+
     root->left = helper1(root->left,level+1,val,depth);
     root->right = helper1(root->right,level+1,val,depth);
     return root;
@@ -45,7 +42,26 @@ TreeNode* addOneRow(TreeNode* root, int val, int depth) {
 }
 
 //===思路2
+-停在目標level上做運算
+-把
+TreeNode* helper(TreeNode* root, int val, int depth, bool isleft){
+    if(depth==1){
+        TreeNode* node = new TreeNode(val);
+        if(isleft) node->left = root;
+        else node->right = root;
+        return node;
+    }
+    if(!root) return NULL;//放在最前面會出錯, 因為如果depth是最後一層;新增的一層,放在前面會出錯
     
+    root->left = helper(root->left, val, depth-1, true);
+    root->right = helper(root->right, val, depth-1,false);
+    return root;
+}
+TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+    return helper(root,val,depth,true);
+}
+
+//===    
 TreeNode* helper(TreeNode* root, int level, int isleft, int val, int depth){
 //        if(!root) return NULL;
     if(!root && (level==depth)){
