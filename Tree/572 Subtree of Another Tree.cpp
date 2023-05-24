@@ -6,6 +6,9 @@
 1. match函數就是 isSameTree()
 2.每次執行完一次match函數,就必須再以left,和right為根結點,繼續再執行一次match    
 3.isSubtree就是每次以child節點作為根節點, 再執行一次match
+
+(*)因為是subtree,所以會遍歷到"最後一個節點"...
+"並不是中途一串結點相同"
 //=======
 bool match(TreeNode* root, TreeNode* subRoot){
     if(!root && !subRoot) return true;
