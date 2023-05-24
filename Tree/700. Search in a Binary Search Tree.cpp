@@ -16,7 +16,6 @@
 -如果沒有遇到target,最後會回傳NULL給上層
 - 回傳給上層的節點分別有left和right,要做比較,如果存在TreeNode*,則繼續往上回傳
 
-
   
 (*)用binary search tree的特性,
 -如果小於target就往right找
@@ -25,7 +24,7 @@
 -因為利用binary_tree,所以不會找其他的路徑,所以不會有遇到一邊NULL,一邊TreeNode*
   
 //====
-
+//=== pre-order  
 TreeNode* helper0(TreeNode* root, int val) {
     if(!root) return NULL;
   
@@ -35,7 +34,18 @@ TreeNode* helper0(TreeNode* root, int val) {
     TreeNode* r = searchBST(root->right,val);
     return l?l:r;        
 }
+void helper00(TreeNode* root, int val, TreeNode** res){
+  if(!root || *res) return;
+  
+  if(root->val==val) {
+    *res=root;
+    return;
+  }
+  helper00(root->left,val,res);
+  helper00(root->right,val,res);
+}
 
+//=== post-order
 TreeNode* helper1(TreeNode* root, int val) {
     if(!root) return NULL;
 
@@ -46,10 +56,10 @@ TreeNode* helper1(TreeNode* root, int val) {
     return l?l:r;
 //    return NULL;//不能用此,因為要考慮上一層的l和r
 }
-
+//===binary-search-tree 
 TreeNode* helper2(TreeNode* root, int val){
     if(!root) return NULL;
-    
+    //因為利用binary_tree,所以不會找其他的路徑,所以不會有遇到一邊NULL,一邊TreeNode*
     if(root->val < val){
         TreeNode* t = helper2(root->right,val);
         return t;
@@ -57,8 +67,8 @@ TreeNode* helper2(TreeNode* root, int val){
         TreeNode* t = helper2(root->left,val);
         return t;
     }
-    //()root->val == val)
-    return root;
+
+    return root;//root->val==val
 }
 
 TreeNode* searchBST(TreeNode* root, int val) {
