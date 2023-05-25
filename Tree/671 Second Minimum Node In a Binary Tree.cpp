@@ -27,8 +27,25 @@ int findSecondMinimumValue(TreeNode* root) {
         if(++i==2) res = a.first;   
     return res; 
 }
+//===思路2====
+(*)利用一個陣列做比較,此陣列紀錄兩個數字, 一個紀錄1st_min,一個紀錄2nd_min
+-此陣列元素是long型態
+(*)因為數字可以重複, 所以要多一個判斷式,如程式所示
 
-//===思路2
+void helper(TreeNode* root,vector<long>& smin){
+    if(!root) return;
+    helper(root->left,smin);
+    if(root->val<smin[0]){
+        smin[1]=smin[0];
+        smin[0]=root->val;
+    }else if(root->val==smin[0]){//多一個判斷式,如果沒有此判斷式,重複數值會記錄在smin[1]
+    }else if(root->val<smin[1]){
+        smin[1]=root->val;
+    }
+    helper(root->right,smin);
+}
+
+//===思路3==
 
 //====
 class Solution {
