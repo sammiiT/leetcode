@@ -9,6 +9,7 @@
 2. 從map查找是否有重複的string
 3. 如果重複string, 將node存入vector<TreeNode*>中
 
+(*) subtree: 從leaf開始往上層算的tree
 //===
 string helper0(TreeNode* root, unordered_map<string,int>& m, vector<TreeNode*>& res){
         if(!root) return "@";
