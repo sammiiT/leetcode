@@ -56,3 +56,31 @@ TreeNode* helper1(vector<int>& nums){
         return helper1(nums);
 //        return helper0(nums);
  }
+//====思路====
+[3,2,1,6,0,5]
+
+                  mx                mx 
+                    \                \ 
+mx   6               6                6        
+  \ /               / \              /   \
+   3               3   0            3     5
+    \               \                \    /
+     2               2                2  0  
+      \               \                \
+       1               1                1 
+
+TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+    vector<TreeNode*> s{new TreeNode(INT_MAX)};
+                      
+    for(int i=0;i<nums.size();++i){
+        TreeNode* node = new TreeNode(nums[i]);
+        int temp = nums[i];
+        while(s.back()->val<temp){
+            node->left = s.back();
+            s.pop_back();
+        }
+        s.back()->right = node;
+        s.push_back(node);        
+    }
+    return s[1];
+}
