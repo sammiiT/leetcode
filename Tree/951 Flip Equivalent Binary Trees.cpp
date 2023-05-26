@@ -13,6 +13,10 @@
 -除了最後判斷 (flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left)) 之外
 還要做一個 "||"的判斷, 判斷同樣方向的兩節點是否相等,left_child比left_child, right_child比right_child
 (flipEquiv(root1->left,root2->left) && flipEquiv(root1->right,root2->right))
+    
+(*)DFS概念, 窮舉所有路徑可能 
+- 路徑1:判斷是否為symmetric => (flipEquiv(root1->left,root2->left) && flipEquiv(root1->right,root2->right))
+- 路徑2:同一層節點,經過flip之後是否為symmetric => (flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left))
 //=====
 class Solution{
 public:
