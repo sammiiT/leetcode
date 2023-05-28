@@ -71,3 +71,42 @@ public:
         return root;
     }
 };
+
+//===思路3===
+(*)post-order
+
+TreeNode* helper0(TreeNode* root,int low, int high){
+    if(!root) return NULL;
+    root->left = helper0(root->left,low,high);
+    root->right = helper(root->right,low,high);
+
+    if(root->val>high || root->val<low){//是在[low,high]範圍之外
+        if(!root->left && !root->right) return NULL;//如果節點沒有left和right子節點
+        if(root->val>high && root->left) return root->left;//如果有left節點, 依據BST性質,回傳root->left
+        if(root->val<low && root->right) return root->right;//如果有right節點, 依據BST性質,回傳root->right  
+    }
+    return root;//在[high,low]範圍之內, 直接回傳節點
+}
+
+//====用pre-order會錯誤===
+(*)pre-order會錯誤, 因為在[low,high]範圍之內的節點可能在tree的很底層
+-上層直接回傳之後, 沒有辦法算到底層的節點
+[3,2,4,1]
+low = 1
+high = 1
+=>最後回傳[2,4,1]; 2,4不在範圍內,所以錯誤
+    
+    
+TreeNode* helper1(TreeNode* root, int low, int high){
+    if(!root) return NULL;
+    if(root->val<low || root->val>high){
+        if(!root->left && !root->right) return NULL;
+        if(root->val>high && root->left) return root->left;
+        if(root->val<low && root->right) return root->right;   
+    }
+    root->left = helper(root->left,low,high);
+    root->right = helper(root->right,low,high);
+    return root;
+}
+
+
