@@ -3,6 +3,24 @@
 170. Two Sum III - Data structure design
 1214. Two Sum BSTs
 //===思路===
+(*)pre-order 概念 + DFS
+(*) helper(root->left,k,map)||helper(root->right,k,map);
+-兩個路徑,left和right, 如果有一個滿足, 即可滿足
+
+int helper(TreeNode* root, int k, unordered_map<int,int>& map){
+    if(!root) return false;
+    if(map.count(k-root->val)){
+        return true;
+    }else {
+        map[root->val] = 1;
+    }
+   return helper(root->left,k,map)||helper(root->right,k,map);
+}
+
+bool findTarget(TreeNode* root, int k) {
+    unordered_map<int,int> m;
+    return helper(root,k,m);
+}
 
 //=======
 class Solution {
@@ -15,8 +33,6 @@ public:
         
         return res?true:false;
     }
-    
-    
     void helper(TreeNode* root,int k,unordered_map<int,int>& m,int& res){
         if(!root) return;
         
@@ -29,8 +45,6 @@ public:
         
         helper(root->right,k,m,res);
     }
-    
-    
     void helper_2(TreeNode* root, 
                   int k, 
                   unordered_map<int,int>& m,
