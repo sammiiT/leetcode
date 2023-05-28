@@ -1,8 +1,9 @@
 //===類似題===
 1124. Longest Well-Performing Interval
 1676. Lowest Common Ancestor of a Binary Tree IV
-//===思路====
 
+同865 Smallest Subtree with all the Deepest Nodes
+//===思路====
 (*)smallest subtree with deepest node
 - 如果有兩個以上的deepest node, 則要找到其common ancestor
 - 如果只有一個deepsett node, 只要回傳此deepest node; 
