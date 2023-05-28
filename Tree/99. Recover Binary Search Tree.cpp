@@ -16,7 +16,6 @@
 因為此思路是每一個節點都去跟子節點做比對
 那種題型會發生不只一個順序對調的節點, 某一child tree的節點會全部大於root,或 全不小於root
 //=====================================
-
 void vectorExpand(TreeNode* root,vector<TreeNode*>& nums){//將tree展開為陣列
         if(!root) return;
         vectorExpand(root->left, nums);
@@ -44,4 +43,30 @@ void helper0(TreeNode* root){
 void recoverTree(TreeNode* root) {
         helper0(root);
 }
+//===思路2=====
+1.宣告vector<int>, vector<TreeNode*>
+2.用inorder遍歷,紀錄每一個node和node->val到對應的vector中
+3.先sort vector<int>
+4.for 迴圈將按照順序的vector<int>數值寫入vector<TreeNode*>數值中
+
+void inorder(TreeNode* root, vector<int>& o,vector<TreeNode*>& t){
+    if(!root) return;
+    inorder(root->left,o,t);
+    o.push_back(root->val);
+    t.push_back(root);
+    inorder(root->right,o,t);
+}
+void helper1(TreeNode* root){
+    vector<int> o;
+    vector<TreeNode*> t;
+    inorder(root,o,t);
+    sort(o.begin(),o.end());
+    for(int i=0;i<o.size();++i){
+        t[i]->val=o[i];
+    }
+}
+    void recoverTree(TreeNode* root) {
+//        helper0(root);
+        helper1(root);
+    }
 
