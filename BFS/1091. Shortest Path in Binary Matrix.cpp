@@ -32,9 +32,33 @@ int shortestPathBinaryMatrix(vector<vector<int>>& grid){
     }
     return -1;
 }
+//===作法2
+int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+    int m=grid.size(),n=grid[0].size();
+    vector<vector<bool>> visited(m,vector<bool>(n,false));
+    if(grid[0][0]) return -1;
 
+    vector<vector<int>> dirs{{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};    
+    queue<vector<int>> q;
+    q.push({0,0,1});
+    visited[0][0]=1;
+
+    while(!q.empty()){
+        vector<int> p=q.front();q.pop();
+        if(p[0]==m-1 && p[1]==n-1) return p[2];
+        for(auto dir:dirs){
+            int x=p[0]-dir[0],y=p[1]+dir[1];
+            int count = p[2];
+            if(x<0||x>=m||y<0||y>=n||grid[x][y]||visited[x][y]) continue;
+            visited[x][y]=1;
+            q.push({x,y,count+1});
+        }
+    }
+    return -1;
+
+}
 //===思路2===
-time limited exceeded
+(*)DFS算法會造成time limited exceeded
 
 void helper(vector<vector<int>>& grid, 
             int x, 
