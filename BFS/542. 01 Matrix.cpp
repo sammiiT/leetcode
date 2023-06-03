@@ -4,6 +4,8 @@
 2123. Minimum Operations to Remove Adjacent Ones in Matrix
 2482. Difference Between Ones and Zeros in Row and Column
 //===思路===
+(*)BFS算法
+1.記錄數值為"0"的位置到queue中, 將數值為"1"的位置更改為INT_MAX
 
 
 //=======
@@ -23,6 +25,7 @@ vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         pair<int,int> p = q.front(); q.pop();
         for(auto dir:dirs){
             int x=p.first+dir[0], y=p.second+dir[1];
+//            if(x<0||x>=m||y<0||y>=n||mat[p.first][p.second]+1>=mat[x][y]) continue;
             if(x<0||x>=m||y<0||y>=n||mat[x][y]<=mat[p.first][p.second]+1) continue;
 //            matrix[x][y]>matrix[p.first][p.second]+1
                 mat[x][y]=mat[p.first][p.second]+1;
