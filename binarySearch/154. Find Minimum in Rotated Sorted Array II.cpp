@@ -45,7 +45,6 @@ int findMin(vector<int>& nums) {
     //return helper_1(nums);
     return helper0(nums);
 }
-
 //====fail====
 int helper1(vector<int>& nums){
     int l=0, r = nums.size()-1;
@@ -67,3 +66,42 @@ int helper1(vector<int>& nums){
     }
     return nums[0];
 }
+
+//===思路====
+(*)沒有明確的target, 要取遞增方向 或 遞減方向 來定義"判斷條件"
+要取遞增方向: l = m+1;
+- nums[m]<nums[r] 
+
+
+要取遞減方向: r = m;
+- nums[m]>nums[r]
+
+因為有重複數字發生
+r--; //[3,3,1,3]
+取到first-middle = 3, 與nums[r]=3
+所以r要退一個位置=> r--;
+
+
+int helper3(vector<int>& nums){
+    int l = 0, r = nums.size()-1;
+    int m;
+    
+if(nums[l]>=nums[r]){
+    while(l<r){
+        m = l+(r-l)/2;
+        if(nums[m]>nums[r]){
+            l = m+1;
+        }else if(nums[m]<nums[r]){
+            r = m;
+        }else{
+            r--;
+//          r = m;//[3,3,1,3] incorrect
+        }
+    }
+    return nums[r];
+}
+return nums[0];
+}    
+
+
+
