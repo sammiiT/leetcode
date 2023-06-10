@@ -4,6 +4,7 @@
 1788. Maximize the Beauty of the Garden
 2373. Largest Local Values in a Matrix
 
+(*)搜尋概念跟 1095. Find in Mountain Array 相似
 //===思路===
 題意:找到一個數值, 陣列中大於此數值的改成此數值, 最後將所有的數值相加, 最靠近target的, 即回傳
 
@@ -16,14 +17,23 @@ int l = 0, r = target;  //靠數值查找
 1. 每找出一個middle值, 則判斷(middle)值和(middle+1)所構成的 差值是否滿足題意
 - 如果middle的差值>(middle+1)差值 => 往middle+1方向,會越來越靠近target => l = m+1;
 - 如果middle差值<=(middle+1)差值=> 往middle方向,會越來越靠近target => r = m;
+-----------
+(*)從0 ~ target中找到一個數值, 
+(*)使大於此數值的array_element;array[i]; 在更改為此數值之後, 相加所有array element會最接近target
+(*) 往遞增方向, 比較接近minimum => l = m+1;
+    往遞減方向, 比較接近minimum => r = m;
+
+if(diff(arr,m+1,target) < diff(arr,m,target)) l = m+1;//往遞增方向,比較逼近minimum
+else //diff(arr,m+1,target)>= diff(arr,m,target) 往遞減方向, 比較接近minimum 
+    r = m;
 
 //=======
 int diff(vector<int>& arr, int mid, int target){
     int res = 0;
     for(auto num:arr){
-        res = res + min(mid,num);
+        res = res + min(mid,num);//因為larger than 要修改, 所以用min
     }
-    return abs(res-target);
+    return abs(res-target);//所有的sum和target的差值
 }
 int helper0(vector<int>& arr, int target){
     int l = 0, r = target;
@@ -36,6 +46,6 @@ int helper0(vector<int>& arr, int target){
     return r;
 }
 
-    int findBestValue(vector<int>& arr, int target) {
+int findBestValue(vector<int>& arr, int target) {
         return helper0(arr,target);
-    }
+}
