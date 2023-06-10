@@ -5,6 +5,10 @@
 2100. Find Good Days to Rob the Bank
 
 //===思路===
+(*) mountain array (單一一個mountain)
+-可以利用binary search方式求出peak index
+(*)找到peak index之後, 分為左半部, 右半部 搜尋target
+
 
 //===
 int helper(MountainArray &mountainArr,int target, int l, int r, bool isAsc){
