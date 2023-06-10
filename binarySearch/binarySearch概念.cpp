@@ -142,8 +142,19 @@ while(l<r) {
 =>若 r=nums.size()-1; while(l<=r) 還是會出錯, 因為最後不滿足條件 (l=6)>=(r=5)           
   最後回傳還是r, r並沒有改變;所以錯誤.
 
-//===用seconde_middle來解題目===             
-             
+//===用seconde_middle來求 解===             
+ int binarySearch(vector<int>& nums, int target){
+    int l = 0, r = nums.size();
+    int m =0;
+    while(l<r){
+        m = l+(r-l+1)/2;
+        if(nums[m]<=target) l = m;
+        else //nums[m]>target
+            r=m-1;
+    }
+    return l;
+}
+            
              
 //==============================================================
 
@@ -197,7 +208,7 @@ int upper_bounded(vector<int>& nums, int target){
       if(nums[m]<=target) left = m+1;//若target發生在m, 但left=m+1, 會造成找到>target的最小位址
       else right = m;                //用在upper_bound
    }
-   return r;
+   return r;//可以用 return left;????
 }
 
 int upper_bounded(vector<int>& nums, int target){
@@ -212,12 +223,16 @@ int upper_bounded(vector<int>& nums, int target){
       }                
    }
    return right;
-}          
+}     
            
 此binary search的回傳值 => upper_bound(v.begin(),v.end(),target)
 upper_bound = 找出(>)大於target的最小值的位置
 
 
+(*)用second_middle           
+           
+           
+           
 //=======分析==============
 
 =>解有可能存在,有可能不存在陣列中
