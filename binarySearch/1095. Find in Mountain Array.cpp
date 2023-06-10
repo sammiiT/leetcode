@@ -4,11 +4,12 @@
 1671. Minimum Number of Removals to Make Mountain Array
 2100. Find Good Days to Rob the Bank
 
+(*)概念與 1300. Sum of Mutated Array Closest to Target 相似
+    
 //===思路===
 (*) mountain array (單一一個mountain)
 -可以利用binary search方式求出peak index
 (*)找到peak index之後, 分為左半部, 右半部 搜尋target
-
 
 //===
 int helper(MountainArray &mountainArr,int target, int l, int r, bool isAsc){
@@ -33,11 +34,11 @@ int findInMountainArray(int target, MountainArray &mountainArr) {
     int l=0, r=mountainArr.length()-1,peak = -1;
     while(l<r){
         int m = l +(r-l)/2;
-        if(mountainArr.get(m)<mountainArr.get(m+1)) l = m+1;
+        if(mountainArr.get(m)<mountainArr.get(m+1)) l = m+1;//往遞增方向 ,較接近maximum
         else //mountainArr.get(m)>=mountainArr.get(m+1)
-            r = m;
+            r = m;;//往遞減方向 較接近 maximum
     }//l==r,  not out of range
-    peak = r;
+    peak = r;//找到maximum index
 //    peak = l;
     if(mountainArr.get(peak)==target) return peak;
     int idx1 = helper(mountainArr,target,0,peak-1,true);
