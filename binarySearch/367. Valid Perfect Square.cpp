@@ -5,6 +5,14 @@
 651. 4 Keys Keyboard
 //===思路===
 (*)binary search
+
+(*)左極限=1到右極限num, 遞增數列
+(*) 判斷範圍  while(l<r) =>最後若回傳右極限 r=num
+(*)取中間值並求對應的平方數
+- 如果平方數小於num , 則選擇的數值太小, 需往遞增的方向增加 l = m+1
+- 如果平方數大於等於num , 則選擇的數值太大, 需往遞減的方向 r = m;
+- 如果最後得到的數值再算一次平方, 判斷是否為num, 如果是, 則true, 否 回傳false
+
 //======
 bool isPerfectSquare(int num) {
     long l=1,r=num;
