@@ -39,9 +39,38 @@ int helper1(vector<int>& nums, int k){
   }
   return (split_count(nums,r)<k)?0:r;
 }
+//====思路=========
+(*)長度會反映切割的segment數目
+(*)robbin中,長度最短的作為右極限 r = minimum_robbin
+(*)左極限 l=1, 右極限 r=minimum_robbin 作為binary search的運算元素; 遞增特性
+(*)每取到一段長度 經運算, 可以得到總segment數目
+- segment 越多, 代表長度要變長, 所以往長度長的方向移動 l=m+1
+- segment 越少, 代表長度要變短, 所以往長度短的方向移動 r = m;
+    
+int seg_count(vector<int> nums,int length){
+    int res = 0;
+    for(int num:nums)
+        res+=res/length;
+    return res;    
+}
 
+int helper0(vector<int>& nums, int k){
+    int l = 1, r =INT_MAX;//  minimum length to maximum length
+    for(auto num:nums) r = min(r,num);//找到最小長度的那一個robbin
+     
+    while(l<r){
+        int m = l+(r-l)/2;
+        //length + , k -
+        if(seg_count(nums,m) > k) //segment越多, 代表長度要變長,所以往長度長的方向移動  
+            l=m+1;//length變長, segment就變少
+        else //seg_count(nums,k) <= k ; segment越少,代表長度要變少, 所以往長度短的地方移動
+            r = m;//length截短, segment就會變多
+    } 
+    //return r;
+    return seg_count(nums,r)<k?0:r;
+}
 
-//====以下方式,沒辦法找到分割成1,1,1,1...的解
+//====以下方式,沒辦法找到分割成1,1,1,1...的解....???===> 運算是可以找到
 int helper0(vector<int>& nums, int k){
     int l,r;
     sort(nums.begin(),nums.end());
