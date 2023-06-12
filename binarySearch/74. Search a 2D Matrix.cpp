@@ -79,8 +79,40 @@ bool helper1(vector<vector<int>>& matrix, int target){
     else return true;
   }
   return false;
-
 }  
+//===思路===
+  (*)row和column方向皆用binary+search
+  1.先對row方向做binary_search
+  2.找到target所在的row之後, 再對column方向做binary_search
+  
+  bool searchMatrix(vector<vector<int>>& mat, int target){
+    int row;
+    int l = 0, r = mat.size()-1;//先對row方向做搜尋
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(mat[m][0]<target) l = m+1;
+        else//mat[m][0]>=target
+            r = m;
+    }
+    
+    if(mat[r][0]==target) return true;//剛好等於target
+    
+    if(mat[r][0]>target){ row = r-1; //如果找到的是upper_bound, 則發生target的地方在r-1 row
+    }else if(mat[r][0]<target){ row = r; }//如果找到的位址小於target, 則在原r搜尋
+    if(row<0) return false;//如果 r-1<0 ; 例如 [[1]], target==0; 會發生r-1<0狀況
+
+    l=0, r=mat[row].size();
+    while(l<r){//再用binary_search找一次
+        int m = l+(r-l)/2;
+        if(mat[row][m]<target) l=m+1;
+        else//
+            r = m;
+    }
+    return r>=mat[row].size()?false:(mat[row][r]==target)?true:false;
+}
+    
+    
+  
   
   
   
