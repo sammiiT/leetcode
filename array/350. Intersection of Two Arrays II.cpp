@@ -23,6 +23,18 @@ vector<int> helper0(vector<int>& nums1, vector<int>& nums2){
     return res;
 }
 
+vector<int> helper2(vector<int>& nums1, vector<int>& nums2){
+    vector<int> res;
+    unordered_map<int,int> mp;
+    for(int num:nums1) mp[num]++;
+    for(int i=0;i<nums2.size();++i){
+        if(mp.count(nums2[i]) && mp[nums2[i]]){
+            res.push_back(nums2[i]);
+            mp[nums2[i]]--;
+        }
+    }
+    return res;
+}
 vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
     return helper0(nums1,nums2);
 }
