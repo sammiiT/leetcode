@@ -10,6 +10,11 @@
 2.以first_middle作為 minimum largest
 -如果first_middle可以繼續分割, 分割數<=k(期望分割數), 所以設定較小的minimum_largest; r = m;
 - 如果first_middle運算的分割數>k(期望分割數), 則要設定較大的minimum_largest; l = m+1
+
+(*)如果largest數值越大, 代表可以分割的數區間越少, 
+- 回傳 true, 要往較小的largest方向移動  r=m;
+(*)如果largest數值越小, 代表可以分割的區間越多 
+-回傳false, 要往較大largest的方向移動 l=m+1;
   
 //=========
 
