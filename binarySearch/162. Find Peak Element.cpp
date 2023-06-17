@@ -7,7 +7,7 @@
 //===思路====
 (*)將邊界 定義在index=1 ~ index=nums.size()-1
 -index=1開始是因為first-middle會落在index=0的位置, 
--if(nums[m]>nums[m+1] && nums[m]>nums[m-1]) 沒有設定index=1,前面描述會錯誤
+-if(nums[m]>nums[m+1] && nums[m]>nums[m-1]) 沒有設定index=1,前面描述會錯誤 (index出現負值)
   
  while(l<r) => 最後l==r 會落在 index=1 或index=nums.size()-1
    
