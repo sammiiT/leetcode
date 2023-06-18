@@ -31,6 +31,39 @@ int helper0(vector<int>& nums, int k){
     return  res;
 }
 
-    int longestOnes(vector<int>& nums, int k) {
-        return helper0(nums,k);
+int longestOnes(vector<int>& nums, int k) {
+  return helper0(nums,k);
+}
+
+//===思路2====
+(*) sliding window
+(*) for(int j=-1,i=0;i<nums.size();++i) 
+- i是陣列中的每一個index
+- j是前一個
+  
+(*)當 nums[i]==0
+- k>0 對k--;  
+- k==0 對j做運算, 直到下一個nums[j]==0時停止
+-- 前面的0 排除, 後面的0新加進去  
+      j     i  => res = max(res,j-j); 
+      V     v 
+1,1,1,0,1,1,0,1
+
+//=============  
+int longestOnes(vector<int>& nums, int k){
+    int res = 0;
+    for(int j=-1, i=0; i<nums.size(); ++i){
+        if(nums[i]==0){
+            if(k) --k;
+            else{
+                do{ ++j;
+                } while(nums[j]);
+            }
+        }
+        res = max(res,i-j);
     }
+    return res;
+}
+
+
+
