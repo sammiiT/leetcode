@@ -22,10 +22,9 @@ int helper0(vector<int>& nums, int k){
     for(r=0; r<n; r++){
         k=k-(nums[r]==0);
         if(k>=0) res = max(res,r-l+1);
-        
         while(k<0){
             k=k+(nums[l]==0);
-            ++l;
+            ++l;//最後會跳過前面的'0'
         }
     }
     return  res;
