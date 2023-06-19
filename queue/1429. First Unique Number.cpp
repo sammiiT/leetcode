@@ -76,6 +76,60 @@ private:
     vector<int> arr;
 };
 
+//===思路3====
+1.建立unordered_map<int,pair<int,int>>
+-建立出現的value,對應的first_index和出線的次數count
+    
+2.建立map<int,int> //index, value
+-紀錄只有出現一次的index, 對應其value
+    
+3.建立一變數,紀錄加入數值之後對應的index
+- index=0, 初始值為0 ; 代表 "先賦值,再進位"
+    
+class FirstUnique{
+public:
+    FirstUnique(){index=0;}
+    FirstUnique(vector<int> nums){
+        index = 0;
+        for(int i=0;i<nums.size();++i){
+            if(ump.count(nums[i])){
+                ump[nums[i]].second+=1;
+                mp.erase(ump[nums[i]].first);
+            }else{//第一次出現,紀錄
+                ump[nums[i]].first = i;//第一次發生的位置
+                ump[nums[i]].second = 1;//出現次數
+                mp[i]=nums[i];//紀錄index對應的數值
+            }            
+            index++;
+        }
+    }
+    
+    int showFirstUnique(){
+        map<int,int>::iterator it = mp.begin();//讀取map中的第一個element
+        if(it==mp.end()) return -1;//如果沒有element,則回傳-1
+        return it->second;
+    }
+    
+    void add(int value){
+        if(ump.count(value)){
+            ump[value].second+=1;
+            mp.erase(ump[value].first);
+        }else{
+            ump[value].first = index;
+            ump[value].second = 1;
+            mp[index]=value;
+        }
+        index++;
+    }    
+private:
+int index;
+unordered_map<int,pair<int,int>> ump;//value, first_index,count
+map<int,int> mp;//index, value
+};
+
+//===
+
+
 //測試
 int main()
 {
