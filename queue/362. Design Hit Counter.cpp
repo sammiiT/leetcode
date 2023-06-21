@@ -1,6 +1,48 @@
 //===類似題===
 
-//===思路===
+
+//===思路1===
+(*) count hit in the past 5 minutes, 表示, 差距300要重新計算
+- 1~301=>差距300
+- 0~300=>差距299
+- 300~600=>差距300
+
+從1開始,所以是1-index ; 1~10算一個part
+從0開始, 0-index; 0~9算一個part
+    
+(*) q.front()與timestamp差距為300時, 執行q.pop();
+(*) 在hit()中, 判斷上述, 最後執行q.push(timestamp); 
+(*) 在getHits()中, 判斷上述, 最後執行返回q.size();
+
+class HitCounter {
+public:
+/*
+0-index: 0~9     0~299
+1-index: 1~10    1~300 ==>*/
+    HitCounter() {}
+    void hit(int timestamp) {
+        while(!q.empty()){
+            if(timestamp-q.front()>=300) q.pop();
+            else break;
+        }
+        q.push(timestamp);
+    }
+    int getHits(int timestamp) {
+        while(!q.empty()){
+            if(timestamp-q.front()>=300) q.pop();
+            else break;
+        }
+        return q.size();
+        
+    }
+private:
+    queue<int> q;
+};
+
+
+
+
+//===思路2=== 用思路1比較好
 (*)用queue
 1. 用queue存入每一個timestamp
 2. getHits呼叫, 將中pop的timestamp與getHits的timestamp 取差值; 並依據題意:
