@@ -97,5 +97,39 @@ bool hasNext() {
 private:
     queue<pair<vector<int>::iterator, vector<int>::iterator>> q;
 
+//===思路4====
+1. zigzag遍歷, 加入queue<int>中
+
+class ZigzagIterator {
+public:
+  ZigzagIterator(vector<vector<int>>& v) {
+    int m=0;
+    for(vector<int> arr:v){
+      m = max(m,(int)arr.size());
+      mat.push_back(arr);
+    }
+    for(int j=0;j<m;++j){
+        for(int i = 0; i<mat.size(); ++i){
+          if(j<mat[i].size()){ q.push(mat[i][j]); }
+      }
+    }
+  }
+
+  int next() {
+    int ret = q.front();
+    q.pop();
+    return ret;
+  }
+
+  bool hasNext() {
+        return !q.empty();
+  }
+private:
+    vector<vector<int>> mat;
+    queue<int> q;
+    
+};
+
+
 
 
