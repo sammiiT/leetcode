@@ -100,6 +100,13 @@ private:
 //===思路4====
 1. zigzag遍歷, 加入queue<int>中
 
+O O O    => v1
+O O O O  => v2 
+O O      => v3
+
+將v1,v2,v3皆push到matrix中,再縱向遍歷
+
+
 class ZigzagIterator {
 public:
   ZigzagIterator(vector<vector<int>>& v) {
@@ -108,7 +115,7 @@ public:
       m = max(m,(int)arr.size());
       mat.push_back(arr);
     }
-    for(int j=0;j<m;++j){
+    for(int j=0;j<m;++j){//縱向遍歷
         for(int i = 0; i<mat.size(); ++i){
           if(j<mat[i].size()){ q.push(mat[i][j]); }
       }
