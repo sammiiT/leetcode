@@ -16,7 +16,7 @@
 struct cmp{
     bool operator()(pair<string,int> a, pair<string,int> b){
         return a.second < b.second || (a.second == b.second && a.first > b.first);
-                //比較多的排前面                            //比較小的lexicographical order排前面
+                //比較多的排前面        //若兩sting出現次數相等, 則比較小的lexicographical order排前面
     }
 };
 vector<string> helper0(vector<string>& words, int k){
