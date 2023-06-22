@@ -41,3 +41,24 @@ int helper1(int n, int k){//queue
     }
     return q.front();
 }
+//===思路3===
+(*)queue做題
+
+int helper2(int n,int k){
+    int ret;
+    queue<int> q;
+    for(int i=1;i<=n;++i) q.push(i);
+    
+    while(!q.empty()){
+        int t = k;
+        while(t>1){
+            int f = q.front();
+            q.pop();
+            q.push(f);
+            --t;
+        }
+        ret = q.front();
+        q.pop();
+    }
+    return ret;
+}
