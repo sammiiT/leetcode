@@ -49,3 +49,62 @@ string longestDiverseString(int a, int b, int c) {
     return helper1(a,b,c);
 }
 
+//===思路2====
+
+string longestDiverseString(int a, int b, int c){
+    int cntx,cnty;
+    string res;
+    priority_queue<pair<char,int>,vector<pair<char,int>>,cmp> pq; 
+    if(a>0) pq.push({'a',a});
+    if(b>0) pq.push({'b',b});
+    if(c>0) pq.push({'c',c});
+
+    while(pq.size()>=2){
+        pair<char,int> x = pq.top();pq.pop();
+        pair<char,int> y = pq.top();pq.pop();
+        
+        if(x.second-y.second>=2){//個數差2
+            cntx = 2;
+            cnty = 1;
+        }else if(x.second-y.second==1){//個數差1
+            // oox   
+            if(x.second<=2 && y.second<=1){
+                cntx = 2;
+                cnty = 1;
+            }
+            //ooo xx
+            if(x.second>2 && y.second >1){
+                cntx = 2;
+                cnty = 2;
+            }
+        }else{//x.second==y.second
+            if(x.second==2 && y.second==2){//個數差0
+                cntx = 2;
+                cnty = 2;
+            }else{//x.second==1 && y.second==1
+                cntx = 1;
+                cnty = 1; 
+            }           
+        }
+
+        res = res +string(cntx,x.first);
+        res = res +string(cnty,y.first);
+        x.second -=cntx;
+        y.second -=cnty;
+        if(x.second>0) pq.push({x.first,x.second});
+        if(y.second>0) pq.push({y.first,y.second});
+    }
+
+    if(pq.size()==1){
+        pair<char,int> x = pq.top();pq.pop();
+        cntx = (x.second>=2)?2:1;
+        res = res + string(cntx,x.first);
+    }
+    return res;
+}
+
+
+
+
+
+
