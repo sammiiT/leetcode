@@ -34,5 +34,17 @@ Bob取                   |    /--Alice取
     }
     return res;
 }                        
-                         
-                         
+//==============                         
+int maxCoins(vector<int>& piles) {
+    int res = 0;
+    int n = piles.size();
+    int l = 0, r = n-1;
+    sort(piles.begin(),piles.end());
+    r--;
+    while(l<r){
+        res+=piles[r];
+        ++l;
+        r-=2;
+    }
+    return res;
+}
