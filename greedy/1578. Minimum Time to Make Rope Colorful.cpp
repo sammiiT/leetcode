@@ -76,4 +76,68 @@ int helper1(string colors, vector<int>& neededTime){
     return res;
 }
 
+//===思路3====
+(*)出現連續相同的顏色,比較時間
+(*)兩顏色不適連續, 則更換比較標的
+(*) priority_queue
+1.priority_queue<pair<char,int>>
+- char = color[i]
+- int = neededTime[i]
+2.遍歷colors陣列, 
+- 如果當下color等於前一個color, 則比較neededTime大小, pop出較小的time並累加
+- 如果當下color不等於前一個color, 則pop元素, 再重新push新的color
 
+
+
+static struct cmp{
+    bool operator()(pair<char,int> a, pair<char,int> b){
+        return a.second>b.second;
+    }
+};
+int minCost(string colors, vector<int>& neededTime){
+    priority_queue<pair<char,int>,vector<pair<char,int>>, cmp> pq;
+    int res = 0;
+    
+    pq.push({colors[0],neededTime[0]});
+    
+    for(int i=1; i<colors.size(); ++i){
+        if(colors[i]==pq.top().first){
+            pq.push({colors[i],neededTime[i]});
+            res += pq.top().second;
+            pq.pop();
+        }else{//colors[i]!=pq.top().first;
+            pq.pop();
+            pq.push({colors[i],neededTime[i]});
+        }
+    }
+    return res;
+}
+//===思路4===
+(*)用unordered_map做題
+
+int helper2(string colors, vector<int>& neededTime){
+    unordered_map<char,pair<int,int>> map;//color, index, maximum_timecout
+    int res = 0;
+    
+    for(int i=0; i<colors.size(); ++i){
+        char c = colors[i];
+        
+        if(map.count(c)){
+            if(map[c].first+1 == i){
+                if(neededTime[i]>=map[c].second) {
+                    res += map[c].second;
+                    map[c].second = neededTime[i] ;       
+                }else{
+                    res+=neededTime[i];          
+                }
+                map[c].first=i;
+            } else {
+                map[c].first = i;
+                map[c].second = neededTime[i];
+            }
+        }else{
+            map[c] = {i,neededTime[i]};
+        }
+    }
+    return res;
+}
