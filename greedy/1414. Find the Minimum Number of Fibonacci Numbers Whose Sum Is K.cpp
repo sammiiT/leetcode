@@ -68,19 +68,19 @@ int findMinFibonacciNumbers(int k){
     vector<int> fib;
     fib.push_back(0);//f0
     fib.push_back(1);//f1  
-    while(fib.back()<k){
+    while(fib.back()<k){//列出數列,直到最後一個數值大於等於目標值K
         fib.push_back(fib[n-2]+fib[n-1]);
         ++n;
     }
     if(fib.back()==k) return 1;
 
-    n=0;
+    n=0;//計算次數
     while(k>0){
-        if(fib.back()<=k){
+        if(fib.back()<=k){//當back()小於目標值K, k=k-back(); 並做為下一下計算的基準.
             k-=fib.back();
             n++;
         }
-        fib.pop_back();
+        fib.pop_back();//back()>k 或 back()<=k 都要做 pop_back(), 作為下一次比較的基準
     }
     return n;
 }
