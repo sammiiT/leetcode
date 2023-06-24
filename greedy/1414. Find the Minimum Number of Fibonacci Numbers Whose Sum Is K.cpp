@@ -47,6 +47,43 @@ int findMinFibonacciNumbers(int k) {
     }
     return cnt;
 }
+//===思路2===
+(*)任何一數, 都可以從fibonacci數列的數做累加總和
+Fibonacci: 0、1、 1、 2、 3、 5、 8、 13、 21、 34、 55、 89、 144、 233、 377、 610、 987
+k=12 , 可以選 8,3,1
+k=11 , 可由  8,3
+
+1.目標數值k ; 
+2.先依次紀錄fibonacci的每一項數值, 直到fibonacci(i)>=k
+3.如果fibonacci(i)==k 則, 回傳1(個)
+4.利用greedy概念, k與數列back()做比較, 
+- k => back(); 則k-=back();   再對數列做pop_back()操作, 下一次的操作基準值為k
+- k<back(); 直接做pop_back操作
+5. 當不滿足 (k>0)的條件, 則跳出迴圈
+6. 第(4)計算的次數即為解 .   
+
+//===
+int findMinFibonacciNumbers(int k){
+    int n = 2;//從index-2開始算起
+    vector<int> fib;
+    fib.push_back(0);//f0
+    fib.push_back(1);//f1  
+    while(fib.back()<k){
+        fib.push_back(fib[n-2]+fib[n-1]);
+        ++n;
+    }
+    if(fib.back()==k) return 1;
+
+    n=0;
+    while(k>0){
+        if(fib.back()<=k){
+            k-=fib.back();
+            n++;
+        }
+        fib.pop_back();
+    }
+    return n;
+}
 
 //=== fibonacci數列 ===
 
