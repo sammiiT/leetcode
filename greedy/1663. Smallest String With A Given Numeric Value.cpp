@@ -13,6 +13,10 @@
 
 4.當k==0時,代表lexicographically smallest 字串已完成, 即為解
 
+(*)
+int d = min(k,25);//不在同一坐標系, 可以互相比較???
+                  //化作同一坐標系, 出現min(25,25), 其回傳值還是25
+    
 //====
 string getSmallestString(int n, int k) {
     string res(n,'a');
