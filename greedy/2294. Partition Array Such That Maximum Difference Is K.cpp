@@ -21,6 +21,12 @@
 
 -如果[i]-[j]<=k , 則continue;
 
+(*)
+-minimum number of subsequences
+選越多array元素, 則得到越少的 subsequence
+
+(*)最後的結果再加1,因為有可能發生sequence不會超過k的壯況
+
 //===
 int partitionArray(vector<int>& nums, int k) {
       int i,j,res=0,n = nums.size();
