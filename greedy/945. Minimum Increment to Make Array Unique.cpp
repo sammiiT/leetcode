@@ -39,3 +39,21 @@ int minIncrementForUnique(vector<int>& A) {
     }
     return res;
 }
+//===思路3===
+int minIncrementForUnique(vector<int>& nums) {
+    int res = 0;
+    int tmp;
+    sort(nums.begin(),nums.end());
+    tmp = nums[0];
+    for(int i=1; i<nums.size(); ++i){
+        if(tmp>=nums[i]){
+            res = tmp-nums[i]+1;
+            tmp+=1;
+        }
+        else{//tmp< nums[i]
+            tmp = nums[i];
+        }
+    }
+    return res;
+}
+
