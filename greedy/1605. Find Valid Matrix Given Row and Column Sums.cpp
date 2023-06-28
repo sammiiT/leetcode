@@ -47,8 +47,43 @@ vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
     return res;
 }
 
-//======================
+//===思路2===
+(*)遍歷2d陣列;遍歷順序:由左至右,由上而下
+-比較[i],[j]大小
+--如果[j]比較大,取[i],先對[j]做-[i]運算,再對[i]做[i]-=[i]運算
+--如果[i]比較大,取[j],先對[i]做-[j]運算,再對[j]做[j]-=[j]運算
 
+    8            6        8
+5  取5(剩0)     取0       取0  
+   (剩3)        (剩6)    (剩8) 
+7  取3(剩4)     取4(剩0)  取0
+   (剩0)        (剩2)    (剩8)
+10  取0(剩10)    取2(剩8)  取8  
+
+vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
+    vector<vector<int>> res(rowSum.size(),vector<int>(colSum.size(),0));
+
+    for(int i=0; i<rowSum.size(); ++i){//x
+        int x = rowSum[i];    
+        
+        for(int j=0; j<colSum.size(); ++j){//y
+            
+            if(x<colSum[j]){
+                res[i][j]=x;
+                colSum[j]-=x;
+                x-=x;
+                //colSum[j]-=x;//放在這邊會錯誤;要先對colsum執行相減運算
+            
+            }else{//x>=colSum[j]
+                res[i][j]=colSum[j];
+                x-=colSum[j];
+                colSum[j]-=colSum[j];
+                //x-=colSum[j];
+            }        
+        }
+    }
+    return res;
+}
 
 vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
   int m = rowSum.size(), n = colSum.size();
