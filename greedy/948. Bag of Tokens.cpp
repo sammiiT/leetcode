@@ -13,9 +13,6 @@
   
 (*)求解過程中, 可以獲得points的最大值, 一直到所有的token都拜訪完, 回傳最大值
 
-
-
-
 //====
 int bagOfTokensScore(vector<int>& tokens, int power) {
     int res=0, points=0;
@@ -32,6 +29,36 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
     }
     return res;
 }
+
+//=======
+(*)score換最大的 value
+(*)power換最小的 value;
+(*)每次計算完都紀錄一次最大的score
+-res = max(res,score)
+  
+int bagOfTokensScore(vector<int>& tokens, int power) {
+    int res = 0,score = 0;
+    int l = 0,r = tokens.size()-1;
+  
+    sort(tokens.begin(),tokens.end());
+    if(tokens[l]>power) return 0;
+    
+    while(l<=r){//如果(l<r)會少計算一次
+                //先運算,再更新 => 所以要(l<=r)
+        if(power>=tokens[l]){
+            power-=tokens[l];
+            score+=1;
+            ++l;
+        }else if(score>0){
+            power+=tokens[r];
+            score-=1;
+            --r;
+        }
+        res = max(res,score);
+    }
+    return res;
+}
+
 
 
 int bagOfTokensScore(vector<int>& tokens, int power) {
