@@ -59,3 +59,73 @@ string helper0(string s, int k){
 string removeDuplicates(string s, int k) {
     return helper0(s, k);
 }
+
+//===思路2===
+(*)stack概念
+1.以vector<pair<char,int>> 替代 stack
+- pair<char,int> //character, count
+
+2.stack的element
+- count數目等於k, 則stack要pop_back()
+while(!stk.empty() && stk.back().first==s[i]){
+  if(stk.back().second==(k-1)) stk.pop_back();
+}
+
+-count數目小於k, 則stack push_back()
+-- push_back({s[i],1});//如果s[i]不等於back()時
+-- stk.back().second+=1;//如果s[i]等於back()時
+
+3.最後依據stack中的element的內容建立string,即為解
+
+
+string removeDuplicates(string s, int k){
+    vector<pair<char, int>> stk;
+    string res;
+    
+    for(int i=0; i<s.size(); ++i){
+        int flag = 0;
+        while(!stk.empty() && stk.back().first==s[i]){
+            if(stk.back().second==(k-1)){
+                stk.pop_back();
+                flag = 1;
+            }
+            else break;
+        }
+        if(!flag){
+            if(!stk.empty() && stk.back().first==s[i]) stk.back().second+=1;
+            else stk.push_back({s[i],1});
+        }
+    }
+
+    for(int i=0;i<stk.size();++i){
+        res+=string(stk[i].second, stk[i].first);
+    }
+    return res;
+}
+//---同上思路, 只是String在過程中建立
+(*)此方式會造成time limited exceeded
+-因為 res = substr(0,res.size()-(k-1)); 會造成運算時間拉長
+
+string helper2(string s, int k){
+    vector<pair<char, int>> stk;
+    string res;
+    for(int i=0; i<s.size(); ++i){
+        int flag = 0;
+        while(!stk.empty() && stk.back().first==s[i]){
+            if(stk.back().second==(k-1)){//need to pop
+                stk.pop_back();
+                res = res.substr(0,res.size()-(k-1));// time limited exceeded
+                flag = 1;
+            }
+            else break;
+        }
+        if(!flag){
+            if(!stk.empty() && stk.back().first==s[i]){ stk.back().second +=1;}
+            else{ stk.push_back({s[i],1}); }
+            res.push_back(s[i]);//time limited exceed
+        }
+    }
+    return res;
+}
+
+
