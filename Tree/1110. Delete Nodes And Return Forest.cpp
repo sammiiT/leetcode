@@ -41,5 +41,6 @@ vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
     for(int i:to_delete) mp[i]=1;
     top=helper(root,mp,res);
     if(top) res.insert(res.begin(),top);
+  //if(top) res.push_back(top);//此描述也可以  
     return res;
 }
