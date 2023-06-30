@@ -25,3 +25,33 @@ vector<string> buildArray(vector<int>& target, int n) {
     }
     return res;
 }
+
+//===思路2===
+(*)前一個思路是以target.size()為遍歷依據,
+   這一個思路是以n為遍歷依據
+
+(*)遍歷數列從1~n
+-push_back 當下的數字到陣列中(此陣列會跟target陣列比較); 同時也加入"push"至vector<string>中
+-比較數字陣列與target陣列的元素;
+--如果相同, 繼續往下一個數字遍歷
+--如果不同, 將數字陣列的back()做pop,並vector<string>加入"Pop"
+
+- 判斷數字陣列的大小是否等於target陣列大小
+--如果相同, 則跳出迴圈
+--如果不同, 則繼續往下一個數字做運算
+
+vector<string> buildArray(vector<int>& target, int n){
+    vector<int> nums;
+    vector<string> res;
+    for(int i=1; i<=n; ++i){
+        nums.push_back(i);
+        res.push_back("Push");
+        if(nums.back()!=target[nums.size()-1]){
+            nums.pop_back();
+            res.push_back("Pop");
+        }
+        if(nums.size()==target.size()) break;
+    }
+    return res;
+}
+
