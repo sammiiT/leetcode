@@ -39,9 +39,7 @@ vector<int> helper1(vector<int>& nums, int k) {
     return res;
 
 }
-
-
-//====用vector 會 time limited exceeded====
+//---用vector 會 time limited exceeded---
 vector<int> helper0(vector<int>& nums, int k) {
     int n = nums.size(),i;
     vector<int> stk;
@@ -62,5 +60,34 @@ vector<int> helper0(vector<int>& nums, int k) {
         stk.erase(stk.begin());
     }
     return res;
-
 }
+//===思路2===
+(*)同樣用stack計算
+1.因為要lexicographical order; 所以用increasing stack
+2.因為至少有k個, 所以每次在計算increasing stack時, 要判斷剩下的個數
+- (stack.size()+ remain_count > k)才可以進入pop計算
+remain_count = nums.size()-i; //i 是 vector index
+      
+     5-2=3個=remain_count
+     / 
+@ @ O O O
+   \
+   在stack中的元素
+
+3.遍歷完stack之後, 取最前面的k個, 即為解
+stk.resize(k);
+
+vector<int> mostCompetitive(vector<int>& nums, int k){
+    int n = nums.size();
+    vector<int> stk;
+    for(int i=0;i<n;++i){
+        int remain = n-i;                        //remain+stk.size()>k 才可以執行pop的動作
+        while(!stk.empty()&& stk.back()>nums[i] && (remain+stk.size()>k)){
+            stk.pop_back();
+        }
+        stk.push_back(nums[i]);
+    }
+    stk.resize(k);
+    return stk;
+}
+
