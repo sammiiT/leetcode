@@ -18,7 +18,9 @@ vector<int> helper0(vector<int>& nums, int target) {
     if(nums[last-1]==target) {
         res[0]=first;
         res[1]=last-1;
-    }else{
+    }
+//沒有此else描述也正確        
+    else{
         res[0]=res[1]=first;
     }
    return res;   
