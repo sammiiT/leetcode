@@ -13,6 +13,17 @@
 -重複上述動作直到 stack.top()!=popped[j]
 
 3.遍歷完數列之後, 如果stack.size()==0, 則popped和pushed是有效的
+
+(*)
+1.當pop時,用vector<int> res;  將其作res.push_back()操作
+pop操作條件:
+-當back()==popped[j]時 (j=0~n-1)
+-每操作一次pop(),就對j更新一次; 先賦值;再更新
+
+2.push操作條件:
+-每次新遍歷的pushed[i],都先做一次push的操作
+
+
 //=======
 bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
     int n = pushed.size();//, m = popped.size();
@@ -29,3 +40,4 @@ bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
     }
     return stk.size()?false:true;    
 }
+//===
