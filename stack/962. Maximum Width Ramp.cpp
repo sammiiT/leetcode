@@ -5,8 +5,30 @@
 312. Burst Balloons
 
 //===思路====
+(*)stack資料結構求解; 紀錄decreasing stack
+- decreasing定義: nums[i]的decreasing, 但在stack中以index "i"做紀錄
+   
+
+        |
+        +-+
+        | |-+ +-+
+        | | | | |
+        | | | | | 
+        | | |-+ |
+        | | | | |
+    ----------------    
+index    0 3 7 9   
+
+-當index_9的value 大於decreading stack的top(), 此top對應nums數列中的index_7
+-對decreasing stack做binary_search, 找到第一個小於等於nums[i]的數,即為一次解
+-對每次的解做max(x,y)運算;最大的那一個即為解
+
+0,3,7做binary_search逼近; 最後(l==r)時,停在index_3的位置
+- 9-3 = 6 ; 即為Ramp其中一解    
 
 
+    
+    
 //===========
 int maxWidthRamp(vector<int>& nums) {
     int res = 0;
