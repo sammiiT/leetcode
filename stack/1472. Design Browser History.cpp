@@ -112,6 +112,55 @@ private:
     vector<string> bstk;
     string cur_page;    
 };
+//====寫法2====
+class BrowserHistory{
+public:
+
+BrowserHistory(string homepage) {
+    page = homepage;
+}
+
+void visit(string url){//1. clear all forward,  2. push current to stkb
+    stkb.push_back(page);
+    stkf.clear();
+    page = url;
+}
+
+string back(int steps){
+    if(stkb.size()==0) return page;//如果沒有back,回傳當下url 
+    int cnt = (steps<stkb.size())?steps-1:stkb.size()-1;
+    stkf.push_back(page);
+    
+    while(cnt){
+        stkf.push(stkb.top());
+        stkb.pop();
+        cnt--;
+    }
+    page = stkb.top();
+    stkb.pop();
+    return page;
+}
+
+string forward(int steps) {
+    if(stkf.size()==0) return page;//如果沒有forware, 回傳當下url
+    int cnt = steps<stkf.size()?steps-1:stkf.size()-1;
+    stkb.push_back(page);
+    while(cnt){
+        stkb.push(stkf.top());
+        stkf.pop();
+        cnt--;
+    }
+    page = stkf.top();
+    stkf.pop();
+    return page;
+}
+
+private:
+stack<string> stkf;
+stack<string> stkb;
+string page;
+
+}
 
 
 //===思路2====
