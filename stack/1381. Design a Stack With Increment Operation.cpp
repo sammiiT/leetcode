@@ -51,3 +51,30 @@ private:
     int mx;
     vector<int> nums;
 };
+
+//=====寫法2=====
+class CustomStack {
+public:
+    CustomStack(int maxSize) {
+        size = maxSize;
+    }
+    void push(int x) {
+        if(stk.size()>=size) return;//先計算, 再賦值 ;再update
+        stk.push_back(x);    
+    }
+    int pop() {
+        int ret;
+        if(stk.size()==0) return -1;
+        ret = stk.back();
+        stk.pop_back();
+        return ret;
+    }
+    void increment(int k, int val) {
+        int cnt;
+        cnt=(stk.size()<k)?stk.size():k;
+        for(int i=0;i<cnt;++i) stk[i]+=val;
+    }
+private:
+vector<int> stk;
+int size;
+};
