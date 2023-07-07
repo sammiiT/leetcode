@@ -42,3 +42,33 @@ private:
                                    //每一種次數對應的數字;以陣列表示
 };
 
+//===寫法2===
+(*)用map<int,vector<int>> 紀錄相同出現次數的陣列
+(*)用unordered_map<int,int> 記錄每一個數值出現的次數
+
+class FreqStack {
+public:
+    FreqStack(){
+    }
+    void push(int val) {
+        int count;
+        count = ++freq[val];//數字出現次數
+        stk[count].push_back(val);//相同次數的數字放在同一個陣列中
+    }
+    int pop() {
+        if(stk.size()==0) return -1;
+        int ret;
+        int count = stk.rbegin()->first;//取出相同數量最多的數目
+        vector<int>& nums = stk.rbegin()->second;//取出相同數量最多的陣列... 會在map中的最後一個
+
+        ret = nums.back();//紀錄要pop的數值
+        nums.pop_back();//將數字做pop
+        --freq[ret];//數字次數減一
+        if(!nums.size()) stk.erase(count);//如果相同數量最多的陣列 size()==0. 則從map中刪除
+        return ret;//回傳max frequency的數值
+    }
+private:
+    map<int,vector<int>> stk;//count, numbers
+    unordered_map<int,int> freq;//number counts 
+};
+
