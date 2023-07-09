@@ -30,7 +30,7 @@
         }
         return stk.empty()?true:false;
      }
-//----
+//----寫法2
 bool helper1(string s){
     stack<char> stk;
     
@@ -49,7 +49,7 @@ bool helper1(string s){
 //    return true;//[[[ ]]若出現此排列,會錯誤
     return stk.empty()?true:false;
 }
-//----
+//----寫法3
 bool helper2(string s){
     stack<char> stk;
     for(int i=0; i<s.size(); i++){
@@ -61,11 +61,21 @@ bool helper2(string s){
         }
     }
     return stk.empty()?true:false;//[[[[]]判斷; 保險
-}
-                      
-                      
-                      
+}                  
 bool isValid(string s) {
     return helper1(s);
 //        return helper0(s);
+}
+
+//----寫法4
+bool isValid(string s) {
+  stack<char> stk;
+  for(int i=0;i<s.size();++i){
+      if(!stk.empty()&& ( (stk.top()=='('&&s[i]==')') || (stk.top()=='('&&s[i]==')') || (stk.top()=='('&&s[i]==')') )){
+        stk.pop();
+      }else{
+        stk.push(s[i]);
+      }
+  }
+  return (stk.size()==0);
 }
