@@ -25,3 +25,20 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
     }
     return res;
 }
+//===寫法2===
+(*)直接用vector<int>表示
+    
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    int n = temperatures.size();
+    vector<int> res(n,0);
+    vector<int> stk;//index, temp
+
+    for(int i=0;i<n; ++i){
+        while(!stk.empty() && temperatures[stk.back()] < temperatures[i]){
+            res[stk.back()] = i-stk.back();//差值, 代表要等待的天數 
+            stk.pop_back();
+        }
+        stk.push_back(i);
+    }
+    return res;
+}
