@@ -64,5 +64,20 @@ public:
     }
 private:
     stack<NestedInteger> ni;
-
 };
+
+//====錯誤寫法
+沒考慮到[[],[3],[],[4,3,2]]情況
+
+bool hasNext() {
+  if(stk.empty()) return false;
+  NestedInteger t = stk.top();
+  if(!t.isInteger()){//當[];空集合; 也是not integer ,也不是List
+      stk.pop();
+      if(t.getList().size()<=0) return false;
+      for(int i=t.getList().size()-1;i>=0;--i){
+        stk.push(t.getList()[i]);
+      }
+  }
+  return true;
+}
