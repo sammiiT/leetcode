@@ -72,6 +72,6 @@ ListNode* helper1(ListNode* head){
         stk.back()->next = NULL;
         cur=cur->next;*/
     }
-    stk.back()->next = NULL;//最後一個節點的next要設定為NULL
+    stk.back()->next = NULL;//最後一個節點的next要設定為NULL;不用這一個描述也可以
     return stk[0];
 }
