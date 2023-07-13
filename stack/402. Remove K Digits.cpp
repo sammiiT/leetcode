@@ -63,3 +63,21 @@ string removeKdigits(string num, int k) {
         }
         return ans.size()==0?"0":ans;
 }
+//====寫法2====
+string removeKdigits(string num,int k){
+    string stk;
+    for(int i=0;i<num.size();++i){
+        while(!stk.empty() && stk.back()>num[i] && k){
+            --k;
+            stk.pop_back();
+        }
+        stk.push_back(num[i]);
+    }
+    for(int i=0;i<k;++i) stk.pop_back();//如果前面k沒有刪除完, 代表有升續, 將升續移除
+    int j;
+    for(j=0;j<stk.size();++j){//將前面"0"刪除
+        if(stk[j]!='0') break;
+    }//如果全部都是"0", 則j最後會等於stk.size()
+    //當j=stk.size()=> stk.substr(j)會回傳"空", 所以要多一個判斷式  
+    return (stk==""||j==stk.size())?"0":stk.substr(j);
+}
