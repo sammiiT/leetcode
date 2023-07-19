@@ -16,23 +16,22 @@ nums = [0,1,2,2,3,0,4,2], val = 2
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val){
-        int pre =-1;
+        int pre =-1;//一開始不在陣列上
         for(int i=0;i<nums.size();++i){
             if(nums[i]!=val){
-                pre++;
-                nums[pre]=nums[i];
+                pre++;//先更新(update)
+                nums[pre]=nums[i];//再執行
             }
         }
         return pre+1;
     }
     
     int removeElement_OK(vector<int>& nums, int val) {
-        int cur = 0;
+        int cur = 0;//一開始就在陣列上
         for(int i=0; i<nums.size(); ++i){
-            if(nums[i]==val) continue;
-            
-            nums[cur]=nums[i];
-            cur++;
+            if(nums[i]==val) continue;//先執行
+            nums[cur]=nums[i];//先執行
+            cur++;//再更新(update)
         }
         return cur;
     }
