@@ -12,6 +12,8 @@
 
 (*)如果遇到最大的值在每次新update的最後位置, 則不用做reverse
 if(i==(n-1)) continue;
+
+(*)vector的iterator; 範圍必須要在"最後一個數值"的"下一個位置"
 //=========
 vector<int> pancakeSort(vector<int>& arr) {
     vector<int> res;
@@ -22,10 +24,10 @@ vector<int> pancakeSort(vector<int>& arr) {
         for(i=0; i<n; ++i)  if(arr[i]==n) break;
         if(i==(n-1)) { --n; continue;}
         
-        res.push_back(i+1);
+        res.push_back(i+1);//每次挑選的位置(1st-index)
         reverse(arr.begin(),arr.begin()+(i+1));
         
-        res.push_back(n);
+        res.push_back(n);//每次挑選的位置(1st-index)
         reverse(arr.begin(),arr.begin()+n);
         --n;
     }
