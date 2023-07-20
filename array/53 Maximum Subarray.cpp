@@ -1,3 +1,18 @@
+//===類似題===
+152. Maximum Product Subarray
+2321. Maximum Score Of Spliced Array
+1749. Maximum Absolute Sum of Any Subarray
+1746. Maximum Subarray Sum After One Operation
+
+//===思路===
+1.遍歷數列,累加數值且比較當下數值
+cur = max(cur+nums[i],nums[i]);
+如果 [-1,-2,....] => 累加到第二個, cur會等於 (-2)
+
+2. 跟之前的maximum做比較
+res = max(res,cur);
+
+//===
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
