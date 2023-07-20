@@ -1,3 +1,24 @@
+
+//===思路==
+(*) in-place : 用swap執行
+1.先對角線互換
+
+    o   o  o
+     \    \    
+    o | o  o
+     \ \   
+       \ \
+    o   o \>o
+    
+2.上下做flip
+
+    o   o   o
+   /   /   /
+  | o | o | o
+   \   \   \
+    o   o   o
+    
+//====
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
