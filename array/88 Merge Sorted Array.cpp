@@ -33,6 +33,28 @@ void helper1(vector<int>& nums1, int m, vector<int>& nums2, int n){
     nums1 = res;
 }
 
+
+
+void helper3(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+    int i=0;
+    int j=0;
+    int k=0;
+    vector<int> res(m+n,0);
+    
+    while(i<m||j<n){
+        int a1 = (i<m)?nums1[i]:INT_MAX;
+        int a2 = (j<n)?nums2[j]:INT_MAX;
+        if(a1<a2){
+            res[k++]=a1;
+            ++i;
+        }else{
+            res[k++]=a2;
+            ++j;
+        }
+    }
+    nums1 = res;
+}
+
 //===思路2===
 (*)從後面開始算
 
