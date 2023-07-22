@@ -17,9 +17,26 @@ public:
                 res[i].push_back(!A[i][j]);//invert   
             }
         }
-        return res;
-        
+        return res;   
     }
-    //(1)flip: horizontal flip
-    //(2)
 };
+//===思路2===
+(*)兩個對稱點做swap
+
+vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
+    int m = image.size();
+    int n = image[0].size();
+
+    for(int i=0;i<m;++i){
+        int l = 0, r = n-1;
+        while(l<r){
+            int t = image[i][l];
+            image[i][l]=!image[i][r];
+            image[i][r]=!t;
+            l++;
+            r--;
+        }
+        if(l==r) image[i][l]=!image[i][l];
+    }
+    return image;
+}
