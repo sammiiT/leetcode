@@ -21,6 +21,12 @@ int helper1(vector<int>& nums){
     return (nums[n-1]>=2*nums[n-2])?mxid:-1;
 }
 //===寫法2 同思路
+1.找出first_maximum 和second_maximum
+2.比較first_maximum >= secod_maximum*2
+3.vector<int> res(2,0) 
+- res[0] = first_maximum
+- res[1] = second_maxitm
+    
 int helper(vector<int>& nums){
     int index = 0;
     vector<int> res(2,0);
