@@ -1,3 +1,33 @@
+//===類似題===
+
+//===思路===
+(*)用quick sort
+(*)用merge sort
+
+//===
+int partition(vector<int>& nums,int l,int r){
+    int pivot = nums[r];
+    int j = l;
+    for(int i=l; i<r; ++i){
+        if(nums[i]<=pivot){
+            swap(nums,j,i);
+            ++j;
+        }    
+    }
+    swap(nums,j,r);
+    return j;
+}
+
+void sort(vector<int>& nums,int l, int r){
+    if(l<r){
+        int p = partition(nums,l,r);
+        sort(nums,l,p-1);
+        sort(nums,p+1,r);
+    }
+}
+
+
+//===思路2===
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
