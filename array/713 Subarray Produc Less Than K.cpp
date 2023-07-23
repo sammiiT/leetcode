@@ -1,3 +1,32 @@
+//===類似題===
+099. Two Sum Less Than K
+
+325. Maximum Size Subarray Sum Equals k
+1099. Two Sum Less Than K
+2110. Number of Smooth Descent Periods of a Stock
+//===思路===
+(*) sliding window
+
+計算區間 left~i
+res = res = i-left+1;
+
+o o o o
+\      \
+left    i
+
+i-left個數計算為
+
+    +-----------------------第1個
+   /       +---------------------第2個  
+  /       /       +------------第3個     
+ /      /      /      /------- +1計算
+|  o   |  o   |  o    | o    
+ \      \      \      \-------
+  \       \       +--------------
+   \       +---------------------  
+    +-------------------------
+    
+//====
 class Solution {
 public:
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
