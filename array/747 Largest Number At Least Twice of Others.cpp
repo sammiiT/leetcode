@@ -20,6 +20,22 @@ int helper1(vector<int>& nums){
     sort(nums.begin(),nums.end());
     return (nums[n-1]>=2*nums[n-2])?mxid:-1;
 }
+//===寫法2 同思路
+int helper(vector<int>& nums){
+    int index = 0;
+    vector<int> res(2,0);
+    res[0]=nums[0];
+    for(int i=1; i<nums.size(); ++i){
+        if(nums[i]>=res[0]){
+            res[1]=res[0];
+            res[0]=nums[i];
+            index = i;
+        }else if(nums[i]>=res[1]){
+            res[1]=nums[i];
+        }
+    }
+    return res[0]>=res[1]*2?index:-1;
+}
 //===思路2===
 (*)此題跟前面有一題很像
 1.宣告兩變數,一個first_max, 一個second_max; 並將兩個初始值設定為INT_MIN
