@@ -2,8 +2,38 @@
 718. Maximum Length of Repeated Subarray
 89. Gray Code
 //===思路===
+(*)用stack做題
+(*)如果可以形成2-digits, 將stack 做pop
+- back()=1, 下一個數值為1或0
 
-//====
+(*)如果形成00,01
+- 將back()做pop, 再將下一個數值push至stack中
+
+(*)如果stack最後是empty, 則是2-digits
+    如果stack最後不是empty(單獨一個element, 此element等於0), 則1-digits
+
+bool isOneBitCharacter(vector<int>& bits){
+    vector<int> stk;
+    for(int i:bits){
+        if(stk.empty()){
+            stk.push_back(i);
+        }else{
+            if(stk.back()==1 && (i==0||i==1)) {
+                stk.pop_back();
+            }
+            else if(stk.back()==0 && (i==0||i==1)){
+                stk.pop_back();
+                stk.push_back(i);
+            }
+            else stk.push_back(i);
+        }
+    }
+    return stk.empty()?false:true;
+}
+
+
+    
+//===思路2====
 bool isOneBitCharacter(vector<int>& bits) {
     int i=0;
     int res = 0;
@@ -18,7 +48,7 @@ bool isOneBitCharacter(vector<int>& bits) {
     return res;
 }
 
-//===思路2===
+//===思路2 改寫===
 /*
 one-bit = 0
 two-bit = 11,10
