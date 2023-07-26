@@ -80,4 +80,36 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
         }
         return false;
     }
+//===思路3====
+(*)用lower_bound或upper_bound求解
+不考慮超過size()的index值, 所以只討論(idx<n)的範圍內
+
+-lower_bound
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    int m = matrix.size();
+    int n = matrix[0].size();
+
+    for(int i=0;i<m;++i){
+        int idx = lower_bound(matrix[i].begin(),matrix.end(),target)-matrix[i].begin();
+        if(idx<n && matrix[i][idx]==target) return true;
+    }
+    return false;
+}    
+
+- upper_bound
+如果不在upper_bound範圍, idx==0,所以有解的結果會發生在
+(idx>0)的情況
     
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    int m = matrix.size();
+    int n = matrix[0].size();
+    for(int i=0; i<m; ++i){
+        int idx = upper_bound(matrix[i].begin(),matrix[i].end(),target)-matrix[i].begin();
+        if(idx>0 && matrix[i][idx-1]==target) return true;
+    }
+    return false;
+}    
+
+
+
+
