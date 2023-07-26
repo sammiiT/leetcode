@@ -1,4 +1,15 @@
-﻿class Solution {
+//===類似題===
+645. Set Mismatch
+289. Game of Life
+2125. Number of Laser Beams in a Bank
+2123. Minimum Operations to Remove Adjacent Ones in Matrix
+
+//===思路===
+1.紀錄x 方向映射
+2.紀錄y 方向映射
+3.遍歷所有位址, 如果遇到x[i]或y[j]為0的, 就將matrix[i][j]設為0
+
+class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
         
