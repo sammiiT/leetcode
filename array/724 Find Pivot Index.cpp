@@ -83,7 +83,25 @@ public:
         return -1;
     }
 };
-//有問題:
+//===寫法2===
+ int pivotInteger(int n){
+    vector<int> sum(n,0);
+    
+    if(n==1) return 1;
+
+    sum[0]=1;
+    for(int i=1;i<n;++i){
+        sum[i]=(i+1)+sum[i-1];
+    }
+
+    for(int i=n-2; i>=0; --i){
+        if(sum[n-1]-sum[i]+(i+1)==sum[i]) return i+1;
+    }
+    return -1;
+ }
+
+
+//=====有問題====
 //[-1,-1,0,0,-1,-1] 會求得3,而不是2;必須反過來算
 
 //         if(nums.empty()) return -1;
