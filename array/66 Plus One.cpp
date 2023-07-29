@@ -19,8 +19,24 @@ vector<int> plusOne(vector<int>& digits) {
     if(carry) res.insert(res.begin(),1);//如果最後有carray,還要將1插入陣列頭
     return res;
 }
-//=====
 
+//===寫法2===
+vector<int> plusOne(vector<int>& digits){
+    int carry = 1;
+    for(int i=digits.size()-1; i>=0; --i){//從最後一個element開始算, 個位數
+        if(digits[i] + carry > 9){//有進位
+            digits[i]=0;
+            carry = 1;
+        }else{//digits[i]+carry <= 9 沒有進位
+            digits[i]+=carry;
+            carry = 0;
+        }
+    }
+    if(carry==1) digits.insert(digits.begin(),1);
+    return digits;
+}
+
+//=====
 class Solution {
 public:
     
