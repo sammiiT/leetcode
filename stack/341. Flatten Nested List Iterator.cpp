@@ -66,6 +66,24 @@ private:
     stack<NestedInteger> ni;
 };
 
+//-- hasNext 寫法2---
+  bool hasNext() {
+        while(!stk.empty()){
+            if(stk.top().isInteger()) return true;
+            if(stk.top().getList().size()<=0) {// [[],[3]] 如此情況, 將第一個空的排除
+                stk.pop();
+                continue;
+            }
+            NestedInteger tmp = stk.top();
+            stk.pop();
+            for(int i=tmp.getList().size()-1; i>=0; --i){//將integer做stack排列
+                stk.push(tmp.getList()[i]);        
+            }
+        }
+        return false;
+
+
+  
 //====錯誤寫法
 沒考慮到[[],[3],[],[4,3,2]]情況
 
