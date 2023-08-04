@@ -2,7 +2,7 @@
 
 //===思路===
 
-//====
+//====寫法1===
 void helper(NestedInteger& nestInteger, int level, vector<int>& res){
     if(res.size()==level) res.push_back(0);
     if(nestInteger.isInteger()) { 
@@ -27,3 +27,27 @@ int depthSumInverse(vector<NestedInteger>& nestedList) {
     }
     return sum;
 }
+//===寫法2===
+void helper(vector<NestedInteger & nestedList, int level, vector<int>& res){
+    if(level==res.size()) res.push_back(0);
+    
+    for(int i=0; i<nestedList.size(); ++i){
+        if(nestedList[i].isInteger()) res[level]+=nestedList[i].getInteger();
+        else{//
+            helper(nestedList[i].getList(),level+1,res);
+        }    
+    }
+}
+
+int depthSumInverse(vector<NestedInteger>& nestedList) {
+    vector<int> res;
+    int sum=0;
+    helper(nestedList,0,res);
+    for(int k=1,i=res.size()-1; i>=0; --i,++k){
+        sum+=k*res[i];
+    }
+    return sum;
+}
+
+
+
