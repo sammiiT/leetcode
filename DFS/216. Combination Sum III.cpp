@@ -37,3 +37,17 @@ vector<vector<int>> combinationSum3_helper2(int k, int n) {
     return res;
 }
 
+//===寫法2===
+void helper4(int k, int n, int start, vector<int>& out, vector<vector<int>>& res){
+	if(out.size()==k && n==0) {
+    	res.push_back(out);
+        return;
+    }
+	if(out.size()>k || n<0) return;
+	for(int i=start; i<=9; ++i){
+		out.push_back(i);
+		helper4(k,n-i,i+1,out,res);
+		out.pop_back();
+	}
+}
+
