@@ -1,4 +1,26 @@
-﻿class Solution {
+//===類似題===
+1286. Iterator for Combination
+2787. Ways to Express an Integer as Sum of Powers
+//===思路===
+(*)dp[i] = 個數
+
+(*)數列從 [1~target] 分別做比較
+- [1~target]每一個數字 與 nums[i]做比較, 當[1~target]數值比nums[i]大,則
+
+for(int i=1;i<=target;++i){
+    for(int a:nums) { 
+        //每一個target與
+        if(i>=a) dp[i] = dp[i] + dp[i-a];
+                   |        |       |
+                   |        |       \ 
+                   |    之前的個數    當下差值所對應個數(屬於之前的個數) 
+             taret所對應的新個個數
+    }    
+}
+
+
+//===
+class Solution {
 public:
     int combinationSum4(vector<int>& nums, int target){
         // vector<int> dp(target + 1);//錯誤
