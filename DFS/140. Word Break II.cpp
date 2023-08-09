@@ -26,24 +26,32 @@
  cout<<str.substr(pos, str.size()-pos)<<endl;
    //str.size()是1-index, pos是0-index    相減?????? 
 
+(*)思路重構
+1.以wordDict為依據, 遍歷wordDict並與string做比較
+2.wordDict[i]不同的排列方式, 可以滿足string的segmentation => 所以用DFS
+for(int i=0; i<wordDict.size(); ++i){...} 
+
+3.每一次判斷string segement, 都把此segment從string中刪除, 並將剩下的string放到下一層DFS中做運算
+
+
 //=====
 void helper(string s ,vector<string>& wordDict, string& out, vector<string>& res){
     if(s.size()==0){
-        out.pop_back();
+        out.pop_back();//將space 字元移除
         res.push_back(out);
         return;
     }
 
     for(int i=0; i<wordDict.size(); ++i){
         int len = wordDict[i].size();
-        if(s.substr(0,len)!=wordDict[i]) continue;
+        if(s.substr(0,len)!=wordDict[i]) continue;//不同排列順序
         
-        string tmp = s.substr(len,s.size()-len);
+        string tmp = s.substr(len,s.size()-len);//剩下的String
         int size = out.size();
         
         out.append(wordDict[i]+" ");
         helper(tmp,wordDict,out,res);
-        out = out.substr(0,size);
+        out = out.substr(0,size);//沒有辦法pop_back() string,所以用之前紀錄的substriing size
     }
 }
 vector<string> wordBreak(string s, vector<string>& wordDict) {
