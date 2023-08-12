@@ -40,7 +40,7 @@ a b c         p==pattern.size()  兩個同時達到end index; 則pattern可以�
 p==pattern.size() || r==str.size()
 
 (*)
--此種算法, "遇到false時,會退到上一層, 再上一層從新作排列配對", 
+-此種算法, "遇到false時,會退到上一層, 再上一層從新作排列配對", 配對的結果會有 true或false
 -重新配對的substring,往下一層計算, 判斷是否會滿足pattern match => 在同一層的重新配對, 是由for loop中的 i~j範圍作重新配對
 -對應的pattern(重新配對的pattern) 發生true(配對成功), 則再往下一層繼續配對
 -若退到最上層(且(i~j)遍歷到最後一個),都發生false, 則沒有pattern match發生
