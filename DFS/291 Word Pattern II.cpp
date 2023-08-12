@@ -45,6 +45,10 @@ p==pattern.size() || r==str.size()
 -對應的pattern(重新配對的pattern) 發生true(配對成功), 則再往下一層繼續配對
 -若退到最上層(且(i~j)遍歷到最後一個),都發生false, 則沒有pattern match發生
 
+(*)
+-DFS 有return的計算,就是"先一直計算到最底層", 做判斷之後, 再慢慢往上層推移 => 有點像post-order 算法
+-判斷不滿足結果時, 就跳回上層, 從上層的其他配對(其他的路徑) 繼續往下層做計算
+            
 //=====
 bool helper(string& pattern, 
             int p, 
