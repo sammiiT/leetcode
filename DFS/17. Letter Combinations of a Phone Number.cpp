@@ -80,3 +80,24 @@ vector<vector<char>> phone ={
     {'w','x','y','z'},//9 ..index 7
 };
 };
+//=== 輔助函式dfs寫法====
+(*)將keyboard視為vector<string> 來做運算
+
+void dfs(string& digits, 
+            int level, 
+            vector<string>& words, 
+            string& out, 
+            vector<string>& res){
+    
+  if(out.size()==digits.size()){
+        res.push_back(out);
+        return;
+    }
+
+    int index = digits[level]-'2';
+    for(int i=0;i<words[index].size();++i){
+        out.push_back(words[index][i]);
+        helper1(digits,level+1,words,out,res);
+        out.pop_back();
+    }
+}
