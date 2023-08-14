@@ -40,7 +40,9 @@ Ex:
 2,
 2,3
 3
-
+ 
+如果加上以下描述,會出錯;
+   if(start==nums.size()) return;//(n-1)還沒push至res中
 //====
 class Solution {
 public:
