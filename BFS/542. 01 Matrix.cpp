@@ -6,6 +6,7 @@
 //===思路===
 (*)BFS算法
 1.記錄數值為"0"的位置到queue中, 將數值為"1"的位置更改為INT_MAX
+2.下一個"鄰近點"的數值若大於現在的點, 則"鄰近點"的數值就是"現在點"數值 +1
 
 
 //=======
@@ -27,7 +28,7 @@ vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
             int x=p.first+dir[0], y=p.second+dir[1];
 //            if(x<0||x>=m||y<0||y>=n||mat[p.first][p.second]+1>=mat[x][y]) continue;
             if(x<0||x>=m||y<0||y>=n||mat[x][y]<=mat[p.first][p.second]+1) continue;
-//            matrix[x][y]>matrix[p.first][p.second]+1
+//                mat[x][y]=min(mat[x][y],mat[p.first][p.second]+1);//此描述也可以
                 mat[x][y]=mat[p.first][p.second]+1;
                 q.push({x,y});
         }
