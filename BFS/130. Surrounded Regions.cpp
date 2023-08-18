@@ -7,6 +7,11 @@
 -要push至queue中的數值要先做運算
 --沒有先將連接邊界的'O'位置, 將其先改'#',
  所以會將座標值為'O'的, 重複加入queue中, 導致queue越來越大, 最後導致time limited eceeded
+
+(*)BFS算法
+- 要有一個q的element => 此element是 BFS的一個引子, 將引子放入queue之前, 要將該紀錄的紀錄好
+
+
 //====
 void solve(vector<vector<char>>& board){
     int m = board.size(),n = board[0].size();
@@ -18,14 +23,15 @@ void solve(vector<vector<char>>& board){
         for(int j=0; j<n; ++j){
             if((i==0||i==m-1||j==0||j==n-1) && board[i][j]=='O'){
                 q.push({i,j});
-                board[i][j]='#';
+                board[i][j]='#';//要把該紀錄的紀錄好
 
                 while(!q.empty()){
                     vector<int> p = q.front(); q.pop();
+                   //board[x][y]='#'; 放在這裡會出錯
                     for(vector<int> dir:dirs){
                         int x=p[0]+dir[0],y=p[1]+dir[1];
                         if(x>=0 && x<m && y>=0 && y<n && board[x][y]=='O') {
-                            board[x][y]='#';
+                            board[x][y]='#';//把該紀錄的紀錄好
                             q.push({x,y});
                         }        
                     }
