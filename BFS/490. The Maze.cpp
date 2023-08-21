@@ -22,8 +22,8 @@ bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destina
       while(x>=0 && x<m && y>=0 && y<n && maze[x][y]==0){
         x+=dir[0];y+=dir[1];
       }
-      x-=dir[0];y-=dir[1];
-      if(!visited[x][y]){
+      x-=dir[0];y-=dir[1];//超出範圍要跳回來
+      if(!visited[x][y]){//visited 是用來防止重複走到同一個點
         visited[x][y]=true;
         q.push({x,y});//滿足題意的的位置
       }
