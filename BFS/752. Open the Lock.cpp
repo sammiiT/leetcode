@@ -3,13 +3,14 @@
 2368. Reachable Nodes With Restrictions
 //===思路===
 (*)BFS: 窮舉滿足條件的元素 , 並將此元素推入queue中
-(*)每一個level都算轉換一次;如何區分每一個level(層)
+(*)每一個level都算轉換一次;如何區分每一個level(層) 
 - 用for loop區分每一層的所有元素
 -不能用 for(int k=0;k<q.size();++k), 因為下面在計算時,會將滿足條件的元素放入q,所以k<q.size()的每一次的size都不一樣
 -用for(int k=q.size();k>0;--k); 因為k一開始就固定了, 下面新增到queue的元素算下一個level
 -t[j]=(p[j]-'0'+10+dir)%10+'0'; //+10的原因是因為dir有"+"有"-", 為了避免相減之後,小於1, 所以要加10
   
-  
+- 每一層用dirs來判斷; vector<int> dirs = {-1,1}; //每一層有兩個元素
+-vector<vector<int>> dirs = {{-1,0},{0,1},{1,0},{0,-1}};//每一層有四個元素
 //====
 int openLock(vector<string>& deadends, string target) {
   unordered_set<string> dends(deadends.begin(),deadends.end());
