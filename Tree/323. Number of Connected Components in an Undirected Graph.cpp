@@ -11,6 +11,20 @@
 不設定y分量個數, 因為有些節點只有一個neighbor,有些節點有兩個neighbor;所以不預設y分量個數
 vector<vector<int>> g(n);//每一個節點的neighbor
 
+(*) 0-index, 所以比較好計算; 每個節點的臨邊節點
+ 0<--->1
+ ^     ^
+ |     |
+ V     V
+ 3<--->4
+
+
+for(pair<int,int> p:edges){
+  g[p.first].push_back(p.second);
+  g[p.second].push_back(p.first);
+}
+
+
 (*)判斷節點是否拜訪過
 vector<bool> visited
 //=====
