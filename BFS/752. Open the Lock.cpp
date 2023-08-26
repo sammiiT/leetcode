@@ -11,6 +11,27 @@
   
 - 每一層用dirs來判斷; vector<int> dirs = {-1,1}; //每一層有兩個元素
 -vector<vector<int>> dirs = {{-1,0},{0,1},{1,0},{0,-1}};//每一層有四個元素
+
+(*)下一層的每一個結果(每一種可能) , 全部都被當作一步
+0, 0, 0, 0 => 1,0,0,0
+           => 9,0,0,0
+           => 0,1,0,0
+           => 0,9,0,0
+           => 0,0,1,0
+           => 0,0,9,0
+           => 0,0,0,1
+           => 0,0,0,9
+下一層的每一個結果, 共8個, 從"上一層"衍生出的每一種可能, 都被視為一步   
+
+(*)所有的結果當中, 會有一個結果先到達target, 此target所回傳的 步數, 為解
+
+target = 0,0,0,8
+0,0,0,0 => xxxx
+           ....
+           0009 => ****
+                   ....
+                   0008 =>target
+第一層     第二層   第三層 ; 第三層中有target
 //====
 int openLock(vector<string>& deadends, string target) {
   unordered_set<string> dends(deadends.begin(),deadends.end());
