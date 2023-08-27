@@ -32,6 +32,9 @@ while(!q.empty()){
   res++;//運算完,才做次數+1的動作, 因為不考慮原點; 只考慮移動的次數
 }
 
+(*)
+if(cntk<0 || cntk<=visited[x][y]) continue;
+其中cntk<=visited[x][y]可以參考 542. 01 Matrix.cpp 
 
 //====
 int shortestPath(vector<vector<int>>& grid, int k) {
@@ -55,7 +58,7 @@ int shortestPath(vector<vector<int>>& grid, int k) {
                 
                 if(x<0||x==m||y<0||y==n) continue;
                 int cntk = p[2]-grid[x][y];
-                if(cntk<0 || cntk<=visited[x][y]) continue;
+                if(cntk<0 || cntk<=visited[x][y]) continue;//此概念可以參考 542. 01 Matrix.cpp 
                 push({x,y,cntk});
                 visiedt[x][y]=cntk;
             }
