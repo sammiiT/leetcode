@@ -32,6 +32,18 @@ target = 0,0,0,8
                    ....
                    0008 =>target
 第一層     第二層   第三層 ; 第三層中有target
+
+(*)
+a0所產生的BFS可能結果為{a10},{a11},{a12},{a13}   
+    +------------+
+   /               \
+[{a0},{b0}] [{a10},{a11},{a12},{a13}] [{b10},{b11},{b12},{b13}]  
+        \                            /
+         +--------------------------+
+b0所產生的BFS可能結果為 {b10},{b11},{b12},{b13}
+
+每一個 "結果" 所對應的visited, 都會影響到 後面BFS的結果
+  
 //====
 int openLock(vector<string>& deadends, string target) {
   unordered_set<string> dends(deadends.begin(),deadends.end());
