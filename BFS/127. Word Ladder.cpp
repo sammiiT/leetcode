@@ -64,3 +64,36 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         }
         return 0;
 }
+//===寫法2====
+int helper2(string beginWord, string endWord, vector<string>& wordList) {
+    unordered_set<string> wordSet(wordList.begin(),wordList.end());
+    unordered_map<string,int> visited;
+    queue<string> q;
+    int res = 0;
+
+    if(!wordSet.count(endWord)) return 0;
+    q.push(beginWord);
+    visited[beginWord]=1;
+    while(!q.empty()){
+        ++res;
+        for(int i=q.size(); i>0; --i){
+            string p=q.front();q.pop();
+            
+            for(int j=0; j<p.size(); ++j){
+                string t = p;
+                
+                for(char c='a'; c<='z'; ++c){
+                    t[j]=c;
+                    if(wordSet.count(t) && t==endWord) return res+1;
+                    if(wordSet.count(t) && !visited.count(t)) {
+                        q.push(t);
+                        visited[t]=1;
+                    }
+                }//for c<='z'
+            }//for p.size()
+        }//for q.size()
+    }//while(!q.empty())
+    return 0;
+}
+
+
