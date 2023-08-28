@@ -26,10 +26,10 @@ int shortestPathBinaryMatrix(vector<vector<int>>& grid){
     
     vector<vector<int>> dirs{{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};
     while(!q.empty()){
-        ++res;
+        ++res;//原點就也要計算
         for(int i=q.size();i>0;i--){
             auto t = q.front();q.pop();
-            if(t[0]==n-1&&t[1]==n-1) return res;
+            if(t[0]==n-1&&t[1]==n-1) return res;//如果初始位置就是終點位置
             for(auto dir:dirs){
                 int x=t[0]+dir[0], y=t[1]+dir[1];
                 if(x<0||x>=n||y<0||y>=n||grid[x][y]==1||visited.count({x,y})) continue;
