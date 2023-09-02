@@ -28,3 +28,25 @@ public:
         
     }
 };
+//====思路2====
+(*)BFS算法
+
+vector<vector<int>> levelOrder(TreeNode* root){
+    vector<vector<int>> res;
+    if(!root) return res;
+    queue<TreeNode*> q;
+    q.push(root);
+    
+    while(!q.empty()){
+        res.push_back({});
+        for(int i=q.size(); i>0 ;--i){//每一層level的個數
+            TreeNode* p = q.front();q.pop();
+            res.back().push_back(p->val);
+            if(p->left) q.push(p->left);
+            if(p->right) q.push(p->right);
+        }
+    }
+    return res;
+}
+
+
