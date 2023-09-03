@@ -64,3 +64,51 @@ int numIslands(vector<vector<char>>& grid) {
     }
     return res;
 }
+//=====
+
+void dfs(vector<vector<char>>& grid, 
+            int x, 
+            int y, 
+            vector<vector<bool>>& visited){
+    
+if(x<0||x==grid.size()||y<0||y==grid[0].size()||visited[x][y]||grid[x][y]=='0') return;
+    
+    visited[x][y]=1;
+    dfs(grid,x-1,y,visited);
+    dfs(grid,x,y+1,visited);
+    dfs(grid,x+1,y,visited);
+    dfs(grid,x,y-1,visited);
+}
+
+void bfs(vector<vector<char>>& grid, int i, int j,vector<vector<bool>>& visited){
+    vector<vector<int>> dirs = {{-1,0},{0,1},{1,0},{0,-1}};
+    queue<vector<int>> q;
+    q.push({i,j});
+    visited[i][j]=1;
+    
+    while(!q.empty()){
+        vector<int> p=q.front();q.pop();
+        for(vector<int> dir:dirs){
+            int x=dir[0]+p[0],y=dir[1]+p[1];
+            if(x<0||x==grid.size()||y<0||y==grid[0].size()||visited[x][y]||grid[x][y]=='0') continue;
+            q.push({x,y});
+            visited[x][y]=1;
+        }
+    }
+}
+
+int numIslands(vector<vector<char>>& grid) {
+    int m=grid.size(),n=grid[0].size();
+    vector<vector<bool>> visited(m,vector<bool>(n,false));
+    int res = 0;
+    
+    for(int i=0; i<m; ++i){
+        for(int j=0; j<n; ++j){
+            if(visited[i][j] || grid[i][j]=='0') continue;
+            //dfs(grid,i,j,visited);
+            bfs(grid,i,j,visited);
+            res++;
+        }
+    }
+    return res;
+}
