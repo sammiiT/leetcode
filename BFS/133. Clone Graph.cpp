@@ -35,4 +35,23 @@ Node* helper(Node* node, unordered_map<Node*,Node*>& mp){
 }
 
 Node* cloneGraph(Node* node) {
+   if(!node) return NULL;
+   unordered_map<Node*,Node*> mp;
+   queue<Node*> q;
+   q.push(node);
+
+   Node* clone = new Node(node->val);
+   m[node] = clone;
+    while(!q.empty()){
+       Node* t = q.front();q.pop();
+       for(Node* neighbor:t->neighbors){
+          if(!mp.count(neighbor)){
+             Node* clone = new Node(neighbor->val);
+             mp[neighbor]=clone;
+             q.push(neighbor);
+          }
+          m[t]->neighbors.push_back(m[neighbor]);
+       }
+    }
+   return clone;
 }
