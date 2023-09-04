@@ -116,4 +116,47 @@ int countComponents(int n, vector<pair<int, int> >& edges) {
     }
     return res;
 }
+//======寫法2=====
+void bfs(int id, unordered_map<int,vector<int>>& ump, vector<int>& visited){
+    queue<int> q;
+
+    q.push(id);
+    visited[id]=1;
+
+    while(!q.empty()){
+        int p=q.front();q.pop();
+        for(int i=0; i<ump[p].size(); ++i){
+            if(visited[ump[p][i]]) continue;
+            q.push(ump[p][i]);
+            visited[ump[p][i]]=1;
+        }
+    }
+}
+
+void dfs(int id, unordered_map<int,vector<int>>& ump, vector<int>& visited){
+    if(visited[id]) return;
+    visited[id]=1;    
+    for(int i=0; i<ump[id].size(); ++i){
+        helper(ump[id][i], ump,visited);
+    }
+}
+
+int countComponents(int n, vector<pair<int, int> >& edges) {
+    vector<int> visited(n,0);
+    unordered_map<int,vector<int>> ump;
+    int res =0;
+    
+    for(pair<int,int> p:edges){
+        ump[p.first].push_back(p.second);
+        ump[p.second].push_back(p.first);
+    }
+    for(int i=0; i<n; ++i){
+        if(visited[i]) continue;
+//        dfs(i,ump,visited);
+        bfs(i,ump,visited);
+        res++;
+    }
+    return res;
+}
+
 
