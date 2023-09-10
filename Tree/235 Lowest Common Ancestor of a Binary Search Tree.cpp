@@ -24,6 +24,15 @@ isSymetric , isValid 概念一樣:中途遇到就回傳, 做截斷,不會往下�
 (*)如何解釋當lowest anscetor等於p或q的情況???
 如果此狀況發生, 則return的描述永遠只會執行return l?l:r;//只會有一個滿足題意, 由post-order遍歷,只會找到一個節點   
 若p和q不在同一個lowest ancestor上, if(l&&r) return root; 會被執行到一次;會找到兩個節點p和q   
+
+(*)
+if(left&&right)         return left?left:right;
+   O                        O             O
+  / \                        \           /
+ p   q                        q         q
+                               \       /
+                                p     p
+
 //===
 class Solution {
 public:
