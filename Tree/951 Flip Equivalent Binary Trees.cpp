@@ -6,9 +6,12 @@
 //===思路===
 (*)flip equivalent
 -兩個binary tree完全相等 => 其中一個tree的任何subtree做 flip 2 次之後, 會等於另外一個binary tree
+                           其中一個tree的任何subtree做 flip 2 次之後, 會等於原來的binary tree
 -兩個binary tree不相等, 但其中一個tree的一個subtree做flip 1次,還是可以等於另外一個binary tree
 
-
+-第一次比較(往下第一層2n+1), 要比較相反的地方, 才會相等 =>flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left)
+-第二次比較(往下第二層2n), 要比較相同的方向, 才會相等 => flipEquiv(root1->left,root2->left) && flipEquiv(root1->right,root2->right)
+    
 (*)可以當作isSymmetric的擴展
 -除了最後判斷 (flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left)) 之外
 還要做一個 "||"的判斷, 判斷同樣方向的兩節點是否相等,left_child比left_child, right_child比right_child
@@ -25,8 +28,8 @@ public:
         
         if(!root1&&root2 || root1&&!root2 || root1->val!= root2->val) return false;
         
-        return (flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left))
-            ||(flipEquiv(root1->left,root2->left) && flipEquiv(root1->right,root2->right));
+        return (flipEquiv(root1->left,root2->right) && flipEquiv(root1->right,root2->left))// 第一次比較, 要比較相反的地方, 才會相等
+            ||(flipEquiv(root1->left,root2->left) && flipEquiv(root1->right,root2->right));// 第二次比較, 要比較相同的方向, 才會相等
 
         //中間可以不對調,或可對調, 所以要加上(root1->left,root2->left),(root1->right,root2->right)
         // logic operator運算順序 && , ||
