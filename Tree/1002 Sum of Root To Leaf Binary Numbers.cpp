@@ -20,6 +20,17 @@ void helper(TreeNode* root, int val, int& res){
     helper(root->right, val<<1, res);
 }
 
+void helper(TreeNode* root, int val, int& res){
+    if(!root) return;
+    val = (val<<1) + root->val;
+    if(!root->left && !root->right){
+        res+=val;
+        return;
+    }
+    if(root->left) helper(root->left,val,res);
+    if(root->right) helper(root->right,val,res);
+}
+
 int sumRootToLeaf(TreeNode* root) {
     int res = 0;
     helper(root,0,res);
