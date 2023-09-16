@@ -10,7 +10,27 @@
 (*)如果遞迴帶入
 -沒有節點:回傳NULL
 -只有一個節點:建立一個TreeNode節點,回傳
-//=====
+//===寫法===
+TreeNode* sortedListToBST(ListNode* head) {
+        if(!head) return NULL;
+        ListNode *f,*r,*c;
+        f=r=c=head;//一開始定位在head,找出的是second_middle
+        while(r&&r->next){
+            c=f;
+            f=f->next;
+            r=r->next->next;
+        }
+        TreeNode* node = new TreeNode(f->val);
+        c->next=NULL;
+        //f->next;
+        if(f==head) node->left = sortedListToBST(NULL);//要多這一項, 不然會進入無窮DFS
+        else node->left = sortedListToBST(head);
+        node->right = sortedListToBST(f->next);
+        return node;
+}
+
+  
+//=====寫法===
 TreeNode* sortedListToBST(ListNode* head) {
 //if(!head||!head->next) return NULL;//會出錯
   if(!head) return NULL;//沒有節點,就回傳NULL
