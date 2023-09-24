@@ -50,6 +50,44 @@ right->left
 O4          O6
               \
                O7
+(*)
+1. inorder遍歷的比較
+         O             
+       /   \                   inorder: 依據遍歷特性 ,如左圖
+     val     O                 比較pre 和 val 
+     / \      \           
+   pre  O      O            
+       / \     /
+      O   O   O 
+     /
+    O  
+
+2. inorder遍歷的比較
+         O                     inorder: 依據遍歷特性, 如左圖 
+       /   \                   比較 pre 和 val
+     pre     O                  
+     / \      \
+    O   O      O 
+       / \     /
+      O   O   O 
+     /
+    val  
+
+3. inorder遍歷的比較
+         O                     inorder: 依據遍歷特性, 如左圖 
+       /   \                   比較 pre 和 val
+      O      O                  
+     / \      \
+    O   O      O 
+       / \     /
+     val   O   O 
+     /
+   pre  
+
+
+      
+
+      
 //=====
 int helper1(TreeNode* root, long& pre){
     if(!root) return true;
