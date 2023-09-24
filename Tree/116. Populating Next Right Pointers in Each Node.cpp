@@ -41,6 +41,32 @@ void helper1(Node* root, int level, vector<vector<Node*>>& res){
     helper1(root->right,level+1,res);
 }
 
+//===思路3===
+用BFS觀念:
+
+Node* connect(Node* root) {
+    queue<Node*> q;
+    if(!root) return root;
+    q.push(root);
+    
+    while(!q.empty()){
+        Node* pre;//紀錄同一level中的前一個節點
+        int size = q.size();
+        for(int i=size; i>0; --i){
+            Node* p = q.front(); q.pop();
+            if(i==size) {//同一level的第一個節點
+                pre = p;
+            } else {//前一個節點和後一個節點做連結
+                pre->next = p;
+                pre = p;
+            }
+            if(p->left) q.push(p->left);
+            if(p->right) q.push(p->right);
+        }
+    }
+    return root;
+}
+
 
 
 
