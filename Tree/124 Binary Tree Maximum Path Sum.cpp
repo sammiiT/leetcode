@@ -9,8 +9,27 @@
 - 有子節點, 一定是兩個; 不會只有一個
 - 如果沒有子節點, 則兩邊都沒有, left和right都沒有
 
-(*)當遇到left_path為負值或right_path為負值, 則不考慮走"-"的路徑, 所以要用max(helpper(root->left,res),0)來做判斷
+(*)post-order, 由下往上計算,當遇到left_path為負值或right_path為負值, 則不考慮走"-"的路徑 (捨棄之前的之前的路徑), 所以要用max(helpper(root->left,res),0)來做判斷
+max(helper(root->left,res),0);
+max(helper(root->right,res),0);
 	
+                  11
+                 /  \   
+	        3    41
+              /  \     \
+            20	 7     -87
+           /  
+        -100   
+	/  \
+      3     7 
+
+[-100,3,7] 上傳給20節點, 會負值, 所以不考慮 [-100,3,7], 指派0
+max(helper(root->left,res),0);
+
+[null,-87] 上傳節點41, 會負值, 所以不考慮[null,-87], 指派0
+max(helper(root->right,res),0);
+
+
 //=====
 int helper(TreeNode* root, int& res){
     if(!root) return 0;
