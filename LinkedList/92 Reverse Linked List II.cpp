@@ -60,7 +60,36 @@ ListNode* helper0(ListNode* head, int left, int right){
     return hdr.next;
 }
 
-//=====
+//===寫法1===
+ListNode* helper0(ListNode* head, int left, int right) {
+    if(!head || !head->next) return head; 
+    ListNode hdr(-1);
+    ListNode* pre;
+    ListNode* f;
+
+    hdr.next = head;
+    pre = &hdr;
+    f = head;
+    
+    right = right-left;//
+    left = left-1;//position, find the previous position
+
+    while(left){
+        pre = pre->next;
+        f = f->next;
+        left-=1;
+    }
+    while(right){//move count; if 3 nodes, move 2 times; n nodes, move (n-1) times
+        ListNode* tmp = f->next;
+        f->next = tmp->next;
+        tmp->next = pre->next;
+        pre->next = tmp;
+        right-=1;
+    }
+    return hdr.next;
+}
+
+//=====寫法2===
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
