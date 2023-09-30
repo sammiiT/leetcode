@@ -18,8 +18,27 @@ ListNode* deleteDuplicates(ListNode* head) {
     }
     return hdr.next;
 }
+//===寫法2===
+ListNode* deleteDuplicates(ListNode* head) {
+        if(!head||!head->next) return head;
+        ListNode* f;
+        ListNode* r;
+        f = head;
+        r = head->next;
+        while(r){
+            if(f->val==r->val){
+                r = r->next;
+                f->next = r;
+            }else{
+                f = r;
+                r = r->next;
+            }
+        }
+        return head;
+}
 
-//===思路2===
+
+//===寫法3===
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
