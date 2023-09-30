@@ -1,3 +1,29 @@
+//===類似題===
+1768. Merge Strings Alternately
+1474. Delete N Nodes After M Nodes of a Linked List
+253. Meeting Rooms II
+
+//===思路===
+(*)first middle 和 second middle 問題
+- 此題為second middle 問題
+//====
+ListNode* deleteMiddle(ListNode* head) {
+        if(!head||!head->next) return NULL;//只有一個節點, 回傳NULL
+
+        ListNode* f;
+        ListNode* r;
+        ListNode* pre;
+        f=r=pre=head;
+        
+        while(r&&r->next){//計算second middle節點
+            pre = f;
+            f=f->next;
+            r=r->next->next;
+        } 
+        pre->next = f->next; //跳開second middle節點 做連結
+        return head;
+}
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
