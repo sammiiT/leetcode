@@ -27,7 +27,7 @@ hdr  O  O  O  O  O  x  =============>  hdr  O  O  O  O  O  x
 (*)最後跳出迴圈時,必須再判斷一次是否有duplicate發生
 -有duplicate則刪除,再回傳
 -沒有duplicate,直接回傳
-//====
+//===寫法1===
 ListNode* helper1(ListNode* head){
     ListNode hdr(-1);
     ListNode *f,*r;
@@ -54,6 +54,35 @@ ListNode* helper1(ListNode* head){
     }
     if(duplicate) f->next = r->next;
     return hdr.next;
+}
+//===寫法2===
+ListNode* deleteDuplicates(ListNode* head) {
+        ListNode hdr(-1);
+        ListNode* pre;
+        ListNode* cur;
+        bool duplicate = 0;
+        
+        hdr.next = head;
+        pre = &hdr;
+        cur = head;
+
+        while(cur && cur->next){
+            if(cur->val==cur->next->val){
+                duplicate = 1;
+                cur->next = cur->next->next;
+            }else{//cur->val != cur->next->val
+                if(duplicate){
+                    pre->next = cur->next;
+                    cur = pre->next;
+                    duplicate = 0;
+                }else{//duplicate == 0;
+                    pre = cur;
+                    cur = cur->next;
+                }
+            }
+        }
+        if(duplicate){ pre->next = cur->next; }//[1,1]
+        return hdr.next;
 }
 
 //===思路2===
