@@ -41,7 +41,7 @@
             sum = carry + val1+val2;
             carry = sum/10;
             ListNode *t = new ListNode(sum%10);
-            t->next = cur->next;
+            t->next = cur->next;//每次將新的節點連接到最前面
             cur->next = t;
         }
         if(carry) {
@@ -51,6 +51,52 @@
         }
         return hdr.next;
     }
+//===思路2 ===
+(*)用reverse list的概念
+ListNode* reverse(ListNode* head){
+    ListNode* pre = NULL;
+    ListNode* cur = head;
+
+    while(cur){
+        ListNode* tmp = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = tmp;
+    }
+    return pre;
+}
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    int carry = 0;
+    ListNode hdr(-1);
+    ListNode* cur;
+
+    l1 = reverse(l1);//反轉list
+    l2 = reverse(l2);//反轉list
+    cur = &hdr;
+
+    while(l1||l2){
+            int l1_val = 0;
+            int l2_val = 0;
+            int sum = 0;
+            if(l1){
+                l1_val = l1->val;
+                l1=l1->next;
+            }
+            if(l2){
+                l2_val = l2->val;
+                l2=l2->next;
+            }
+            sum = l1_val+l2_val+carry;
+            carry = sum/10;
+
+            cur->next = new ListNode(sum%10);
+            cur = cur->next;
+    }
+    if(carry) cur->next = new ListNode(1);
+    cur = reverse(hdr.next);//合併之後, 再反轉一次
+    return cur;    
+}
+
 
 //======
 class Solution {
