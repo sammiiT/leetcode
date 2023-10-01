@@ -40,7 +40,39 @@ ListNode* helper(ListNode* head, int k) {
     return hdr.next;
 
 }
+//===寫法2===
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(!head||!head->next) return head;
+        int total = 0;
+        int move = 0;
+        
+        ListNode hdr(-1);
+        ListNode* cur = head;
+        
+        while(cur){
+            total+=1;
+            cur=cur->next;
+        }
 
+        if(k%total==0) return head;
+        move = total-(k%total);
+
+        cur = &hdr;
+        hdr.next = head;
+        while(move){
+            cur = cur->next;
+            move--;
+        }    
+
+        ListNode* tmp = cur->next;
+        cur->next = NULL;
+        cur = hdr.next;
+        hdr.next = tmp;
+        while(tmp && tmp->next) tmp = tmp->next;
+        tmp->next = cur;
+
+        return hdr.next;
+    }
 
 //===
 class Solution {
