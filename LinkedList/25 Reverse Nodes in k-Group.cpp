@@ -1,4 +1,55 @@
-﻿class Solution {
+//===類似題===
+2074. Reverse Nodes in Even Length Groups
+//===思路====
+(*) 
+reverse k, 所以執行次數 (k-1)
+
+      +--------------------------+
+      |                          |
+      |		_________        |
+      |		|         \      |
+      |		|          |     /
+pre   |		|  cur	  tmp   /
+hdr --+		+-> O	   O<--+   O	O	X
+           	     \	  	   ^ 
+            	      \____________|
+
+
+//===寫法1===
+ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode hdr(-1);
+        ListNode* pre;
+        ListNode* cur;
+        int total = 0;
+        int cnt = 0;
+
+        hdr.next = head;
+        pre = &hdr;
+        cur = head;
+
+        while(cur){
+            total+=1;
+            cur=cur->next;
+        }
+        if(total<k) return head;
+
+        cnt = total;
+        cur = head;
+        while(cnt>=k){
+            for(int i=0;i<(k-1);++i) {
+                ListNode* tmp = cur->next;
+                cur->next = tmp->next;
+                tmp->next = pre->next;
+                pre->next = tmp;
+            }
+            pre = cur;
+            cur = pre->next;
+            cnt-=k;
+        }
+        return hdr.next;
+    }
+//===寫法2===
+class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {//swap k node, not reverse list
 	if (head==NULL||head->next==NULL) return head;
