@@ -13,7 +13,7 @@ while(r&&r->next){	//至少有兩個節點
 3.後半段的每一個節點都放入stack
 4.前半段的每一個節點與stack中的每一個top()元素做比較. 如果不相等就回傳false
 
-//=====
+//===寫法1===
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
@@ -104,6 +104,42 @@ public:
 		return true;
 	}
 };
+//===寫法2===
+   bool isPalindrome(ListNode* head) {
+        stack<int> stk1;
+        stack<int> stk2;
+        ListNode hdr(-1);
+        ListNode* pre;
+        ListNode* cur;
+        ListNode* mid;
+        int even =1;
+        hdr.next = head;
+        pre = cur = mid = &hdr;
+        
+        while(cur&&cur->next){
+            pre = mid;
+            mid = mid->next;
+            cur = cur->next->next;
+        }//check first_middle
+
+	 //如果cur最後存在, 則是偶數個; cur==NULL, 是奇數個  
+        even = cur?1:0; //1:even_count, 0:odd_count
+        cur = head;
+        while(cur!=mid){
+            stk1.push(cur->val);
+            cur= cur->next;
+        }
+        if(even){  stk1.push(cur->val); } 
+
+        cur = mid->next;
+        while(cur){
+            int val = stk1.top(); stk1.pop();
+            if(val!=cur->val) return false;
+            cur = cur->next;
+        }
+        return true;
+    }
+
 //===============================================================
     bool helper0(ListNode* head){
         stack<struct ListNode*> stk;
