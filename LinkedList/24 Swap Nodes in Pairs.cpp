@@ -23,7 +23,7 @@ r,t作為兩者交換的節點
         r = hdr.next;
     
 // f r t
-        while(r&&r->next){
+        while(r&&r->next){//至少有兩個節點
             ListNode *t = r->next;
             r->next = t->next;
             t->next = r;
