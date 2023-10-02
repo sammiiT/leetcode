@@ -1,4 +1,41 @@
-﻿class Solution {
+//===類似題====
+2411. Smallest Subarrays With Maximum Bitwise OR
+//===寫法1===
+
+ListNode* merge(ListNode* l1, ListNode* l2){
+    ListNode hdr(-1);
+    ListNode* cur;
+    cur = &hdr;
+    while(l1||l2){
+        int val1 = l1?l1->val:INT_MAX;
+        int val2 = l2?l2->val:INT_MAX;
+        if(val1<val2){
+            cur->next = l1;
+            cur = cur->next;
+            l1 = l1->next;
+        }else{
+            cur->next = l2;
+            cur=cur->next;
+            l2 = l2->next;
+        }
+    }
+    return hdr.next;
+}
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode* res = NULL;
+        if(!lists.size()) return res;
+        
+        res = lists.back();
+        lists.pop_back();
+        
+        for(int i=0; i<lists.size(); ++i){
+           res = merge(res,lists[i]);    
+        }
+        return res;
+    }
+
+//===寫法2====
+class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         return helper(lists,0,lists.size()-1);//use recursive
