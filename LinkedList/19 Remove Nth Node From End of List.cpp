@@ -6,7 +6,7 @@
 (*)將刪除的節點從兩個stack中刪除, 連結兩個stack的top, 即為解
 -左半段在push至stack前,要多加一個hdr節點, 因為會遇到將原head節點刪除的情況
 -右半段在push至stack前, 要多加一個NULLr節點m 因為會遇到刪除最後一個節點的情況
-//===
+//===寫法1 ===
 ListNode* removeNthFromEnd(ListNode* head, int n) {
     stack<ListNode*> stkf,stkb;
     ListNode hdr(-1);
@@ -33,6 +33,28 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
     f->next = b;//connect 
     return hdr.next;
 }
+//===寫法2===
+ListNode* helper1(ListNode* head, int n) {
+    vector<ListNode*> stka;
+    vector<ListNode*> stkb;
+    ListNode hdr(-1);
+    ListNode* cur;
+
+    hdr.next = head;
+    cur = &hdr;
+    while(cur){
+        stka.push_back(cur);
+        cur = cur->next;
+    }
+    while(stkb.size()<n){
+        ListNode* tmp = stka.back();
+        stka.pop_back();
+        stkb.push_back(tmp);
+    }
+    stka.back()->next = stkb.back()->next;
+    return hdr.next;
+}
+
 //===思路2===
 (*)用兩個index,此兩個index距離n個節點
 (*)用第三個index紀錄被刪除節點的前一個節點
