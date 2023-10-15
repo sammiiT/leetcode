@@ -42,9 +42,21 @@ void helper1(vector<int>& arr){
   }
   arr = res;
 }
-
-
-
 void duplicateZeros(vector<int>& arr) {
     helper0(arr);      
 }
+
+//===寫法2===
+void duplicateZeros(vector<int>& arr) {
+    int size = arr.size();
+    int i = 0;
+    while(i<size){
+        if(arr[i]==0){
+            arr.insert(arr.begin()+i,0);
+            ++i;
+        }
+        ++i;
+    }
+    arr.resize(size);
+}
+
