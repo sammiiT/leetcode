@@ -19,6 +19,18 @@ int helper1(string s){
     return res;
 }
 
+int balancedStringSplit(string s) {
+     int res = 0;
+     int val = 0;
+     for(char c:s){
+         if(c=='R') ++val;
+         else if(c=='L') --val;
+            
+         if(val==0) ++res;
+     }
+     return res;
+}
+
 //===思路2===
 int helper0(string s){
     string l;
