@@ -18,3 +18,22 @@ vector<bool> prefixesDivBy5(vector<int>& nums) {
     }
     return answer;
 }
+//===寫法2===
+vector<bool> prefixesDivBy5(vector<int>& nums) {
+        vector<bool> res;
+        int val = 0;
+        int tmp = 0;
+    
+        for(int i=0; i<nums.size(); ++i){
+            val = (val<<1) + nums[i];
+            tmp = val%5;
+            if(tmp){
+                res.push_back(false);
+            } else {
+                res.push_back(true);
+            }
+            val = tmp;
+        }
+        return res;
+}
+
