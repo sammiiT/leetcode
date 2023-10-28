@@ -23,6 +23,11 @@
 遍歷數列, 因為遍歷數列一定會按照順序  
 dynamic programming也是遍歷數列, 所以按照順序
 
+(*)
+leetcode
+=>ltcode (x)
+=>letcod (o)
+    
 //=======
 "cbacdcbc"
 string removeDuplicateLetters(string s) {
