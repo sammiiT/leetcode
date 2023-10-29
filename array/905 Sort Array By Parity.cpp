@@ -6,7 +6,6 @@
 -奇數用push_back放到陣列後方
 -偶數用insert放到陣列前方
 //===
-
 class Solution {
 public:
     vector<int> sortArrayByParity(vector<int>& A) {
@@ -22,3 +21,15 @@ public:
         return res;
     }
 };
+//===寫法2===
+vector<int> sortArrayByParity(vector<int>& nums) {
+    vector<int> even;
+    vector<int> odd;
+        
+    for(int i:nums){
+        if(i%2) odd.push_back(i);
+        else even.push_back(i);
+    }    
+    even.insert(even.end(),odd.begin(),odd.end());
+    return even;
+}
