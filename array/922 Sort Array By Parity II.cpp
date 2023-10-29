@@ -24,7 +24,32 @@ vector<int> helper0(vector<int>& nums){
     }
     return res;
 }
-//===
+//===寫法2==
+vector<int> sortArrayByParityII(vector<int>& nums) {
+    vector<int> even;
+    vector<int> odd;
+    vector<int> res;
+    int length =0;
+
+    for(int i:nums){
+        if(i%2) odd.push_back(i);
+        else even.push_back(i);
+    }
+
+    length = odd.size()+even.size();
+    for(int i=0; i<length; ++i){
+        if(i%2){
+            res.push_back(odd.back());
+            odd.pop_back();
+        }else{// 
+            res.push_back(even.back());
+            even.pop_back();
+        }
+    }
+    return res;
+}
+
+
 //===思路2===
 class Solution {
 public:
