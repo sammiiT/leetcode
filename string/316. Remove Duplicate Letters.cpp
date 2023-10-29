@@ -5,7 +5,7 @@
 //====思路====
 (*)"解"用新建,不用in-place
 1.建立map,紀錄每一個character出現的次數
-2.建立visited, 紀錄運算中的"解", "是否出現過"
+2.建立visited, 紀錄運算中的"解", "是否出現過" => 是否出現在新的字串中
     
 3.判斷當下的charater是否小於之前的character ;(smallest in lexicographical order)
 -如果小於,就刪除
@@ -39,12 +39,15 @@ string removeDuplicateLetters(string s) {
     for(int i=0;i<s.size();i++){
         m[s[i]]--;
         if(visited[s[i]]) continue;
-        
-        while(s[i]<res.back() && mp[res.back()]){//就算前面刪除了,後面還有出現: mp[res.back()]
-            visited[res.back()]=0;
+
+//s[i]<res.back(); smallest in lexicographical order; "新字串的最後一個char"和"遍歷的char做比較".
+//就算前面刪除了,後面還有出現: mp[res.back()]>0        
+        while(s[i]<res.back() && mp[res.back()]){
+            visited[res.back()]=0;                
             res.pop_back();
         }
         res.push_back(s[i]);//沒出現的character放到解中
         visited[s[i]]=1;//將放到解中的character設定為 已出現過"
     }
+    return res.substr(1);
 }
