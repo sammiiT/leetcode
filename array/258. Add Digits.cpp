@@ -41,3 +41,18 @@ int helper1(int num){//取餘數,商數
 int addDigits(int num) {
         return helper0(num);
  }
+
+//===寫法2===
+int addDigits(int num) {
+    unsigned int tmp = 0;
+    while(num/10){
+        int val = num;
+        while(val){
+            tmp = tmp + val%10;
+            val = val/10;    
+        }
+        num = tmp;
+        tmp = 0;
+    }
+    return num;
+}
