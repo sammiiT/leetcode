@@ -17,3 +17,23 @@ public:
         return minSize;  
     }
 };
+
+//===寫法2===
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int size = nums.size();
+        int i=0,j=0;
+        int res = INT_MAX;
+        int sum = 0;
+
+
+        while(i<size){
+            sum = sum+nums[i];
+
+            while(sum>=target){//"greater than" or "equal to"
+                res = min(res,i-j+1);
+                sum = sum - nums[j++];
+            }            
+            ++i;//sum<target
+        }
+        return (res==INT_MAX)?0:res;
+    }
