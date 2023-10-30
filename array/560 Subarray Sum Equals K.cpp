@@ -1,4 +1,33 @@
-﻿class Solution {
+
+//===類似題===
+974. Subarray Sums Divisible by K
+2090. K Radius Subarray Averages
+2219. Maximum Sum Score of Array
+
+//===思路====
+
+int subarraySum(vector<int>& nums, int k){
+    int sum =0;
+    int res;
+    unordered_map<int,int> ump;
+    
+    for(int i=0; i<nums.size(); ++i){
+        sum = sum+nums[i];
+        if(sum==k) res++;
+
+        int need = sum-k;
+        if(ump.count(need)){
+            res = res + ump[need];
+            //res++ 會錯誤 [0,0,0,0,0,0] k = 0
+        }
+        ump[sum]++;
+    }
+    return res;
+}
+
+//===原思路===
+(*)現在會發生 Time limited Exceeded
+class Solution {
 public:
     int subarraySum(vector<int>& nums, int k){
         int n = nums.size();
@@ -18,8 +47,6 @@ public:
         }
         return res;
     }
-    
-    
     
     int subarraySum_OK(vector<int>& nums, int k) {
       
