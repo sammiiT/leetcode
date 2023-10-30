@@ -33,3 +33,34 @@ vector<int> pancakeSort(vector<int>& arr) {
     }
     return res;
 }
+//===寫法2===
+void reverse(vector<int>& arr, int i,int j){
+    int tmp;
+    while(i<j){
+        tmp = arr[i];
+        arr[i]=arr[j];
+        arr[j]=tmp;
+        ++i;
+        --j;
+    }
+}
+vector<int> pancakeSort(vector<int>& arr) {
+    vector<int> res;
+    int n=arr.size();
+        
+    while(n>1){//maximum value
+    //while(n){
+        int i;
+        for(i=0; i<n; ++i) {
+            if(arr[i]==n) break;
+        }
+        if(i!=(n-1)){//start to flip
+            reverse(arr,0,i);//maximum flip to index 0
+            res.push_back(i-0+1);
+            reverse(arr,0,n-1);//maximum flip to index (n-1)
+            res.push_back(n-1-0+1);
+        }
+        --n;
+    }
+    return res;
+}
