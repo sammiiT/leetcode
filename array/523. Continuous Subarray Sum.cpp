@@ -42,7 +42,32 @@ bool helper3(vector<int>& nums, int k){
 bool checkSubarraySum(vector<int>& nums, int k) {
          return helper3(nums,k);
 }    
-      
+
+//===思路2====
+(*) 可以整除k, 餘數等於0
+-如果有餘數, 則記錄至unordered_map<int,int>  (餘數,索引)
+-當遍歷累加的總合, 若有餘數, 則判斷前面的總合是否有"相同的餘數"
+-相同餘數的兩個總合的相減, 則剩下的數值就可以整除k => 此sub數列就可整除K
+  
+bool checkSubarraySum(vector<int>& nums, int k) {
+    unordered_map<int,int> ump;
+    int sum = 0;
+
+    for(int i=0; i<nums.size(); ++i){
+        sum = sum + nums[i];
+        if((sum%k==0) && i>=1) return true;
+
+        int remain = sum%k;
+        if(ump.count(remain)){
+            if(i-ump[remain]>=2) return true;
+        } else {
+            ump[remain] = i;
+        }
+    }
+    return false;
+}
+
+
 //============ time limit exceeded ==============
     bool helper0(vector<int>& nums, int k){//time limit exceed
         int n = nums.size();
