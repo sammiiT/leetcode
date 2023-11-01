@@ -22,6 +22,19 @@ int findUnsortedSubarray(vector<int>& nums) {
     return j-i+1;        
 }
 
+int findUnsortedSubarray(vector<int>& nums) {
+    int i,j;
+    vector<int> tmp = nums;
+    sort(tmp.begin(),tmp.end());
+
+    i=0;j=tmp.size()-1;
+ 
+    while(i<tmp.size()-1 && tmp[i]==nums[i]) i++;
+    while(j>0 && tmp[j]==nums[j]) j--;
+
+    return (i<j)?(j-i)+1:0;
+}
+
 //======
 class Solution {
 public:
