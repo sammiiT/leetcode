@@ -34,6 +34,30 @@ int helper0(vector<int>& arr){
 int sumOddLengthSubarrays(vector<int>& arr) {
      return helper0(arr);    
 }
+//===寫法2===
+(*)prefix_sum
+
+int sumOddLengthSubarrays(vector<int>& arr) {
+  int total = 0;
+  int n = arr.size();
+  vector<int> sum(n,0);
+  sum[0]=arr[0];
+  
+  for(int i=1; i<arr.size(); ++i) sum[i]=sum[i-1]+nums[i];
+  total = total+sum[n-1];
+  
+  int k=1;
+  int size= 2*k+1;
+  while(size<=n){
+      total = total + sum[size-1];
+      for(int i=size; i<n; ++i){
+          total = total + sum[i]-sum[i-size];
+      }
+      k+=1;
+      size=2*k+1;
+  }
+  return total;
+}
 
 //========
     int sumOddLengthSubarrays(vector<int>& arr) {
