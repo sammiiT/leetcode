@@ -11,11 +11,16 @@
 4.1 再判斷,如果是'#' ,將其設定為'O'
 4.2 判斷順序不能相反,會錯誤
 
-
-  
-
 //=====
-void helper(vector<vector<char>>& board, int i,int j){
+void dfs2(vector<vector<char>>& board, int i, int j){
+    if(i<0||i==board.size()||j<0||j==board[0].size()||board[i][j]=='#'||board[i][j]=='X') return;
+    dfs2(board,i-1,j);
+    dfs2(board,i,j+1);
+    dfs2(board,i+1,j);
+    dfs2(board,i,j-1);
+}
+  
+void dfs1(vector<vector<char>>& board, int i,int j){
     if(board[i][j]=='O'){
         board[i][j]='#';
         if(i>0 && board[i-1][j]=='O')                 helper(board,i-1,j);
@@ -30,7 +35,7 @@ void helper(vector<vector<char>>& board, int i,int j){
         for(int i=0; i<board.size(); ++i){
             for(int j=0; j<board[i].size(); ++j){
                 if((i==0||i==board.size()-1||j==0||j==board[i].size()-1) && board[i][j]=='O')
-                    helper(board,i,j);
+                    dfs1(board,i,j);
             }
         }
         for(int i=0;i<board.size();++i){
