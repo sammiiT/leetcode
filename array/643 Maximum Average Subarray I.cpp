@@ -2,6 +2,37 @@
 644. Maximum Average Subarray II
 644. Maximum Average Subarray II
 2090. K Radius Subarray Averages
+
+//===思路2===
+(*)subarray有 4個 element
+1. 以4個element為單位, 遍歷數列 , 頭尾index範圍有4個元素 
+2. 頭往後移一個單位      
+   尾也要往後移一個單位 
+
+    
+全數列          [1, 4, 6, 2, 8, 5, 3] 
+起始avg         [1, 4, 6]
+頭尾位移1單位     | [4, 6, 2]
+                 |  |      \
+                 |  從i開始  \
+                 |           加上nums[i+k-1]
+               減去 nums[i-1]
+double findMaxAverage(vector<int>& nums, int k){
+        double sum = 0;
+        double avg = 0;
+        
+        for(int i=0; i<k;++i) sum = sum + nums[i];
+        avg = (double)sum/k;
+
+        for(int i=1; i<=n-k; ++i){
+            sum = sum - nums[i-1];//頭往後移一個單位, sum要減去其數值
+            sum = sum + nums[i+k-1];//尾往後移一個單位, sum要加上其數值
+            avg = max(avg,sum/k);                    
+        }
+        return avg;
+}
+
+        
 //===思路===
 1. sum 陣列, 每一個元素紀錄了index_0~index_i的總和
 2. 如果計算 i~j的總和; 則sum[j]-sum[i-1]
