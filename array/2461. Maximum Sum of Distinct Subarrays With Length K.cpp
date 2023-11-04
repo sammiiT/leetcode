@@ -62,3 +62,26 @@ long long maximumSubarraySum(vector<int>& nums, int k) {
     }
     return res;
 }
+
+//===寫法2===
+(*) sliding window概念
+(*) unordered_map.size() 會以key的數量為準
+
+long long maximumSubarraySum(vector<int>& nums, int k) {
+    unordered_map<int,int> ump;
+    int res = 0;
+    int sum = 0;
+    for(int i=0, j=0; j<nums.size(); ++j){
+        ump[nums[j]]++;
+        sum+=nums[j];
+        if((j-i+1)>=k){//sliding window
+            if(ump.size()==k) res = max(res,sum);
+            ump[nums[i]]--;
+            if(!ump[nums[i]]) ump.erase(nums[i]);
+            sum-=nums[i];
+            ++i;
+        }
+    }
+    return res;
+}
+
