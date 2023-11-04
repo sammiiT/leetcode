@@ -52,7 +52,8 @@ mx[i] = max(max(mx[i-1]*nums[i],mi[i-1]*nums[i]),nums[i]);
         mi = nums[0];
         for(int i=1; i<nums.size(); ++i){
             mx = max(max(mx*nums[i],mi*nums[i]),nums[i]);
-            //上一個mx會影響到這一個mx,會錯誤
+            
+            //上面描述的mx會影響到這一個mx,會錯誤
             mi = min(min(mx*nums[i],mi*nums[i]),nums[i]);
             res = max(mx,res);
         }
