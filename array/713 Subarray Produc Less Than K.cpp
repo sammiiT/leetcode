@@ -54,4 +54,27 @@ public:
     }
 };
 
+//===寫法2===
+(*) sliding window
+
+int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+    int n = nums.size();
+    int i=0,j=0;
+    int res = 0;
+    long product = 1;
+
+//  if(k<=1) return 0;若沒有此項, 要在window判斷式中, 多加一條判斷式 (i<=j), 不加此判斷式, 會造成buuffer overflow
+//                                                                                     i會超出nums.size();           
+    while(j<n){
+        product = product * nums[j];            
+        while(product >= k && i<=j){
+            product = product / nums[i];
+            ++i;
+        }
+        res = res + j-i+1;
+        ++j;
+    }
+    return res;
+}
+
 
