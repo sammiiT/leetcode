@@ -53,4 +53,21 @@ long long zeroFilledSubarray(vector<int>& nums) {
   return res;
 }
 
+//===寫法3====
+long long zeroFilledSubarray(vector<int>& nums) {
+    long long count = 0;
+    long long res = 0;
+    int n = nums.size();
+
+    for(int j=0; j<n; ++j){
+        if(nums[j]){
+            res = res +  ((count>0)?(1+count)*count/2:0);//total;
+            count=0;
+        }else{//nums[j]=0
+            count++;
+        }
+    }
+    if(count) res = res + (1+count)*count/2;
+    return res;
+}
 
