@@ -7,6 +7,8 @@
 (*)若[i-1]<[i] 則 continuous subsequence 累加
 (*)若[i-1]>=[i], 則continuous subsequence 重製
 
+(*)參考 128. Longest Consecutive Sequence
+
 int findLengthOfLCIS(vector<int>& nums) {
         int res = 1;
         int cur = 1;
