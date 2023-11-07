@@ -6,6 +6,9 @@
 //===思路====
 1.先對陣列作sort
 2.對每一個element遍歷作比較
+
+(*)參考 674. Longest Continuous Increasing Subsequence
+
 //====
 int longestConsecutive(vector<int>& nums) {
         int res = 1;//當input陣列僅有一個element,回傳1
