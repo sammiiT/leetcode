@@ -36,6 +36,19 @@ public:
         return cur;
     }
 };
+//=== 寫法2 ===
+int removeElement(vector<int>& nums, int val) {
+    int n = nums.size();
+    int i=0;
+    int j=0;
+    for(;j<n;++j) {
+        if(nums[j]!=val){
+            nums[i]=nums[j];
+            ++i;
+        }
+    }
+    return i;
+}
 
 //===思路====
 1.遍歷陣列
