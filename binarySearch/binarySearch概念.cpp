@@ -71,27 +71,17 @@ int binarySearch(vector<int>& nums, int target){
 ************************************************/
 
 //===討論 0-index和1-index的 數字中點====
-(*)1~10, 計算中點
-10/2 = 5; 
-=>此算法是 0-index的算法
-=>0+(10-0)/2= 10/2 = 5 =>計算出first middle [0,1,2,3,4,5,6,7,8,9,10]
-                                                       \--first middle
-(*)1~11, 計算中點
-11/2 = 5;
-=>此算法是 0-index的算法
-=>0+(11-0)/2 = 11/2 = 5 =>計算出first middle [0,1,2,3,4,5,6,7,8,9,10,11]
-                                                        \--first middle
-
+(*)1~10, 計算中點 => 0-index
+index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
+value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
+middle = 0+(9-0)/2 = 4 (index) => first_middle index
+                               => first_middle value = [4] = 5
 
 (*)1~10, 計算中點, 1-index算法
-1+(10-1)/2 = 1+9/2=1+4=5    [1,2,3,4,5,6,7,8,9,10] 
-                                      \--first middle
-           
-1~11, 計算中點, 1-index算法  
-1+(11-1)/2 = 1+10/2=1+5=6   [1,2,3,4,5, 6, 7,8,9,10,11]
-                                         \--first middle
-                                         
-====> 兩者first middle算出的數值是不一樣的; 當遇到左右兩邊數目一樣時,first middle在0-index和1-index是不一樣的
+index [1], [2], [3], [4], [5], [6], [7], [8], [9], [10]
+value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
+1+(10-1)/2 = 5 (index) => first_middle index
+                       => first_middle value = [5] = 5
 
 //====
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
@@ -234,7 +224,6 @@ upper_bound = 找出(>)大於target的最小值的位置
            
            
 //=======分析==============
-
 =>解有可能存在,有可能不存在陣列中
 =>左極限(左邊界) index=0;  右極限(右邊界) index=nums.size()-1, 最大的index
 =>運算描述句為
