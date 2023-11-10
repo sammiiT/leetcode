@@ -91,9 +91,10 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int m = 0;
     while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
         m = l + (r-l)/2;
-        if(nums[m]<target){
+        if(nums[m]<target){//[m]在target左邊, 所以要往右邊移動
             l = m+1;//m+1原因: 偶數個,m會永遠落在first middle, 不會往下一個跳; 所以要m+1 
-        }else{//nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
+        }else{//[m]在target右邊, 所以要往左邊移動
+               //nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
               //由(>=)的條件, 解有可能落在索引m上, 所以r=m;=> lower_bounded
               //或,因為r不會因為first middle而停在同一個位置, 在奇數或偶數求出的m, r都可以往前移動
             r = m;//等於放在nums[m]> target區間
@@ -160,17 +161,19 @@ while(l<r) {
 
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
     int l = 0;  
-    int r = nums.size()-1;//配上while(l<r)會有錯誤, 因為如果target發生在右邊界, 會導致找不到"解"?==>還是可以, 因為r初始值就是nums.size()-1
+//    int r = nums.size()-1;//配上while(l<r)會有錯誤, 因為如果target發生在右邊界, 會導致找不到"解"?==>還是可以, 因為r初始值就是nums.size()-1
+    int r = nums.size();
     int m = 0;
     
 // while(l<=r) 無法跳出迴圈    
     while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
         m = l + (r-l)/2;
 //        if(nums[m]<=target){//等於的時候, l 不能(m+1)
-        if(nums[m]<target){
-            l = m+1;
+        if(nums[m]<target){//在target左邊, 所以要往右邊移動 
+            l = m+1;//+1 是因為 first_middle
 //            cout<<"l="<<l<<" r="<<r<<" m="<<m<<endl;
         }else{//nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
+              //在target右邊, 所以要往左邊移動
             r = m;//等於放在nums[m]> target區間
 //            cout<<"l "<<l<<" r="<<r<<" m="<<m<<endl;
         }
