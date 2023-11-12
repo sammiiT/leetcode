@@ -32,8 +32,10 @@ int diff(vector<int>& arr, int mid, int target){
     int res = 0;
     for(auto num:arr){
         res = res + min(mid,num);//因為larger than 要修改, 所以用min
-    }
-    return abs(res-target);//所有的sum和target的差值
+    }                /* 將num修改為mid, 最後累加與target的差異最小
+                        larger than the value 就是 (num > mid) , 要修改為mid 所以就是 min(mid, num)
+                    */
+    return abs(res-target);//所有的sum和target的差值; 必須差異最小
 }
 int helper0(vector<int>& arr, int target){
     int l = 0, r = target;
