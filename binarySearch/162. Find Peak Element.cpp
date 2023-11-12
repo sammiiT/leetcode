@@ -14,7 +14,7 @@
    0  1  2  3  4  5  6 
    x  x  x  x  x  x  x 
  
-(*) 如果落在index=1, index=nums[size-1]
+(*) 如果落在index=1 
 nums[r]>nmus[r-1]  大於前一個 , 則回傳r
 小於前一個, 回傳r-1
  
@@ -35,3 +35,19 @@ int findPeakElement(vector<int>& nums){
     }
     return nums[r]>nums[r-1]?r:r-1;
 }
+//===寫法2====
+(*)用Stack 計算
+
+int findPeakElement(vector<int>& nums){
+    stack<int> stk;
+    for(int i=0; i<nums.size(); ++i){
+        while(!stk.empty() && nums[stk.top()]>nums[i]){
+            return stk.top();
+        }
+        stk.push(i);
+    }
+    return stk.top();
+}
+
+
+
