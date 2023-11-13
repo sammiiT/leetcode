@@ -43,6 +43,20 @@ int findMin(vector<int>& nums) {
     }
     return res;
 }
+int findMin(vector<int>& nums) {
+    int l = 0, r = nums.size()-1;
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(nums[m]<nums[r]){//distinct value,沒有等於的選項
+            r = m;
+        }else if(nums[m]>nums[r]){//distinct value,沒有等於的選項
+            l = m+1;
+        }
+    }
+    return nums[r];        
+}
+
+
 
 //===思路2
 (*)下面的判斷式有問題, 用上面算法的判斷是比較正確
