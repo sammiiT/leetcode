@@ -110,8 +110,18 @@ bool helper1(vector<vector<int>>& matrix, int target){
     }
     return r>=mat[row].size()?false:(mat[row][r]==target)?true:false;
 }
-    
-    
+
+//===寫法 2=====
+(*)用lower_bound()概念
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    int m = matrix.size(), n = matrix[0].size();
+    for(int i=0; i<m; ++i){
+        int idx = lower_bound(matrix[i].begin(),matrix[i].end(),target)-matrix[i].begin();
+        if(idx==n) continue;
+        if(matrix[i][idx]==target) return true;
+    }
+    return false;
+}    
   
   
   
