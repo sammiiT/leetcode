@@ -29,7 +29,7 @@ bool can_split_down(vector<int>& nums, int k, int sum){
       if(cnt>k) return false;
     }
   }
-  return true;
+  return true;//sum "s" can split array into  k partition.
 }
 
 int helper0(vector<int>& nums, int k){
@@ -42,7 +42,8 @@ int helper0(vector<int>& nums, int k){
   while(l<r){
     int m = l + (r-l)/2;//first middle作為minimum_largest
     if(can_split_down(nums,k,m)) r = m;//可以繼續split_down,如果可以繼續split且分割後不超過k個
-    else l = m+1;
+                                       // try much smaller value; 
+    else l = m+1;//// try larger value; for decreasing  number of partition.
   }
   return r;
 }
