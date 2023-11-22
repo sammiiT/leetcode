@@ -17,8 +17,10 @@
 - 取到7~12,代表取到 w的 index=1的元素
 -此時回傳index即可
 
-4. 取到0~6,其upper_bound就是7,對應的index就是0, 也對應在w的index 0
-   取到7~12,其upper_bound就是13,對應的index就是1, 同時也對應w的index 1
+4. 用upper_bound的原因:
+rand()%(sum.back()) 取餘數, 數值從0 ~ (sum.back()-1)
+取到0~6,其upper_bound就是7,對應的index就是0, 也對應在w的index 0
+取到7~12,其upper_bound就是13,對應的index就是1, 同時也對應w的index 1
 
 //=======
 class Solution {
