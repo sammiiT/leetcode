@@ -49,3 +49,34 @@ int helper0(vector<int>& nums){
 int singleNonDuplicate(vector<int>& nums) {
     return helper0(nums);
 }
+
+//=== 寫法2 ===
+int singleNonDuplicate(vector<int>& nums) {
+      int l = 0, r = nums.size()-1;
+      int m = 0;
+      while(l<r){
+            m = l+(r-l)/2;
+        
+            //m==0 原因 [1,2,2,3,3]
+            //[1,1,2,3,3]中間2是單一個數
+            if(m==0||(nums[m]!=nums[m+1] && nums[m]!=nums[m-1])) return nums[m];
+            if(m%2){
+                  if(nums[m]==nums[m-1]){//at right partition
+                      l = m+1;
+                  }else{//nums[m]==nums[[m+1] at left partition
+                      r = m-1;
+                  }
+            
+            } else {
+                  if(nums[m]==nums[m-1]){//at left partition
+                      r = m-1;
+                  }else{//at right partition
+                      l = m+1;
+                  }
+            }
+      }
+      return nums[r];        
+}
+
+
+
