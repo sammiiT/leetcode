@@ -30,7 +30,7 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
     return res;
 }
 
-//=======
+//====寫法2===
 (*)score換最大的 value
 (*)power換最小的 value;
 (*)每次計算完都紀錄一次最大的score
@@ -59,8 +59,6 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
     return res;
 }
 
-
-
 int bagOfTokensScore(vector<int>& tokens, int power) {
     int res = 0, points = 0;
     int i=0,j=tokens.size()-1;
@@ -81,3 +79,36 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
     }
     return res;
 }
+//====寫法3===
+(*)每一個位置的index都要計算
+1.先做ascendding排列
+2.設定邊界索引, l從0開始, r從size()-1開始; 設定停止條件 (l<r)
+3.將power全部一次換成score (由小到大) ; l++
+4.如果power不足, 就從陣列的back(), 用score換成power ; r--
+5.當(l==r)時; 判斷最後一個還沒操作的數值
+-如果power>=tokens[r] ,代表可以score可以再+1
+
+int bagOfTokensScore(vector<int>& tokens, int power) {
+    int l =0, r = tokens.size()-1;
+    int score = 0;//, res = 0;
+    sort(tokens.begin(),tokens.end());
+    while(l<r){
+        if(power>=tokens[l]){
+            power-=tokens[l];
+            l++;
+            score++;
+            continue;
+        }
+        if(score){
+            power+=tokens[r];
+            r--;
+            score--;
+            continue;
+        }
+        break;
+    }
+    if((r==l) && (power>=tokens[r]))
+        score++;//res++;
+    return score;
+}
+
