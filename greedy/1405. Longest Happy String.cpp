@@ -5,6 +5,8 @@
 253. Meeting Rooms II
 
 //===思路===
+可參考 984. String Without AAA or BBB
+
 (*)Greedy, 有多少,拿多少;但此題不能一次取
 - 一次只能排一個, 但優先排列的,還是最多的那一個
 
