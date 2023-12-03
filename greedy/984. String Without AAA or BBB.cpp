@@ -61,7 +61,8 @@ string helper2(int a, int b) {
             cntx = 2;
             cnty = 1;
         }else if(x.second-y.second==0){
-            cntx = (x.second>=2)?2:1;
+            //cntx = (x.second>=2)?2:1; 這一個也可以, 但下一種更好
+            cntx = (x.second==2)?2:1;//如果不等於2, 則取一個就好... 此方式可以用在 1405. Longest Happy String
             cnty = cntx;
         }
         res = res + string(cntx,x.first);
