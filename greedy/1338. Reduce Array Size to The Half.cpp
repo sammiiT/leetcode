@@ -57,3 +57,30 @@ int helper1(vector<int>& arr){
     return res;
 }
 
+//=== 寫法2 ====
+(*)刪除set之後, 會使原array的size變為原來的一半以下
+   這一set的總個數, 是所有array大小的一半
+(*)Return the minimum size of the set so that at least half of the integers of the array are removed.
+struct cmp{
+    bool operator()(pair<int,int>& a, pair<int,int>& b){
+        return (a.second < b.second);
+    } };
+
+int minSetSize(vector<int>& arr){
+    int res = 0;
+    int size = arr.size();
+    unordered_map<int,int> ump;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,cmp> pq;
+
+    for(int i:arr) ump[i]++;
+    for(auto it:ump) pq.push({it.first,it.second});
+    
+    while(!pq.empty()){
+        pair<int,int> p = pq.top(); pq.pop();
+        res++;
+        size-=p.second;
+        if(size<=(arr.size()/2)) break;
+    }
+    return res;
+}
+
