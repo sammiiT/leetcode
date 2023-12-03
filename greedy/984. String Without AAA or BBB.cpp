@@ -5,7 +5,7 @@
 792. Number of Matching Subsequences
 
 //===思路===
-
+參考 1405. Longest Happy String.
 
 //=======
 string strWithout3a3b(int a, int b) {
