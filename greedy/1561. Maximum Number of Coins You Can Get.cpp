@@ -48,3 +48,28 @@ int maxCoins(vector<int>& piles) {
     }
     return res;
 }
+
+//===寫法2====
+int maxCoins(vector<int>& piles) {
+    int a, b, m;//index
+    int res = 0;
+    int remain = piles.size();
+    sort(piles.begin(),piles.end());
+    
+    a = piles.size()-1;//一開始alice的index
+    b = 0;//一開始bob的index
+    
+    while(remain){
+        m = a-1;//me 取的index
+        a = m-1;//下一次 alice的index
+        b +=1; //bob 下一次的index
+        remain-=3;
+        res += piles[m];
+    }
+    return res;        
+}
+
+
+
+
+
