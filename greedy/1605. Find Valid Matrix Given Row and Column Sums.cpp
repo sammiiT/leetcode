@@ -106,9 +106,30 @@ vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
   return res;
 }
 
+//===寫法2====
+同上述greedy概念
 
-
-
+vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
+    int m = rowSum.size();
+    int n = colSum.size();
+    vector<vector<int>> res(m,vector<int>(n,0));
+    
+    for(int i=0; i<m; ++i){
+        for(int j=0; j<n; ++j){
+            if(rowSum[i]<colSum[j]){
+                res[i][j]=rowSum[i];
+                colSum[j]-=rowSum[i];//要先算colum
+                rowSum[i]-=rowSum[i];
+                //colSum[j]-=rowSum[i];
+            }else{//rowSum[i]>=colSum
+                res[i][j] = colSum[j];
+                rowSum[i]-=colSum[j];//要先算row
+                colSum[j]-=colSum[j];
+            }
+        }
+    }
+    return res;        
+}
 
 
 
