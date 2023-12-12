@@ -33,8 +33,8 @@ int helper0(string colors, vector<int>& neededTime) {
                 res+=pq.top().second;
                 pq.pop();
             }
-            pq.pop();
-            pq.push(make_pair(colors[i],neededTime[i]));
+            pq.pop();//把最後一個相同color的balloon移除
+            pq.push(make_pair(colors[i],neededTime[i]));//更換成最新的balloon
         }
     }
     while(pq.size()>=2){
