@@ -141,3 +141,39 @@ int helper2(string colors, vector<int>& neededTime){
     }
     return res;
 }
+
+//===寫法5====
+(*)只需遍歷一次陣列
+1.建立兩個index, i=遍歷索引, j=顏色比較索引
+- j更新: 當顏色不相同時 colors[i]!=colors[j]
+- j更新: 當顏色相同且[j]時間小於[i]時間 
+
+2.每次遇到相同的顏色,就比較花費時間, 取較小的那一個
+
+int minCost(string colors, vector<int>& neededTime) {
+    int res = 0;
+    int total = neededTime.size();
+    
+    for(int j=0,i=1; i<total; ++i){
+        int t = 0;
+        if(colors[j]==colors[i]){//顏色相同
+            if(neededTime[j]<neededTime[i]){//時間[j]小於時間[i]
+                t = neededTime[j];//記錄較小的時間
+                j = i;//更新j索引
+            }else{//neededTime[j]>=neededTime[i]
+                t = neededTime[i];//記錄較小的時間, 但不更新j索引
+            }
+            res += t;
+        } else {//colors[j]!=colors[i]
+            j = i;//更新j索引
+        }
+    }
+    return res;        
+}
+
+
+
+
+
+
+
