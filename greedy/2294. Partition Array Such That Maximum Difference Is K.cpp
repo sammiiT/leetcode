@@ -40,3 +40,19 @@ int partitionArray(vector<int>& nums, int k) {
       }  
       return res+1; //加1是考慮最後一個partition, 因為i==n時, 就跳出迴圈, 沒有計算到最後一個partition 
 }
+//===寫法2===
+int partitionArray(vector<int>& nums, int k) {
+    int res =0;
+    int i,j;
+    int n = nums.size();
+    sort(nums.begin(),nums.end());
+    
+    for(i=n-1,j=i; i>=0; --i){
+        if(nums[j]-nums[i]<=k) continue;
+        //nums[j]-nums[i]>k
+        j=i;
+        res +=1;
+    }
+    return res+1;
+}
+
