@@ -35,3 +35,41 @@ int helper1(vector<char>& tasks, int n){
 int leastInterval(vector<char>& tasks, int n) {
     return helper1(tasks,n);
 }
+//===== Time Limited Exceeded ===
+struct cmp{
+    bool operator()(pair<char,int>& a, pair<char,int>& b) {
+        return a.second < b.second;
+    };
+};
+
+int leastInterval(vector<char>& tasks, int n) {
+    unordered_map<char,int> ump;
+    priority_queue<pair<char,int>,vector<pair<char,int>>,cmp> pq;
+    priority_queue<pair<char,int>,vector<pair<char,int>>,cmp> tmp;
+    string res;
+    
+    for(char c: tasks) ump[c]++;
+    for(auto it: ump) pq.push({it.first,it.second});
+    
+    while(!pq.empty()){
+        
+        for(int i=0; i<(n+1); ++i){
+            if(!pq.empty()){
+                pair<char,int> p = pq.top(); pq.pop();
+                res = res + p.first;
+                p.second = p.second - 1;
+                if(p.second) tmp.push(p);
+                
+            } else {//pq.empty()
+                if(!tmp.empty())
+                    res = res + '@';
+            }
+        }
+        
+        while(!tmp.empty()){
+            pair<char,int> p = tmp.top(); tmp.pop();
+            pq.push(p);
+        }
+    }
+    return res.size();
+}
