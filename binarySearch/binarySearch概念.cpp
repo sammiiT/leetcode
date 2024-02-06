@@ -1,119 +1,3 @@
-(*)
-right初始化, 可以是right = nums.size(),或right = nums.size()-1;
-left初始化, left = 0;
-
-left進一個step永遠是 left = m+1;
-right進一個step是right = m 或 right = m-1; 
-
-返回 left, right或right-1
-
-
-/******************************************************
-* 討論計算條件邊界:
-* 目的: 跳出迴圈的最後數值,和此數值的意義 
-* left=0, right=nums.size(), while(left<right) => 最後求出的值是lower_bound
-* left=0, right=nums.size()-1, while(left<=right)=> 最後求出的值是lower_bound
-*******************************************************/
-(*)----- left=0, right=nums.size()-1, while(left<=right) -----
-while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
-解在左邊界, 如果right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
-           如果right=m, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
-解在右邊界, 因為left =m+1; 所以left會在right的右邊(left>right)=>跳出迴圈
-
-- 此判斷條件是用來搜尋target是否存在於數列中,會一併搜尋(left==right)的情況是不是target 
-- 如果用(left<right), 則一定會有一個解, 此解是lower_bound, 而且不會判斷到left==right的情況
-
-
-(*)---- left=0, right = nums.size(), while(left<right) -----
-while(left<right) 對應right = nums.size();  對應right = m;  
-解在左邊界, 因為right=m, 所以(left==right)=>跳出迴圈
-          => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
-解在右邊界, 因為left=m+1, 所以(left==right)=>跳出迴圈
-
-(*)當target不存在sorting array中, 且要求出插入的位址, 則上述兩點必須牢記
-
-/***********************************************
-* 分析 first_middle和second_middle對運算的影響
-* first_middle:  m = l + (r-l)/2;
-* second_middle: m = l + (r-l+1)/2;
-************************************************/
-//===討論 0-index和1-index的 數字中點====
-(*)1~10, 計算中點(0-index); 用first_middle => m=l+(r-l)/2;
-index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
-value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
-middle = 0+(9-0)/2 = 4 (index) => first_middle index
-                               => first_middle value = [4] = 5
-
-(*)1~10, 計算中點(1-index); 用first_middle => m=l+(r-l)/2;
-index [1], [2], [3], [4], [5], [6], [7], [8], [9], [10]
-value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
-1+(10-1)/2 = 5 (index) => first_middle index
-                       => first_middle value = [5] = 5
-
-//====
-int binarySearch(vector<int>& nums, int target){//用在最靠近的element
-    int l = 0;  
-//    int r = nums.size()-1;
-    int r = nums.size();
-    int m = 0;
-    while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
-        m = l + (r-l)/2;
-        if(nums[m]<target){//[m]在target左邊, 所以要往右邊移動
-            l = m+1;//m+1原因: 偶數個,m會永遠落在first middle, 不會往下一個跳; 所以要m+1 
-        }else{//[m]在target右邊, 所以要往左邊移動
-               //nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
-              //由(>=)的條件, 解有可能落在索引m上, 所以r=m;=> lower_bounded
-              //或,因為r不會因為first middle而停在同一個位置, 在奇數或偶數求出的m, r都可以往前移動
-            r = m;//等於放在nums[m]> target區間
-        }
-    }
-    return r;//return r就是靠近 right的那一個index
-}
-
-(*)左極限,右極限來看邏輯=> 左極限 idx=0, 右極限 idx=(n-1); 
-r = nums.size(); 搭配 while(l<r)
---跳出迴圈, 當(l==r); 最後 (l==r) =>不管怎樣, 都會算到(l==r)才停止
-
-(*)first_middle或second_middle 
-l = m+1 , r = m 是因為m的運算式為first_middle運算式 => m = l+(r-l)/2;
-所以才會遇到 l = m的時候,有可能會跳不出迴圈, 一定要是 l = m+1;
-
-如果是用second_middle運算, 則可以用l=m; 不會發生跳不出迴圈, 因為l都會被update
-m = l+(r-l+1)/2; //second_middle, 此時對l和r的更新式如下
-l = m;   ([i]<=target) => 有等於的符號不用+1或-1,但在l取解會有跳不出迴圈的問題
-r = m-1; ([i]>target)  
-???? 用此方法求不出lower_bounded 
-
-//=== first_middle來解題目 ====
-(*)lower_bounded (假設有可能沒有"解")
-int r = nums.size();
-while(l<r) { ...
-=> {1,3,4,6,7,9}; target = 10    
-=> 回傳 6
-           
-(*)類lower_bounded(須先假設題目一定有"解")=>因為下列描述不會讓l跳出(nums.size()-1)
-int r = nums.size()-1;
-while(l<r) {
-=> {1,3,4,6,7,9}; target = 10    
-=> 回傳 5 =>因為r最大到[5], 所以當l==r==5的時候,就跳出迴圈
-=>修正: 將 r=nums.size();              
-=>若 r=nums.size()-1; while(l<=r) 還是會出錯, 因為最後不滿足條件 (l=6)>=(r=5)           
-  最後回傳還是r, r並沒有改變;所以錯誤.
-
-//===用seconde_middle來求 解===             
- int binarySearch(vector<int>& nums, int target){
-    int l = 0, r = nums.size();
-    int m =0;
-    while(l<r){
-        m = l+(r-l+1)/2;
-        if(nums[m]<=target) l = m;
-        else //nums[m]>target
-            r=m-1;
-    }
-    return l;
-}
-
-
 (*)===== 找不到,回傳-1 ======
 int binarySearch(vector<int>& nums, int target){
     int l = 0;
@@ -152,16 +36,128 @@ int binarySearch(vector<int>& nums, int target){
     return m;//回傳一個位址, 
 }
 
+/******************************************************
+* 討論計算條件邊界:
+* 目的: 跳出迴圈的最後數值,和此數值的意義 
+* left=0, right=nums.size(), while(left<right) => 最後求出的值是lower_bound
+* left=0, right=nums.size()-1, while(left<=right)=> 最後求出的值是lower_bound
+*******************************************************/
+(*)----- left=0, right=nums.size()-1, while(left<=right) -----
+while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
+解在左邊界, 如果right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
+           如果right=m, 若搜尋的解發生在左邊界; 且target不存在左邊界時, 運算會跳不出迴圈
+解在右邊界, 因為left =m+1; 所以left會在right的右邊(left>right)=>跳出迴圈
+
+- 此判斷條件是用來搜尋target是否存在於數列中,會一併搜尋(left==right)的情況是不是target 
+- 如果用(left<right), 則一定會有一個解, 此解是lower_bound, 而且不會判斷到left==right的情況
+
+(*)---- left=0, right = nums.size(), while(left<right) -----
+while(left<right) 對應right = nums.size();  對應right = m;  
+解在左邊界, 因為right=m, 所以(left==right)=>跳出迴圈
+          => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
+解在右邊界, 因為left=m+1, 所以(left==right)=>跳出迴圈
+
+(*)當target不存在sorting array中, 且要求出插入的位址, 則上述兩點必須牢記
+
+//===討論 0-index和1-index的 數字中點====
+(*)1~10, 計算中點(0-index); 用first_middle => m=l+(r-l)/2;
+index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
+value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
+middle = 0+(9-0)/2 = 4 (index) => first_middle index
+                               => first_middle value = [4] = 5
+
+(*)1~10, 計算中點(1-index); 用first_middle => m=l+(r-l)/2;
+index [1], [2], [3], [4], [5], [6], [7], [8], [9], [10]
+value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
+1+(10-1)/2 = 5 (index) => first_middle index
+                       => first_middle value = [5] = 5
 
 
-
-/*
-* 討論 left 或 right 更新 條件:
+/***********************************************
+* 分析 first_middle和second_middle對運算的影響
+* first_middle:  m = l + (r-l)/2;
+用first_middle做運算, 對l的更新,必須是 l=m+1 ;多位移一個位置
+因為如果l和r相差1的狀況,first_middle的更新會一直停在原l位置,導致陷入無窮迴圈, 沒辦法從while(l<r)中跳出來.
 *
+* second_middle: m = l + (r-l+1)/2;
+*
+*
+************************************************/                      
+int binarySearch(vector<int>& nums, int target){//用在最靠近的element
+    int l = 0;  
+//    int r = nums.size()-1;
+    int r = nums.size();
+    int m = 0;
+    while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
+        m = l + (r-l)/2;
+        if(nums[m]<target){//[m]在target左邊, 所以要往右邊移動
+            l = m+1;//m+1原因: 偶數個,m會永遠落在first middle, 不會往下一個跳; 所以要m+1 
+        }else{//[m]在target右邊, 所以要往左邊移動
+               //nums[m]>=target=> r移動可以不用減1, 因為個數的會造成m移動
+              //由(>=)的條件, 解有可能落在索引m上, 所以r=m;=> lower_bounded
+              //或,因為r不會因為first middle而停在同一個位置, 在奇數或偶數求出的m, r都可以往前移動
+            r = m;//等於放在nums[m]> target區間
+        }
+    }
+    return r;//return r就是靠近 right的那一個index
+}
+
+(*)左極限,右極限來看邏輯=> 左極限 idx=0, 右極限 idx=(n-1); 
+r = nums.size(); 搭配 while(l<r)
+--跳出迴圈, 當(l==r); 最後 (l==r) =>不管怎樣, 都會算到(l==r)才停止
+
+(*)first_middle或second_middle 
+l = m+1 , r = m 是因為m的運算式為first_middle運算式 => m = l+(r-l)/2;
+所以才會遇到 l = m的時候,有可能會跳不出迴圈, 一定要是 l = m+1;
+
+如果是用second_middle運算, 則可以用l=m; 不會發生跳不出迴圈, 因為l都會被update
+m = l+(r-l+1)/2; //second_middle, 此時對l和r的更新式如下
+l = m;   ([i]<=target) => 有等於的符號不用+1或-1,但在l取解會有跳不出迴圈的問題
+r = m-1; ([i]>target)  
+???? 用此方法求不出lower_bounded 
+
+
+//=== first_middle來解題目 ====
+(*)lower_bounded (假設有可能沒有"解")
+int r = nums.size();
+while(l<r) { ...
+=> {1,3,4,6,7,9}; target = 10    
+=> 回傳 6
+           
+(*)類lower_bounded(須先假設題目一定有"解")=>因為下列描述不會讓l跳出(nums.size()-1)
+int r = nums.size()-1;
+while(l<r) {
+=> {1,3,4,6,7,9}; target = 10    
+=> 回傳 5 =>因為r最大到[5], 所以當l==r==5的時候,就跳出迴圈
+=>修正: 將 r=nums.size();              
+=>若 r=nums.size()-1; while(l<=r) 還是會出錯, 因為最後不滿足條件 (l=6)>=(r=5)           
+  最後回傳還是r, r並沒有改變;所以錯誤.
+
+//===用seconde_middle來求 解===             
+ int binarySearch(vector<int>& nums, int target){
+    int l = 0, r = nums.size();
+    int m =0;
+    while(l<r){
+        m = l+(r-l+1)/2;
+        if(nums[m]<=target) l = m;
+        else //nums[m]>target
+            r=m-1;
+    }
+    return l;
+}
+
+
+/***********************
+* 討論 left 或 right 更新 計算式:
+* if( f(m) >= target)// target在m的左邊, 所以要更新right; 因為first_middle算法, 所以right更新直接等於m 
+*     right = m;
+*
+* if( f(m) < target) // target在m的右邊, 所以要更新left; 且first_middle算法,所以left更新要+1
+*     left=m+1;
+*
+* first_middle運算時,判斷式的等號放在 right=m 的更新上; 這樣"解"才會落在right位置
+* 如果等號放在 left = m+1; 最後的"解"會落在(m+1)上
 */
-
-
-//==========================
 //==============================================================
 
 (*)找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
