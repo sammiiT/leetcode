@@ -7,6 +7,13 @@ right進一個step是right = m 或 right = m-1;
 
 返回 left, right或right-1
 
+
+/******************************************************
+* 討論計算條件邊界:
+* 目的: 跳出迴圈的最後數值,和此數值的意義 
+* left=0, right=nums.size(), while(left<right) => 最後求出的值是lower_bound
+* left=0, right=nums.size()-1, while(left<=right)=> 最後求出的值是lower_bound
+*******************************************************/
 (*)----- left=0, right=nums.size()-1, while(left<=right) -----
 while(left<=right)  對應right = nums.size()-1; 對應 right = m-1;
 解在左邊界, 如果right=m-1; 所以left會在right的右邊(left>right)=>跳出迴圈
@@ -23,61 +30,21 @@ while(left<right) 對應right = nums.size();  對應right = m;
           => 每次計算m, 因為元素奇偶數, 所以m會自動往前移一格 
 解在右邊界, 因為left=m+1, 所以(left==right)=>跳出迴圈
 
-
 (*)當target不存在sorting array中, 且要求出插入的位址, 則上述兩點必須牢記
 
-
-(*)===== 找不到,回傳-1 ======
-int binarySearch(vector<int>& nums, int target){
-    int l = 0;
-    int r = nums.size()-1;
-
-//找不到的時候, (l>r)跳出迴圈
-    while(l<=r){//用nums.size()-1, 則要用l<=r, 才能找到邊界(最左邊),(最右邊)
-        int m = l+(r-l)/2;
-        if(nums[m]<target){
-            l = m+1;//會觸發while break
-        }else if(nums[m]>target){
-            r = m-1;//會觸發while break
-        }else{
-            return m;//一個跳出迴圈
-        }
-    }
-    return -1;//找不到,回傳-1
-}
-
-(*)===== 若找不到,要回傳一個位置 ======
-int binarySearch(vector<int>& nums, int target){
-    int l = 0;
-    int r = nums.size()-1;
-    int m;
-//while(l<=r); 最後l可能會大於r, r可能會小於l    
-    while(l<=r){
-        m = l+(r-l)/2;
-        if(nums[m]<target){
-            l = m+1;
-        }else if(nums[m]>target){
-            r = m-1;
-        }else{
-            return m;
-        }
-    }
-    return m;//回傳一個位址, 
-}
-
-
 /***********************************************
-*   分析 first_middle和second_middle對運算的影響
+* 分析 first_middle和second_middle對運算的影響
+* first_middle:  m = l + (r-l)/2;
+* second_middle: m = l + (r-l+1)/2;
 ************************************************/
-
 //===討論 0-index和1-index的 數字中點====
-(*)1~10, 計算中點 => 0-index
+(*)1~10, 計算中點(0-index); 用first_middle => m=l+(r-l)/2;
 index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
 value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
 middle = 0+(9-0)/2 = 4 (index) => first_middle index
                                => first_middle value = [4] = 5
 
-(*)1~10, 計算中點, 1-index算法
+(*)1~10, 計算中點(1-index); 用first_middle => m=l+(r-l)/2;
 index [1], [2], [3], [4], [5], [6], [7], [8], [9], [10]
 value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
 1+(10-1)/2 = 5 (index) => first_middle index
@@ -145,8 +112,56 @@ while(l<r) {
     }
     return l;
 }
-            
-             
+
+
+(*)===== 找不到,回傳-1 ======
+int binarySearch(vector<int>& nums, int target){
+    int l = 0;
+    int r = nums.size()-1;
+
+//找不到的時候, (l>r)跳出迴圈
+    while(l<=r){//用nums.size()-1, 則要用l<=r, 才能找到邊界(最左邊),(最右邊)
+        int m = l+(r-l)/2;
+        if(nums[m]<target){
+            l = m+1;//會觸發while break
+        }else if(nums[m]>target){
+            r = m-1;//會觸發while break
+        }else{
+            return m;//一個跳出迴圈
+        }
+    }
+    return -1;//找不到,回傳-1
+}
+
+(*)===== 若找不到,要回傳一個位置 ======
+int binarySearch(vector<int>& nums, int target){
+    int l = 0;
+    int r = nums.size()-1;
+    int m;
+//while(l<=r); 最後l可能會大於r, r可能會小於l    
+    while(l<=r){
+        m = l+(r-l)/2;
+        if(nums[m]<target){
+            l = m+1;
+        }else if(nums[m]>target){
+            r = m-1;
+        }else{
+            return m;
+        }
+    }
+    return m;//回傳一個位址, 
+}
+
+
+
+
+/*
+* 討論 left 或 right 更新 條件:
+*
+*/
+
+
+//==========================
 //==============================================================
 
 (*)找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
