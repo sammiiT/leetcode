@@ -7,6 +7,7 @@
 (*)先賦值,再移動: 一開始index初始位置在陣列上,在index = 0上  
   
 3.基本操作:
+/* push(),pop(),front(),back(),size(),empty() */  
 int push(int val);
 int pop();
 int getFront();
@@ -68,7 +69,55 @@ void queue_init(struct queue* qu, int capacity){
 2. 實作
 3. 以此線性quque實作stack
 
+struct queue {
+  ListNode* f, *r;
+}
+void queue_init(struct queue* q){
+  q->f=NULL;
+  q->r=NULL;
+}
 
+void push(struct queue* q,int val){
+    if(q->f==NULL && q->r==NULL){
+      ListNode* tmp = new ListNode(val);
+      q->f = tmp;
+      q->r = tmp;
+      //initial (f==r)
+    }else{
+      ListNode* tmp = new ListNode(val);
+      q->r->next = tmp;
+      q->r = q->r->next;
+    }
+}
+void pop(struct queue* q){
+    //chk empty
+    if(q->f==NULL && q->r==NULL) return;
+   
+    if(q->f==q->r){//only one element
+      ListNode* tmp = q->f;
+      delete tmp;
+      q->f = NULL;
+      q->r = NULL;
+    }else{
+      ListNode *tmp = q->f;
+      q->f = q->f->next;
+      delete tmp;
+    }
+}
+
+int front(struct queue* q, int* ret){
+    //chk empty: chk initial 用c++ constructor, 再宣告時就會自動執行
+    if(q->f==NULL && q->r==NULL) return 0;  
+    *ret = q->f->val;    
+    return 1;
+}
+
+int back(struct queue* q, int* ret){
+    //chk empty
+    if(q->f==NULL && q->r==NULL) return 0;
+    *ret = q->r->val;
+    return 1;
+}
 
 
 //=== circular queue (Ring buffer)=====
@@ -121,3 +170,66 @@ bool isFull(struct queue* qu){
 }
 
 //===利用ring buffer實作stack
+
+
+
+//===筆記===
+struct ListNode{
+  int val;
+  struct ListNode* next;
+};
+
+struct queue {
+  int size;
+  //struct ListNode* node,*f,*r;
+  struct ListNode** f;
+  struct ListNode** r;
+}
+
+void queue_init(sturct queue* q){
+    q->size = 0;
+    q->f = NULL;
+    q->r = NULL;
+} 
+
+void queue_push(struct queue* q, int val){
+    if(q->f==NULL && q->r==NULL){
+        ListNode* node = new ListNode(val);
+        q->r = &node;//local 變數, 會形成dangling pointer;函式執行完會被回收,有可能會被其他程式變數覆蓋
+/*
+指標的指標計算, 要有一個中間的位址去承接
+如:
+int a = 1;
+int *ptr = &a;
+int **ptr_to_ptr = &ptr; //中間的位址,就是 int *ptr的位址
+*/    
+    }else{
+        
+        ListNode* node = new ListNode(val);
+        ListNode
+        ListNode* tmp = *(q->r);
+        tmp->next = node;
+        tmp = node;        
+    }
+}
+void queue_pop(struct queue* q){
+  //if(q->r==NULL) return;
+  if(q->f==NULL && q->r==NULL) return;//empty
+  //
+}
+
+int queue_front(struct queue* q, int* val){
+  
+}
+
+int isEmpty(struct queue* q){
+  
+}
+
+int isFull(struct queue* q){
+
+  
+}
+
+
+
