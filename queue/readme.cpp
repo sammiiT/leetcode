@@ -128,13 +128,14 @@ int back(struct queue* q, int* ret){
 4.因為當r的下一個為f的話, 代表buffer full, 所以r不能做update; r不能update, 表示r的位置上沒有新的值(3.1)
 5.由4, 可知, 用circular buffer, 滿buffer時會空一格沒有用到的空間
 6.實作(依據之前的struct queue):
-
+7. 用ring-buffer會有 buffer-full的問題, 用linked-list不會有buffer-full
+  
 void queue_init(struct queue* qu, int capacity){
   qu->f=qu->r=0;
   qu->capacity = capacity;
   qu->q = new int[capacity];
 }
-int push(struct queue* qu, int val){
+int push(struct queue* qu, int val){//先賦值, 再位移
   if(isFull(qu)){ return -1;}
   qu->q[r]=val;
   r=(r+1)%(qu->capacity);
@@ -169,9 +170,46 @@ bool isFull(struct queue* qu){
   return ((r+1)%n==f);
 }
 
-//===利用ring buffer實作stack
+//===先位移,再賦值====
+void queue_init(struct queue* q, int size){
+    q->size = size;
+    if(q->size<4) q->size = 4; 
+    
+    q->f = 0;
+    q->r = 0;
+    q->arr = new int[q->size];
+}
+int push(struct queue* q, int val){
+    if((q->r+1)%(q->size) == q->f) return 0;//buffer full
+    q->r = (q->r+1)%q->size;
+    q->arr[q->r] = val;
+    return 1;
+}
+bool isFull(struct queue* q){
+//    return ((q->f+1)%q->size==q->r);
+    return ((q->r+1)%q->size==q->f);
+    
+}
+bool isEmpty(struct queue* q){
+    return (q->f==q->r);
+}
 
-
+void pop(struct queue* q){
+    if(q->r==q->f) return;//empty
+    
+    q->f = (q->f+1)%q->size;
+}
+int front(struct queue* q, int* ret){
+    if(q->r==q->f) return 0;
+    *ret = q->arr[(q->f+1)%(q->size)];
+    return 1;
+}
+int back(struct queue* q, int* ret){
+    if(q->r==q->f) return 0;
+    
+    *ret=q->arr[q->r];
+    return 1;
+}
 
 //===筆記===
 struct ListNode{
