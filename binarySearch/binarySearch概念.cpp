@@ -59,6 +59,37 @@ while(left<right) 對應right = nums.size();  對應right = m;
 
 (*)當target不存在sorting array中, 且要求出插入的位址, 則上述兩點必須牢記
 
+//=======分析==============
+=>解有可能存在,有可能不存在陣列中
+=>左極限(左邊界) index=0;  右極限(右邊界) index=nums.size()-1, 最大的index
+=>運算描述句為
+if(nums[m]<target) l=m+1;
+else r=m;
+
+(*) r = nums.size();   while(l<r)
+--當target超出右極限, 給l移到右極限的機會;
+最後l==r, 且值為nums.size()
+
+
+(*) r= nums.size(); while(l<=r)
+--當target超出右極限, 運算會出錯(1)
+當l==r時, 已經超出了 [num.size()-1]索引範圍; 所以要修正上面條件範圍 => r= nums.size()-1
+--當target存在, 運算會出錯(2)
+找到target, l會等於r, 接下來求出的m會一直在同一個數值, 導致跳不出迴圈
+
+
+(*)r= nums.size()-1; while(l<=r)
+--當target超出右極限, l==r時會, 再運算一次, 若沒找到 最後 l>r, 跳出回圈
+--當target存在, 運算出錯, l==r時, m會一直在同一個數值,導致跳不出迴圈
+
+
+(*) r = nums.size()-1; while(l<r)
+--當 target剛好在右極限, 可以找到解, 剛好在l==r的時候
+--當target超出右極限,找到的解,是右極限的位址, 但是錯誤的
+
+r=nums.size()會有超出索引範圍的狀況
+while(l<=r)會有跳不出迴圈的狀況;要搭配break敘述或在每次r和l的遷移都要做+1或-1的運算
+
 //===討論 0-index和1-index的 數字中點====
 (*)1~10, 計算中點(0-index); 用first_middle => m=l+(r-l)/2;
 index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
@@ -80,7 +111,6 @@ value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
 因為如果l和r相差1的狀況,first_middle的更新會一直停在原l位置,導致陷入無窮迴圈, 沒辦法從while(l<r)中跳出來.
 *
 * second_middle: m = l + (r-l+1)/2;
-*
 *
 ************************************************/                      
 int binarySearch(vector<int>& nums, int target){//用在最靠近的element
@@ -237,38 +267,6 @@ upper_bound = 找出(>)大於target的最小值的位置
            
            
            
-//=======分析==============
-=>解有可能存在,有可能不存在陣列中
-=>左極限(左邊界) index=0;  右極限(右邊界) index=nums.size()-1, 最大的index
-=>運算描述句為
-if(nums[m]<target) l=m+1;
-else r=m;
-
-(*) r = nums.size();   while(l<r)
---當target超出右極限, 給l移到右極限的機會;
-最後l==r, 且值為nums.size()
-
-
-(*) r= nums.size(); while(l<=r)
---當target超出右極限, 運算會出錯(1)
-當l==r時, 已經超出了 [num.size()-1]索引範圍; 所以要修正上面條件範圍 => r= nums.size()-1
---當target存在, 運算會出錯(2)
-找到target, l會等於r, 接下來求出的m會一直在同一個數值, 導致跳不出迴圈
-
-
-(*)r= nums.size()-1; while(l<=r)
---當target超出右極限, l==r時會, 再運算一次, 若沒找到 最後 l>r, 跳出回圈
---當target存在, 運算出錯, l==r時, m會一直在同一個數值,導致跳不出迴圈
-
-
-(*) r = nums.size()-1; while(l<r)
---當 target剛好在右極限, 可以找到解, 剛好在l==r的時候
---當target超出右極限,找到的解,是右極限的位址, 但是錯誤的
-
-
-r=nums.size()會有超出索引範圍的狀況
-while(l<=r)會有跳不出迴圈的狀況;要搭配break敘述或在每次r和l的遷移都要做+1或-1的運算
-
 
 
 
