@@ -1,4 +1,4 @@
-(*)
+(*)運算概念:
 index = top
 top一開始等於0, 則先賦值(更新),再位移
 top一開始等於-1, 則先位移, 再賦值(更新)
@@ -82,6 +82,14 @@ int top(struct stack* stk){
     if(isEmpty(stk)) return -1;
     return stk->arr[stk->top-1];//top位置沒有最新的數值, 要找前一個位置的數值
 }
+/*
+int top(struct stack* stk, int* val){
+    if(isEmpty(stk)) return 0;
+    *val=stk->arr[stk->top-1];
+    return 1;
+}
+*/
+
 int getSize(struct stack* stk){
     return stk->top-(0);
 }
@@ -106,7 +114,7 @@ int main()
 }
 
 /****************************************************
-以stack來實作queue
+以stack來實作queue; 參考leetcode實作
 ****************************************************/
 (*)stack操作
 void stack_init(struct stack* stk, int size);
@@ -123,8 +131,7 @@ void queue_init(struct stack* stk, int size){
     stack_init(stk,size);
 }
 int push(struct stack* stk, int val){
-    struct stack tmp;
-    
+    struct stack tmp;   
     stack_init(&tmp,)
 }
 int pop();
