@@ -1,3 +1,8 @@
+/****************************
+*回傳是否有找到target  
+*沒找到target,回傳-1
+*有找到回傳index; 判斷式中的等於選項獨立出來.
+*****************************/
 (*)===== 找不到,回傳-1 ======
 int binarySearch(vector<int>& nums, int target){
     int l = 0;
@@ -180,16 +185,29 @@ while(l<r) {
 /***********************
 * 討論 left 或 right 更新 計算式:
 * if( f(m) >= target)// target在m的左邊, 所以要更新right; 因為first_middle算法, 所以right更新直接等於m 
-*     right = m;
+*     right = m;     //要靠近target, 要更新right 
 *
-* if( f(m) < target) // target在m的右邊, 所以要更新left; 且first_middle算法,所以left更新要+1
-*     left=m+1;
+* if( f(m) < target) // target在m的右邊,所以要更新left; 且first_middle算法,所以left更新要+1
+*     left=m+1;      //要越來越靠近target, 所以要更新left
 *
-* first_middle運算時,判斷式的等號放在 right=m 的更新上; 這樣"解"才會落在right位置
-* 如果等號放在 left = m+1; 最後的"解"會落在(m+1)上
+* first_middle運算時,判斷式的"等號"放在 right=m 的更新上; 
+* -這樣"解"才會落在right位置,如果等號放在 left = m+1; 最後的"解"會落在(m+1)上
+* -因為first_middle運算會自動將right更新一個單位, 但left在(right-left=1)時, left不會自動更新一個單位
 */
-//==============================================================
 
+//==== 降冪排列,用上述觀念 定義 right和left的更新
+int binarySearchDescend(vector<int>& nums, int target){
+    int l=0,r=nums.size();
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(nums[m]<=target) r = m; //等於判斷式放在 r=m是因為在firste_middle運算中會自動update一個單位
+        else//>=target (x) => >target
+            l=m+1;
+    }
+    return r;
+}
+
+//==============================================================
 (*)找到第一個(>=)不小於target的數值=> return r, 找到最後一個小於目標值的數=> return r-1
 因為 (nums[m]>=target){r = m;}=> 遇到target, 或大於target; 所以 ">="
 
@@ -239,7 +257,8 @@ int upper_bounded(vector<int>& nums, int target){
    int left=0, right = nums.size();
    while(left<right){
       int m = left + (right-left)/2;
-      if(nums[m]<=target) left = m+1;//若target發生在m, 但left=m+1, 會造成找到>target的最小位址
+      if(nums[m]<=target) left = m+1;//當target發生在m,但left=m+1,會造成找到>target的最小位址
+                                     //跳出"等於"的位置
       else right = m;                //用在upper_bound
    }
    return r;//可以用 return left;????
@@ -263,11 +282,4 @@ int upper_bounded(vector<int>& nums, int target){
 upper_bound = 找出(>)大於target的最小值的位置
 
 
-(*)用second_middle           
-           
-           
-           
-
-
-
-
+    
