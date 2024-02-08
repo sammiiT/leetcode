@@ -114,8 +114,16 @@ int main()
 }
 
 /*********************************
-*   利用linked-list實作 stack
+* 利用Double linked-list實作 stack
+* 再以此stack實作queue
 **********************************/
+struct ListNode{
+    int val;
+    struct ListNode* prev;
+    struct ListNode* next;
+    ListNode():val(0),prev(nullptr),next(nullptr){}
+    ListNode(int val):val(val),prev(nullptr),next(nullptr){}
+};
 struct stack {
     ListNode* head;
     ListNode* top;
@@ -231,6 +239,99 @@ bool q_isEmpty(struct queue* q){
     return isEmpty(&q->stk);
 }
 
+/****************************************
+* 以linked-list 實作 stack
+* 再以此stack實作queue
+*****************************************/
+struct ListNode {
+    int val;
+    struct ListNode* next;
+    ListNode():val(0),next(nullptr){}
+    ListNode(int val):val(val),next(nullptr){}
+};
+struct stack{
+    struct ListNode* h;
+    stack():h(nullptr){}
+};
+void push(struct stack* stk, int val){
+    if(stk->h==NULL) {
+        ListNode* tmp = new ListNode(val);
+        stk->h=tmp;
+    } else {
+        ListNode* tmp = new ListNode(val);
+        tmp->next = stk->h;
+        stk->h = tmp;
+    }
+}
+void pop(struct stack* stk){
+    if(stk->h==NULL) return;
+    
+    ListNode* tmp = stk->h->next;
+    delete stk->h;
+    stk->h = tmp;
+}
+int top(struct stack* stk, int* ret){
+    if(stk->h==NULL) return 0;
+    
+    *ret = stk->h->val;
+    return 1;
+}
+bool isEmpty(struct stack* stk){
+    return (stk->h==NULL);
+}
+//====此stack實作queue======
+struct queue{
+    struct stack stk;
+};
+void qpush(struct queue* q, int val){
+    push(&q->stk,val);
+}
+void qpop(struct queue* q){
+    struct stack stmp;
+    int res;  
+    if(isEmpty(&q->stk)) return;
+    while(!isEmpty(&q->stk)){
+        top(&q->stk,&res);
+        pop(&q->stk);
+        push(&stmp,res);
+    }
+    pop(&stmp);
+    
+    while(!isEmpty(&stmp)){
+        top(&stmp,&res);
+        pop(&stmp);
+        push(&q->stk,res);
+    }
+}
+int qfront(struct queue* q, int* ret){
+    struct stack stmp;
+    int res;
+    if(isEmpty(&q->stk)) return 0;
+    while(!isEmpty(&q->stk)){
+        top(&q->stk,&res);
+        pop(&q->stk);
+        push(&stmp,res);
+    }
+    *ret = res;   
+    while(!isEmpty(&stmp)){
+        top(&stmp,&res);
+        pop(&stmp);
+        push(&q->stk,res);
+    }
+    return 1;
+}
+int qback(struct queue* q, int* ret){
+    if(isEmpty(&q->stk)) return 0;
+    top(&q->stk,ret);
+    return 1;
+}
+bool qisEmpty(struct queue* q){
+    return isEmpty(&q->stk);
+}
+
+
+
+
 
 
 /****************************************************
@@ -248,7 +349,11 @@ void q_push(struct queue* q, int val){
     push(&q->stk,val);    
 }
 
-int q_front(struct queue* q, int* ret){
+int q_fr
+
+
+
+ont(struct queue* q, int* ret){
     struct stack stmp;
     int res;
     
