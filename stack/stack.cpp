@@ -113,9 +113,203 @@ int main()
     return 0;
 }
 
+/*********************************
+*   利用linked-list實作 stack
+**********************************/
+struct stack {
+    ListNode* head;
+    ListNode* top;
+};
+void init(struct stack* stk){
+    stk->head=NULL;
+    stk->top=NULL;
+}
+void push(struct stack* stk, int val){
+    if(stk->head==NULL && stk->top==NULL) {
+        ListNode* tmp = new ListNode(val);
+        stk->head = tmp;
+        stk->top = tmp;
+    }else{
+        ListNode* tmp = new ListNode(val);
+        stk->top->next = tmp;
+        tmp->prev = stk->top;
+        stk->top = stk->top->next;
+    }
+}
+int top(struct stack* stk, int* ret){
+    if(stk->head==NULL && stk->top==NULL) return 0;
+    *ret = stk->top->val;
+    return 1;
+}
+void pop(struct stack* stk){
+    if(stk->head==NULL && stk->top==NULL) return;
+    
+    if(stk->head==stk->top){//only one
+        delete stk->head;
+        stk->head=NULL;
+        stk->top=NULL;
+    } else {
+        ListNode* tmp = stk->top->prev;
+        tmp->next = NULL;
+        delete stk->top;
+        stk->top = tmp;
+    }
+}
+bool isEmpty(struct stack* stk){
+    return (stk->head==NULL && stk->top==NULL);
+}
+//===以stack來實作queue===
+struct queue{
+    stack stk;    
+};
+
+void q_init(struct queue* q){
+    init(&q->stk);
+}
+
+void q_push(struct queue* q, int val){
+    push(&q->stk,val);    
+}
+
+int q_front(struct queue* q, int* ret){
+    struct stack stmp;
+    int res;
+    
+    if(isEmpty(&q->stk)) return 0;//stack is empty
+    
+    init(&stmp);
+    
+    while(!isEmpty(&q->stk)){
+        if(top(&q->stk,&res)){
+            pop(&q->stk);
+            push(&stmp,res);        
+        }
+    } 
+    *ret = res;
+   // cout<<"res="<<res<<endl;
+    
+    while(!isEmpty(&stmp)){
+        int val;
+        if(top(&stmp,&val)){
+            pop(&stmp);
+            push(&q->stk,val);
+        }
+    }
+    return 1;
+}
+
+int q_back(struct queue* q, int* ret){
+    if(isEmpty(&q->stk)) return 0;
+    if(top(&q->stk,ret)) return 1;
+    return 0;
+}
+
+void q_pop(struct queue* q){
+    struct stack stmp;
+    int res;
+    if(isEmpty(&q->stk)) return;//stack is empty
+    
+    init(&stmp);
+    while(!isEmpty(&q->stk)){
+        if(top(&q->stk,&res)){
+            pop(&q->stk);
+            push(&stmp,res);        
+        }
+    }
+    pop(&stmp);
+    
+    while(!isEmpty(&stmp)){
+        int val;
+        if(top(&stmp,&val)){
+            pop(&stmp);
+            push(&q->stk,val);
+        }
+    }
+}
+
+bool q_isEmpty(struct queue* q){
+    return isEmpty(&q->stk);
+}
+
+
+
 /****************************************************
 以stack來實作queue; 參考leetcode實作
 ****************************************************/
+struct queue{
+    stack stk;    
+};
+
+void q_init(struct queue* q){
+    init(&q->stk);
+}
+
+void q_push(struct queue* q, int val){
+    push(&q->stk,val);    
+}
+
+int q_front(struct queue* q, int* ret){
+    struct stack stmp;
+    int res;
+    
+    if(isEmpty(&q->stk)) return 0;//stack is empty
+    
+    init(&stmp);
+    
+    while(!isEmpty(&q->stk)){
+        if(top(&q->stk,&res)){
+            pop(&q->stk);
+            push(&stmp,res);        
+        }
+    } 
+    *ret = res;
+   // cout<<"res="<<res<<endl;
+    
+    while(!isEmpty(&stmp)){
+        int val;
+        if(top(&stmp,&val)){
+            pop(&stmp);
+            push(&q->stk,val);
+        }
+    }
+    return 1;
+}
+
+int q_back(struct queue* q, int* ret){
+    if(isEmpty(&q->stk)) return 0;
+    if(top(&q->stk,ret)) return 1;
+    return 0;
+}
+
+void q_pop(struct queue* q){
+    struct stack stmp;
+    int res;
+    if(isEmpty(&q->stk)) return;//stack is empty
+    
+    init(&stmp);
+    while(!isEmpty(&q->stk)){
+        if(top(&q->stk,&res)){
+            pop(&q->stk);
+            push(&stmp,res);        
+        }
+    }
+    pop(&stmp);
+    
+    while(!isEmpty(&stmp)){
+        int val;
+        if(top(&stmp,&val)){
+            pop(&stmp);
+            push(&q->stk,val);
+        }
+    }
+}
+
+bool q_isEmpty(struct queue* q){
+    return isEmpty(&q->stk);
+}
+
+
+//===================
 (*)stack操作
 void stack_init(struct stack* stk, int size);
 void stack_remove(struct stack *stk);
