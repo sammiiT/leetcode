@@ -1,24 +1,104 @@
 //===STL container 常用操作====
 
-//====map<key,value>===
+/**********************
+*      map<key,value>
+***********************/
 (*)會自動依照key的大小排序; acesnding
 
+-宣告constructor:
+map<char,int> mp;
 
-//=== set ===  
+-插入:insert()
+mp.insert({'c',1});
+mp.insert(pair<char,int>('a',3));
+mp['b']=2;
 
-//=== multiset ===
-<set>函式庫中非常有用的類型, 
+-刪除:erase()
+mp.erase('c');
+    
+-遍歷:
+for(auto it:mp){
+    cout<<"char="<<it.first<<" number="<<it.second<<endl;
+}
+
+for(map<char,int>::iterator it = mp.begin(); it!=mp.end(); ++it){
+    cout<<"char="<<(*it).first<<" number = "<<(*it).second<<endl;
+}
+
+-元素判斷:
+mp.count('b');
+mp.find('b');
+
+-元素清空:clear()
+map.clear();
+
+-判斷是否為空:empty()
+if(mp.empty())
+
+/***************************
+*    set
+****************************/
+(*)set容器內的元素是唯一的,不重複
+(*)set容器內的元素是有排序的
+(*)set容器內的元素值不可以修改 
+(*)set容器內的元素可以插入,或刪除
+
+-set宣告 constructor:
+set<int> st;
+
+-set插入元素: insert()
+st.insert(1);
+st.insert(3);
+
+-set刪除元素: erase()
+st.erase(3);//刪除數值
+st.earse(iterator);//從iterator刪除
+    
+-set清空元素: clear()
+st.clear();
+    
+-set遍歷元素;
+--遍歷時會依序排列
+for(auto &s: myset){ cout<< s <<" "; }
+for(set<int>::iterator it = st.begin(); it!=st.end(); ++it){
+    cout<<*it<<" ";//iterator是一個指標
+}
+
+-set元素判斷:
+st.count(1);//存在回傳1,不存在回傳0; 同map操作
+st.find(1);//存在回傳iterator,不存在回傳end(); 同map操作
+
+-set容器是否為空:
+st.empty();
+
+(*)set有upper_bound和lower_bound操作;回傳iterator
+itu = st.upper_bound(5);
+itl = st.lower_bound(3);
+
+/***************************
+*    multiset
+****************************/
+multiset<class T>
+-序列中可以存在重複的數
+-能時刻保證序列中的數是有序的,
 -他可以當成一序列, 插入一個數,刪除一個數都能在O(logn)的時間內完成, 
--而且能時刻保證序列中的數是有序的,
--而且序列中可以存在重複的數
 
-搜尋方法(method):
-.count(elem) => 回傳elem的個數
-.find(elem)  => 回傳elem的第一個元素 
-.lower_bound(elem) =>回傳>=elem的第一個iterator
-.upper_bound(elem) =>回傳>elem的第一個iterator
-.equal_range(elem) =>回傳==elem的區間
+-multiset刪除元素:    
+mulst.erase(val);//刪除所有值=val的元素
+mulst.erase(it);//刪除iterator
+mulst.erase(st.find(val));//刪除第一個值為val的元素
 
+-multiset判斷元素:
+mulst.count(elem) => 回傳elem的個數
+mulst.find(elem)  => 回傳elem的第一個元素的iterator;沒有則回傳end() 
+
+-multiset搜尋:回傳iterator    
+mulst.lower_bound(elem) =>回傳>=elem的第一個iterator
+mulst.upper_bound(elem) =>回傳>elem的第一個iterator
+mulst.equal_range(elem) =>回傳==elem的區間
+
+
+//=== multiset<class T> 範例 ===
 int main(){   
     multiset<int> st;
     st.insert(7);
