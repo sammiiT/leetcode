@@ -12,7 +12,6 @@
    
 
 //====merge sort ====
-
 void merge(vector<int>& arr, int l, int m, int r){
     vector<int> left(arr.begin()+l, arr.begin()+m+1);
     vector<int> right(arr.begin()+m+1,arr.begin()+r+1);
@@ -70,6 +69,15 @@ void mergeSort(vector<int>& arr, int l, int r){
     }
 }
 //==== quick sort=====
+
+       pivot (選自右邊界 [r])                      pivot(以pivot為基準,[i],[j]對調)   
+         |                       [i]<=pivot             |  
+ +----+  |  +----+               ======>         +----+ | +----+            
+ |[j] |  |  |[i] |                               |[i] | | |[j] |
+ +----+  |  +----+                               +----+ | +----+
+         |                                           |      | 1.值對調; 2.更新j索引, j++
+                                                     \______/   
+          
 int partition_ascending(vector<int>& arr, int l, int r){
     int pivot = arr[r];
     int j = l;
