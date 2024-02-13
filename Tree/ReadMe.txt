@@ -1,8 +1,6 @@
-1.
-root: 沒有父節點的節點
+1. root: 沒有父節點的節點
 
-2.
-degree:一個節點的子節點數
+2. degree:一個節點的子節點數
 
 3. 
 non-leaf(非葉子節點):有子節點的節點.
@@ -65,3 +63,32 @@ full-binary-tree
 D   E           D   E
 
 complete      非complete
+
+
+//==== Pre-Order ====
+void preorder(TreeNode* root){
+  if(!root) return;
+  
+  cout<<root->val; //先處理 parent
+  preorder(root->left);//再處理 left
+  preorder(root->right);//再處理 right
+}
+
+//==== In-Order ====
+void inorder(TreeNode* root){
+  if(!root) return;
+  
+  inorder(root->left);//先處理 left
+  cout<<root->val;//再處理 parent
+  inorder(root->right);//再處理 right
+}
+
+//==== Post-Order ====
+void postorder(TreeNode* root){
+  if(!root) return;
+  
+  postorder(root->left);//先處理 left
+  postorder(root->right);//再處理 right
+  cout<<root->val;//再處理 parent
+}
+
