@@ -29,7 +29,23 @@ max(helper(root->left,res),0);
 [null,-87] 上傳節點41, 會負值, 所以不考慮[null,-87], 指派0
 max(helper(root->right,res),0);
 
+/*******
+錯誤思路
+*******/
+res = max(max(max(max(res,l+r+root->val),l+root->val),r+root->val),root->val)
+                      1.左右總和+當下節點
+                                      2.左總和+當下節點 
+                                                    3.右總和+當下節點
+                                                                  4.當下節點 
 
+錯誤邏輯:	
+右總和 <0 且 當下節點<0  ==> 比較哪一個靠近0 並回傳 => 回傳負值 => 錯誤
+左總和 <0 且 當下節點<0  ==> 比較哪一個靠近0 並回傳 => 回傳負值 => 錯誤 
+
+(*)如果一直都是負值, 就要回傳0
+	
+max(helper(root->left,res),0)//比較左邊的最大的總和, 0
+	                     //每往上一個節點, 若都是負值, 則 左總和會越來越小.
 //=====
 int helper(TreeNode* root, int& res){
     if(!root) return 0;
