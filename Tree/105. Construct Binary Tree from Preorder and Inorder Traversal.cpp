@@ -15,8 +15,8 @@
 preorder=1,2,4,5,3,6,7
 inorder =4,2,5,1,6,3,7 
 
-(*)是以inorder的index做計算, 所以preorder索引在計算時, 要加上 i-il
-(*)inorder不用    
+(*)是以inorder的index做計算, 所以preorder索引在計算時, 要加上 (i-il)
+(*)inorder直接用其index做計算,所以不用對其做(i-il)運算    
 cur->left = helper(preorder,pl+1,i-il, inorder,il,i-1) //左半邊
 cur->right = helper(preorder,pl+(i-il)+1, pr, inorder,i+1,ir) //右半邊
 
