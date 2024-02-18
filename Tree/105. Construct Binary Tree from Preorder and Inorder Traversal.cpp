@@ -5,6 +5,22 @@
 //===思路===
 (*)preorder找到 root節點之後, 將其分成左半部分,右半部分
 
+      1
+     / \
+    2   3
+   /\   /\ 
+  4  5  6 7
+
+         0 1 2 3 4 5 6
+preorder=1,2,4,5,3,6,7
+inorder =4,2,5,1,6,3,7 
+
+(*)是以inorder的index做計算, 所以preorder索引在計算時, 要加上 i-il
+(*)inorder不用    
+cur->left = helper(preorder,pl+1,i-il, inorder,il,i-1) //左半邊
+cur->right = helper(preorder,pl+(i-il)+1, pr, inorder,i+1,ir) //右半邊
+
+
 
 //=====
 TreeNode* helper(vector<int>& preorder, int pL, int pR, vector<int>& inorder, int iL,int iR){
