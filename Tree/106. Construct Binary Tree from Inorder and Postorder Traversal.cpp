@@ -23,8 +23,32 @@ TreeNode* helper(vector<int>& inorder,
                  int pL, //postorder 右半部第一個被遍歷的節點
                  int pR)//postorder 右半部最後一個被遍歷的節點  
   
+
+      1
+     / \
+    2   3
+   /\   /\ 
+  4  5  6 7  
+inorder  = 4,2,5,1,6,3,7
+post_order=4,5,2,6,7,3,1
+(*)從root開始找起 => 1就是root, 再把tree分成左半部分和右半部分
+(*)在postorder中, 最後一個數字,就是root
+
   
 //======
+TreeNode* helper(vector<int>& postorder,int pl,int pr,
+		vector<int>& inorder, int il, int ir){
+	if(pl>pr || il>ir) return NULL;
+	int i = 0;//root
+	
+	for(i=0; i<ir; ++i){
+		if(postorder[pr]==inorder[i]) break;
+	}
+	TreeNode* cur = new TreeNode(postorder[pr]);
+	cur->left = helper(postorder, pl, pl+(i-il)-1, inorder, il, i-1); 
+	cur->right= helper(postorder,pl+(i-il),pr-1,inorder,i+1,ir);
+	return cur;
+}
 
 /*
 inorder =   [9,3,15,20,7]
