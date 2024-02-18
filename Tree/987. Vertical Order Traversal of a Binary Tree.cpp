@@ -41,6 +41,20 @@ vector<vector<int>> helper1(TreeNode* root){
         }
         res.push_back(r);
     }
+/*
+for(auto a:m){//概念同上,但是一個一個加入res.back()中
+    res.push_back({});
+    for(auto b:a.second){
+        int leve = b.first;
+        vector<int>& v = b.second;
+        sort(v.begin(),v.end());
+        for(int i=0;i<v.size();++i){
+            res.back().push_back(v[i]);
+        }
+    }
+}
+*/    
+
     return res;
 }
 
