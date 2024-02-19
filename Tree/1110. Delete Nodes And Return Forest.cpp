@@ -44,3 +44,32 @@ vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
   //if(top) res.push_back(top);//此描述也可以  
     return res;
 }
+
+//===思路2===
+(*)用set<int>紀錄 vector<int>的數值
+
+TreeNode* helper1(TreeNode* root, 
+                    set<int>& to_delete, 
+                    vector<TreeNode*>& res){
+    if(!root) return root;             
+                
+    root->left = helper1(root->left,to_delete,res);
+    root->right = helper1(root->right,to_delete,res);                     
+    if(to_delete.count(root->val)){
+        if(root->left) res.push_back(root->left);
+        if(root->right) res.push_back(root->right);
+        return NULL;
+    }
+    return root;
+}
+
+vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+    set<int> st(to_delete.begin(),to_delete.end());
+    vector<TreeNode*> res;
+    TreeNode* node = helper1(root,st,res);
+    if(node) res.push_back(node);
+    return res;
+}
+
+
+  
