@@ -59,3 +59,32 @@ Node* helper(Node* node, unordered_map<Node*, Node*>& m){
                                      //因為random還沒開始計算, 所以(!node)不會成立, 而是(m.count(node))會成立
     return n;                        //計算完random就回往上傳, 不會node->next做DFS; 所以不會重複計算
 }
+
+//===思路3====
+(*)DFS算法令解 : 比較好理解
+1.先連結node節點 
+2.再連結random節點
+Node* helper(Node* head, map<Node*,Node*>& mp){
+    if(!head) return head;
+    Node* n = new Node(head->val);
+    mp[head] = n;
+    n->next = helper(head->next,mp);
+    return n;
+}
+
+Node* copyRandomList(Node* head) {
+        map<Node*,Node*> mp;
+        Node* node = NULL;
+        node = helper(head,mp);//先連結node本體
+
+        for(auto a:mp){//再連結random節點
+            //a.first//old_node
+            //a.second//new_node
+            if(a.first->random==NULL){
+                a.second->random=NULL;
+            }else{//a.first->random!=NULL
+                a.second->random=mp[a.first->random];
+            }
+        }
+        return node;    
+}
