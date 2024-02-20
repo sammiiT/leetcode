@@ -94,7 +94,24 @@ public:
         vector<int> res;
         helper(root,res);
         return res[k-1];
-    }    
-    
-    
+    }   
 };
+
+//===思路2===
+(*) (k<=0) 若已找到節點, 則讓遍歷不繼續執行下去
+        
+void helper(TreeNode* root,int& k, int& res){
+    if(!root || k<=0) return;
+
+    helper(root->left,k,res);
+    if((--k)==0) {
+        res = root->val;    
+        return;
+    }
+    helper(root->right,k,res);
+}
+    int kthSmallest(TreeNode* root, int k) {
+        int res =0;
+        helper(root,k,res);
+        return res;    
+    }
