@@ -92,3 +92,17 @@ void postorder(TreeNode* root){
   cout<<root->val;//再處理 parent
 }
 
+//=======
+(*)以下概念,從最底層運算,連結,最後從小的連結到大的連結
+{
+    TreeNode* cur = new TreeNode(val);
+    xxx
+    return cur;
+}
+
+{
+    root->left=helper(root->left);
+    root->right=helper(root->right);
+    xxx
+    return root;
+}
