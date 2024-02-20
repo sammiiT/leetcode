@@ -1,4 +1,4 @@
-﻿class Solution {
+class Solution {
 public:
     vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
         vector<int> res;
@@ -42,3 +42,54 @@ public:
     }
 
 };
+
+//===思路2===
+(*)用post-order找出每一個節點的parent
+TreeNode* map_parent(TreeNode* root, unordered_map<TreeNode*,TreeNode*>& ump){
+    if(!root) return root;
+    root->left = map_parent(root->left,ump);
+    root->right = map_parent(root->right,ump);
+    if(root->left) ump[root->left] = root;
+    if(root->right) ump[root->right] = root;
+    return root;
+}
+
+(*)找出距離target為k的節點
+(*)unordered_map<TreeNode*,int>& visited是為了防止往parent找時,找到之前遍歷的節點
+void helper(TreeNode* target, 
+            int k, 
+            unordered_map<TreeNode*,int>& visited,
+            unordered_map<TreeNode*,TreeNode*>& ump,
+            vector<int>& res){
+
+    if(!target) return;
+    if(visited.count(target)) return;
+    if(k==0){
+        res.push_back(target->val);
+        return;
+    }
+
+    visited[target]=1;
+    if(target->left) helper(target->left,k-1,visited,ump,res);
+    if(target->right) helper(target->right,k-1,visited,ump,res);
+
+    if(ump.count(target)){
+        helper(ump[target], k-1, visited, ump, res);
+    }
+}
+
+
+vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+    unordered_map<TreeNode*,TreeNode*> ump;
+    unordered_map<TreeNode*,int> visited;
+    vector<int> res;
+
+    map_parent(root,ump);
+    helper(target,k,visited,ump,res);
+
+    return res;
+}
+
+
+
+
