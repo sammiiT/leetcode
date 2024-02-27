@@ -87,6 +87,28 @@ TreeNode* helper0(TreeNode* root,int low, int high){
     }
     return root;//在[high,low]範圍之內, 直接回傳節點
 }
+//===思路4===
+(*)post-order概念
+
+TreeNode* trimBST(TreeNode* root, int low, int high) {
+        if(!root) return root;
+        root->left = trimBST(root->left,low,high);
+        root->right = trimBST(root->right,low,high);
+
+        if(root->val>=low && root->val<=high) return root;
+
+        TreeNode* tmp;
+        if(root->right) {//連接right
+            tmp=root->right;
+            while(tmp->left) tmp = tmp->left;
+            tmp->left = root->left;
+            return root->right;
+        } else {//!root->right 連接left
+            return root->left;
+        }
+}
+
+
 
 //====用pre-order會錯誤===
 (*)pre-order會錯誤, 因為在[low,high]範圍之內的節點可能在tree的很底層
