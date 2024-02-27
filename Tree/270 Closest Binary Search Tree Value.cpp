@@ -23,3 +23,33 @@ int closestValue(TreeNode* root, double target){
     helper(root,val,mi,target);
     return val;
 }
+
+//===思路2===
+(*)還是用pre-order思考
+(*)只往接近target的節點運算
+
+void helper(TreeNode* root, double target, int& diff, int& val){
+  if(!root) return;
+  int sub = abs(root->val - target);
+  if(diff<sub) return;
+  diff = sub;
+  val = root->val;
+  helper(root->left && target < root->val) helper(root->val,target,diff,val);
+  helper(root->right && target > root->val) helper(root->val,target, diff,val);
+}
+
+ void helper(TreeNode* root, double target, int& diff, TreeNode** node){
+   if(!root) return;
+   int val = abs(root->val-taret);
+   if(diff<val) return;
+   diff=val;
+   node =&root;
+   if(root->left && target<root->val)  helper(root->left,target,diff,node);
+   if(root->right && target>root->val) helper(root->right,target,diff,node);
+ }
+ int closestValue(TreeNode* root, double target){
+   TreeNode* node = NULL;
+   int diff = INT_MAX;
+   helper(root,target,diff,&node);
+   return node->val;
+ }
