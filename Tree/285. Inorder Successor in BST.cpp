@@ -90,5 +90,24 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p){
   helper(root,p);
   return suc?suc:NULL;
 }
+//===思路3=====
+void helper(TreeNode* root, TreeNode* p, int& find, TreeNode** successor){
+    if(!root || find==0) return;
 
+    helper(root->left,p,find,successor);
+    if(find==0) return;//之後都是return
+    if(find==1) {//第二步遇到successor節點
+        find-=1;
+        *successor=root;
+        return;
+    }
+    if(root==p) find-=1;//第一步遇到 target 節點
+    helper(root->right,p,find,successor);
+}
+TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+    int find = 2;
+    TreeNode* res = NULL;
+    helper(root,p,find,&res);
+    return res;
+}
 
