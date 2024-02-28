@@ -181,6 +181,21 @@ while(l<r) {
     return l;
 }
 
+/***********************
+first_middle , second_middle 運算定義, 由最後的index來定義
+************************/
+0 1 2 3 4 5
+6,5,7,4,9,3
+
+
+first_middle: r是剛好在(size-1) ... 0-index
+m =l+(r-l)/2 => 0+(5-0)/2 = 2 ...first_middle
+
+
+second_middle: r剛好在(size) .... 0-index
+m =l+(r-l)/2 =>  0+(6-0)/2 =3 ...second_middle
+
+
 
 /***********************
 * 討論 left 或 right 更新 計算式:
