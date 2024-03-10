@@ -55,3 +55,65 @@ Node* cloneGraph(Node* node) {
     }
    return clone;
 }
+
+//====寫法2 ====
+(*)先建立每一個舊結點對應的新節點
+(*)遍歷每一個舊節點,舊節點的 neighbor節點,會對應到前一個動作所建立的新節點,將其新節點作為neighbor加入
+
+Node* cloneGraph(Node* node) {
+    unordered_map<Node*,Node*> mp;
+    queue<Node*> q;
+    if(!node) return NULL;
+    q.push(node);
+    mp[node] = new Node(node->val);
+
+    while(!q.empty()){//動作1
+        Node* n = q.front();q.pop();
+        for(Node* it:n->neighbors){
+            if(mp.count(it)) continue;
+            q.push(it);
+            mp[it] = new Node(it->val);
+        }
+    }
+   
+    for(auto it:mp){//動作2
+        for(Node* neighbor:it.first->neighbors){
+            it.second->neighbors.push_back(mp[neighbor]);
+        }
+    }
+    return mp[node];
+}
+//=== 寫法2 優化 ====
+
+//====錯誤寫法====
+Node* cloneGraph(Node* node){
+    unordered_map<Node*,Node*> mp_c;//<old,clone>
+    queue<Node*> q;
+    
+    if(!node) return NULL;
+    
+    q.push(node);
+    
+    while(!q.empty()){
+        Node* n = q.front();q.pop();
+        Node* clone = new Node(n->val);//此描述要放在for
+        mp[n]=clone;//此描述要放在for
+        
+        for(Node* it: n->neighbors){
+            if(mp.count(it)) continue;
+            q.push(it);
+        }
+    }
+}
+(*)上面的描述會造成重複push
+
+ (1)--------(2)
+  |          |
+  |          |
+ (4)--------(3) 
+
+
+1節點會造成; push(4),push(2)進queue
+當執行到4時 執行for(neighbor), 會push(3); 1已經在map中
+接著執行2 執行for(neighbor), 還是會push(3); 但3已經在前一個描述被push一次了===> 會造成錯誤, 也會造成time_limited_exceeded
+
