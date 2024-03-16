@@ -96,4 +96,36 @@ int helper2(string beginWord, string endWord, vector<string>& wordList) {
     return 0;
 }
 
+//===寫法3=====
+(*)BFS
+(*)wordLadder特性一定是, 每次可以變一個字母, 變一個字母之後的單詞,會存在於wordList中
+
+int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+
+    set<string> wordset(wordList.begin(),wordList.end());
+    unordered_map<string,int> visited;//用來計算ladder次數,也可用來判斷是否訪問過
+    queue<string> q;
+    
+    q.push(beginWord);
+    visited[beginWord] = 1;//
+    
+    while(!q.empty()){
+        string p = q.front();q.pop();
+        
+        for(int i=p.size(); i>=0; --i){
+            string str = p;
+            
+            for(char c='a'; c<='z'; ++c){
+                str[i] = c;
+                if(wordset.count(str) && str ==endWord) return visited[p]+1;
+                if(wordset.count(str) && visited.count(str)) continue;//訪問過,用continue, 有可能會出現 hog,hot,hoe,同樣第[2]個出現不同字母
+                if(wordset.count(str)){
+                    visited[str] = visited[p]+1;//記錄新出現的string所經過的步數
+                    q.push(str);
+                }
+            }
+        }
+    }
+    return 0;
+}
 
