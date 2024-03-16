@@ -159,4 +159,35 @@ int countComponents(int n, vector<pair<int, int> >& edges) {
     return res;
 }
 
+//===寫法3 ===
+(*)BFS
+int countComponents(int n, vector<pair<int, int>>& edges) {
+    int res = 0;
+    vector<vector<int>> g(n);
+    vector<bool> visited(n,0);
+    queue<int> q;
+    
+    for(pair<int,int>& edge: edges){
+        g[edge.first].push_back(edge.second);
+        g[edge.second].push_back(edge.first);
+    }
+    
+    for(int i=0; i<n; ++i){
+        if(visited[i]) continue;
+        q.push(i);
+        visited[i]=1;
+        
+        while(!q.empty()){
+            int p = q.front();q.pop();
+            
+            for(int& i:g[p]){
+                if(visited[i]) continue;
+                q.push(i);
+                visited[i] =1;
+            }
+        }
+        ++res;
+    }
+    return res;
+}
 
