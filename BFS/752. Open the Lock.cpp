@@ -41,8 +41,11 @@ a0所產生的BFS可能結果為{a10},{a11},{a12},{a13}
         \                            /
          +--------------------------+
 b0所產生的BFS可能結果為 {b10},{b11},{b12},{b13}
-
 每一個 "結果" 所對應的visited, 都會影響到 後面BFS的結果
+
+(*)跟word ladder做比較
+-word ladder 每變一個字母, 一直到整個單字存在於wordDictionary; 算一種可能
+-open lock 每變一個數字, 都是一種可能  
   
 //====
 int openLock(vector<string>& deadends, string target) {
@@ -73,4 +76,36 @@ int openLock(vector<string>& deadends, string target) {
   }
   return -1;
 }
+//====寫法2(類似)===
+int helper2(vector<string>& deadends, string target) {
+    unordered_set<string> dends(deadends.begin(),deadends.end());
+    unordered_set<string> visited;
+    vector<int> dirs={1,-1};//({1,-1});
+    queue<string> q;
+    int res=0;
 
+    if(dends.count("0000")) return -1;
+    if(target=="0000") return 0;
+
+    q.push("0000");
+    visited.insert("0000");
+
+    while(!q.empty()){
+        res++;
+        for(int i=q.size(); i>0; --i){
+            string p = q.front();q.pop();
+            for(int j=0;j<p.size();++j){
+                for(int dir:dirs){
+                    string str = p;
+                    str[j]=(str[j]-'0'+10+dir)%10+'0';
+                    if(str==target) return res; 
+                    //if(!visited.count(t)&&!dends.count(t)) q.push(t);上面是用這種寫法
+                    if(dends.count(str)||visited.count(str)) continue;
+                    q.push(str);
+                    visited.insert(str);
+                }
+            }                
+        }
+    }
+    return -1;
+}
