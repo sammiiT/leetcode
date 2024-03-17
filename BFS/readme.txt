@@ -55,3 +55,14 @@ void helper(TreeNode* root, vector<int>& res){
   helper(root->left,res);//每一次進入新的一層之後, 又馬上再進入下一層 ; DFS
   helper(root->right,res);
 }
+
+//====================
+
+(*)每一種可能- 
+-解;  push至queue
+-非解; 不push到queue
+
+(*)在wordLadder題型; 每一種解的可能, 在wordDictionary中
+(*)在openLock題型; 每一種解的可能 就是一個wheel,在不觸及deadend情況下; 往上一步或往下一步
+(*)在maze題型,每一種解的可能,就是ball走到"不能再走"的位置
+
