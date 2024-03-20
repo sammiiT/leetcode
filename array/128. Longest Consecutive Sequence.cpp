@@ -28,3 +28,24 @@ int longestConsecutive(vector<int>& nums) {
         }
         return res;
 }
+//===寫法2====
+int longestConsecutive(vector<int>& nums) {
+        int res = 0;
+        int j = 0;
+        if(nums.size()==0) return 0;
+        sort(nums.begin(),nums.end());
+
+        for(int i=1; i<nums.size(); ++i){
+                if(nums[i]==(nums[i-1]+1)){
+                        j++;
+                }else if(nums[i]==nums[i-1]){
+                        
+                }else{
+                        res = max(res,j);
+                        j=0;
+                }
+        }
+        res = max(res,j);
+        return (res==0)?1:res+1;
+        
+}
