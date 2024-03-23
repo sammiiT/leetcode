@@ -44,3 +44,42 @@ string helper0(string s){
     string reorganizeString(string s) {
         return helper0(s);
     }
+
+//===寫法2(思路2)===
+(*)用priority_queue來解
+1.將所有char依據多寡存到priority_queue中
+2.從priority_queue中一次取兩個元素出來, 做為新的string的元素
+-一次取兩個是為了避免"依次取再push到priority_queue",下依次會取到相同的char
+如: vvvlo在priority_queue中是
+vvv 和 l,o
+取一個v,  剩下的vv再push到prioirity_queue,會變成 vv,l,o
+再次取,還是會取到v , 結果會重複(如:vv)  
+
+-一次取兩個
+vvv,l 和o
+取一個v, 取一個l ,剩下的vv再push到prioirity_queue,會變成 vv,o
+res = vl , pq中是 vv,o; 所以不會重複 (如: vlv)    
+
+
+string reorganizeString(string s) {
+        string res;
+        unordered_map<char,int> ump;
+        priority_queue<pair<char,int>,vector<pair<char,int>>,cmp> pq;
+        for(char& c:s) ump[c]++;
+        for(auto it:ump) pq.push({it.first,it.second});
+
+        do{
+            vector<pair<char,int>> vp;
+            for(int i=0;!pq.empty() && i<2; ++i){//一次取兩個
+                pair<char,int> p = pq.top();pq.pop();
+                vp.push_back(p);
+            }
+
+            for(int i=0; i<vp.size(); ++i){//取出的兩個做為結果string的排列元素
+                res.push_back(vp[i].first);
+                if(vp[i].second-1) pq.push({vp[i].first,vp[i].second-1});
+            }
+        }while(!pq.empty() && res.back()!=pq.top().first);
+
+        return res.size()==s.size()?res:"";//如果有重複, 最後string的長度不會與原長度相等, 會比較短
+}
