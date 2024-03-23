@@ -296,5 +296,27 @@ int upper_bounded(vector<int>& nums, int target){
 此binary search的回傳值 => upper_bound(v.begin(),v.end(),target)
 upper_bound = 找出(>)大於target的最小值的位置
 
+/****************************
+ binary search 的 middle 選擇之討論
+*****************************/
+leetcode 378 Kth Smallest Element in a Sorted Matrix
+(*)若以 binary-search計算, middle選擇用數值,而非index
 
+
+int kthSmallest(vector<vector<int>>& matrix, int k){
+     int l = matrix[0][0],r = matrix.back().back();//l和r都是以陣列的數值為依據,而非索引
+     while(l<r){
+        int m = l+(r-l)/2;//middle也以陣列數值為依據
+        int cnt = 0;
+        for(int i=0; i<matrix.size(); i++){
+            //每一列的 upper_bound全部加起來, 就是所有的upper_bound=> supper position概念
+            cnt = cnt + upper_bound(matrix[i].begin(),matrix[i].end(),m)-matrix[i].begin();
+        }
+        if(cnt<k) l=m+1; // k是 target       
+        else// cnt>=k
+            r = m;
+    }
+    return r;
+}
+    
     
