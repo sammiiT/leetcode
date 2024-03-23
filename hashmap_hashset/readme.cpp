@@ -97,7 +97,12 @@ mulst.lower_bound(elem) =>回傳>=elem的第一個iterator
 mulst.upper_bound(elem) =>回傳>elem的第一個iterator
 mulst.equal_range(elem) =>回傳==elem的區間
 
+-multiset的某一個數值的iterator
+st.equal_range(elem).first //回傳pair<iterator,iterator>
+first,就是lower_bound
+second,就是upper_bound
 
+    
 //=== multiset<class T> 範例 ===
 int main(){   
     multiset<int> st;
