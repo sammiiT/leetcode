@@ -36,8 +36,10 @@ begin(st)等效於st.begin()
 -window_left移動到 abs<=limit; 其中nums[window_left]為multi-set中的一個element
 -將multi-set中的nums[window_left]移除可表示為;
 --st.erase(st.equal_range(nums[window_left]).first)
---其中 st.equal_range(nums[window_left]).first 代表 多數中的第一個數值
---如 5,5,5 中的第一個
+--其中 st.equal_range(nums[window_left]).first 代表 多數中的第一個數值; lower_bound
+--如 5,5,5 中的第一個; 就是lower_bound  
+--st.equal_range() 會回傳pair<iterator,iterator>, 其中first=lower_bound, second=upper_bound
+
 
 -每移除一個, window_left就往右移一個單位; window_left++ 
 
