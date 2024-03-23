@@ -13,12 +13,37 @@
 從multiset中刪除step所移除的元素
 最後將長度記錄在res中; res = max(res, window_right-window-left+1);
 
-
 (*)
 rbegin(st)等效於st.rbegin()
 begin(st)等效於st.begin()
 
-  //========
+(*)程式邏輯說明:
+- 此multi-set 有 3,5,6,7,8,11
+-其中3有二個, 5有三個, 6有三個, 7有一個,8有四個, 11有六個; 在multi-set中的所有數值表示在array中的所有數值 
++-----------------------+
+|  5     8  8      6    |
+| 5  5    8  8    6  6  |
+|                       | 
+|  3 3      11  11      |
+|         11  11  11    |
+|   7         11        |   
++-----------------------+
+
+-當multi-set中的最大,最小差值 > limit; 不滿足 abs<=limt; 表示要從window_left開始移動
+ (*rbegin(st)-*begin(st) > limit)
+其中 *rbgein(st)為最大值, *begin(st)為最小值
+
+-window_left移動到 abs<=limit; 其中nums[window_left]為multi-set中的一個element
+-將multi-set中的nums[window_left]移除可表示為;
+--st.erase(st.equal_range(nums[window_left]).first)
+--其中 st.equal_range(nums[window_left]).first 代表 多數中的第一個數值
+--如 5,5,5 中的第一個
+
+-每移除一個, window_left就往右移一個單位; window_left++ 
+
+-sliding loop計算後, 在multi-set中的數,最小的一定會滿足 abs<=limit
+
+//========
 int helper0(vector<int>& nums, int limit){
     multiset<int> st;
     int j = 0;//window_left
