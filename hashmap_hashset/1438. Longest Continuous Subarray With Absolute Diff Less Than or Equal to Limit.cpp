@@ -53,8 +53,7 @@ int helper0(vector<int>& nums, int limit){
     for(int i=0; i<nums.size(); i++){//i=window_right
         st.insert(nums[i]);//每插入一個,就跟window內所有的element做比較
 
-        while(*rbegin(st)-*begin(st) > limit){//跟window內所有的element做比較
-//        while(*(st.rbegin())-*(st.begin()) > limit){
+        while(*rbegin(st)-*begin(st) > limit){//跟window內所有的element做比較;也可寫成 while(*(st.rbegin())-*(st.begin()) > limit){
             st.erase(st.equal_range(nums[j]).first);//每次erase完之後, begin()數值都不一樣,但rbegin()
             j++;
         }
@@ -111,5 +110,30 @@ int helper1(vector<int>& nums, int limit){
     return res;
 }
 
+//==== 寫法2 =====
+(*)利用monotonic queue 概念
+- 一個遞增 deque, 另外一個遞減deque
+- 遞增的deque紀錄最小的element
+- 遞減的deque紀錄最大的element
 
+int longestSubarray(vector<int>& nums, int limit) {
+  deque<int> maxq;
+  deque<int> minq;
+  int res = INT_MIN;
+  int l = 0;
 
+  for(int r=0; r<nums.size(); ++r){
+    while(!maxq.empty() && nums[r]>maxq.back()) maxq.pop_back();
+    while(!minq.empty() && nums[r]<minq.back()) minq.pop_back();
+    maxq.push_back(nums[r]);
+    minq.push_back(nums[r]);
+
+   while(maxq.front()-minq.front() > limit){
+      if(maxq.front()==nums[l]) maxq.pop_front();
+      if(minq.front()==nums[l]) minq.pop_front();
+      l++;
+   }
+   res = max(res,r-l+1);
+  }
+  return res;
+}
