@@ -1,4 +1,13 @@
-//====Queue=====
+/****************  
+    monotonic Queue
+*****************/
+-單調佇列, 佇列中的元素排列是遞增或遞減
+-遞增佇列, 當push進的值
+-因為
+  
+/*******************
+  Queue
+********************/
 1.f==r =>queue =0
 2.f先移動,再賦值 or 先賦值,再移動
   r先移動,再賦值 or 先賦值,再移動
@@ -256,18 +265,24 @@ void queue_pop(struct queue* q){
   //
 }
 
-int queue_front(struct queue* q, int* val){
-  
+int queue_front(struct queue* q, int* val){ 
 }
 
 int isEmpty(struct queue* q){
-  
 }
 
 int isFull(struct queue* q){
-
-  
 }
 
+/********************************
+ double-ended queue
+*********************************/
+(*)deque 念作 deck
+(*)從尾端進入, 可以從 "隊首出" 或從"隊尾出"
+   
+ pop  +---+---+---+---+---+---+   push  pop
+ <--- |   |   |   |   |   |   |  <---  ---> 
+      +---+---+---+---+---+---+
 
 
+  
