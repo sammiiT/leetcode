@@ -66,7 +66,7 @@ public:
         int i = rand()%total;//取餘數是0-index
         int j = 0;//j是count,不是index; 
         int ret = 0;
-        for(map<int,int>::iterator it=ump.begin();!it.end();++it){
+        for(map<int,int>::iterator it=ump.begin(); it!=mp.end(); ++it){
             j+=it->second;
 //            if(j>=i){//"等於"描述會FAILED
             if(j>i){
