@@ -71,4 +71,33 @@ string removeDuplicateLetters(string s) {
     return res;
 }
 
+//===寫法3===
+string removeDuplicateLetters(string s) {
+    string str;
+    unordered_map<char,int> ump;//<char, count>
+    unordered_map<char,int> strmap;//在新的string中的 character
+    
+    for(char c:s){ ump[c]++; }//記錄所有character數量
 
+//在新string中的第一個character
+    str.push_back(s[0]);
+    if(--ump[s[0]]==0) ump.erase(s[0]);
+    strmap[s[0]]=1;
+
+//遍歷nums    
+    for(int i=1; i<s.size(); ++i){
+        if(--ump[s[i]]==0) ump.erase(s[i]);
+        
+        if(strmap.count(s[i])) continue;
+        
+        while(!str.empty() && str.back()>s[i] && ump.count(str.back())){//有stack的影子
+            char c = str.back();
+            str.pop_back();
+            strmap.erase(c);//從新string pop掉character
+        }
+        
+        strmap[s[i]]=1;//紀錄新的character到string中
+        str.push_back(s[i]);
+    }
+    return str;
+}
