@@ -63,6 +63,19 @@ int longestOnes(vector<int>& nums, int k){
     }
     return res;
 }
-
+//===思路3===
+(*)sliding window
+int longestOnes(vector<int>& nums, int k) {
+        int res = 0;
+        int left = 0;
+        for(int i=0;i<nums.size();++i){
+            if(nums[i]==0) --k;
+            while(k<0){//if(k<0){
+                k+=(nums[left++]==0);
+            }
+            res = max(res,i-left+1);
+        }
+        return res;
+}
 
 
