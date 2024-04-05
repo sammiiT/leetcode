@@ -33,7 +33,29 @@ bool helper0(string& s){
     }
     return true;
 }
-
-
 bool validPalindrome(string s) {
         return helper0(s);
+}
+    
+//===寫法2===
+bool isPalindrome(string&s ,int l, int r){
+    while(l<r){
+        if(s[l]!=s[r]) return false;
+        ++l;
+        --r;
+    }
+    return true;
+}
+
+bool validPalindrome(string s) {
+    while(l<r){
+        if(s[l]!=s[r]){
+            if(isPalindrome(s,l+1,r)||isPaliindrome(s,l,r-1)) return true;
+            else return false;
+        }
+    }
+    return true;
+}
+
+
+    
