@@ -35,3 +35,24 @@ bool isPalindrome(string s) {
         if(ch>='0' && ch<='9') return true;
         return false;
     }
+
+//===寫法2===
+(*)先將不滿足的字符排除
+
+bool isPalindrome(string s) {
+    string str;
+    for(char c:s){//排除不滿足的字符
+        if((c>='A'&& c<='Z')||(c>='a'&& c<='z'))
+            str.push_back((c-'A')%0x20+'A');
+        else if(c>='0'&& c<='9')
+            str.push_back(c);
+    }
+    int l=0,r=str.size()-1;
+    while(l<r){
+        if(s[l]!=s[r]) return -1;
+        l++;
+        r--;
+    }
+    return true;
+}
+
