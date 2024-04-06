@@ -114,3 +114,32 @@ string helper3(string s){
     res.erase(res.begin()+(res.size()-1));
     return res;
 }
+//===思路4===
+(*)reverse時用到 stack<string>
+
+string reverseWords(string s) {
+    int i=0;//,j=0;
+    string str;
+    string res;
+    stack<string> stk;
+
+    s.push_back(' ');
+    for(;i<s.size();++i){
+        if(s[i]==' ') {
+            if(str.size()){
+                stk.push(str);
+                str.clear();
+            }
+            continue;
+        }
+        str.push_back(s[i]);
+    }        
+
+    while(!stk.empty()){
+        string tmp = stk.top();stk.pop();
+        res+=(tmp+' ');
+    }
+    res.pop_back();
+    return res;
+}
+
