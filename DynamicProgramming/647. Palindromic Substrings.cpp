@@ -51,3 +51,33 @@ dp[i][j]=(s[i]==s[j]) && (dp[i+1][j-1] ||(j-i<=2) );//會錯誤
         return helper1(s);
 //        return helper0(s);
     }
+
+//===思路2===
+(*)可用DFS解題, 但會比較慢
+
+bool isPalindrome(string& s, int l, int r){
+    while(l<r){
+        if(s[l]!=s[r]) return false;
+        l++;
+        r--;
+    }
+    return true;
+}
+
+void helper(string& s, int start, int& res){
+    for(int i=start; i<s.size(); ++i){
+        if(i==start) helper(s,i+1,res);//只有每次開始的第一個元素(root)要進入下一個level; 沒有if(i==start)描述,會多計算一次 
+        res+=isPalindrome(s,start,i);
+    }
+}
+
+int countSubstrings(string s) {
+    int res = 0;
+    helper(s,0,res);
+    return res;
+}
+
+
+
+
+
