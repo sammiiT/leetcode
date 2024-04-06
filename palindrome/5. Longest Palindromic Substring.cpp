@@ -91,3 +91,35 @@ if(mx < right-left+1){
         
         return helper0(s);
     }
+
+//===寫法3 ====
+(*)判斷palindrome長度, 由中心點往外部擴散, 找出最大長度
+(*)判斷是否為palindrome, 從兩端點往內移動判斷每一對應點是否相等
+(*) 此題方式為第一種, 由中心往外擴
+   
+string ispPalindrome(string& s, int l, int r){//left start from "l", right start from "r"
+    int len =0;
+    string ret;
+    while(l>=0 && r<s.size()){
+        if(s[l]!=s[r]) break;
+        len = r-l+1;
+        l--;
+        r++;
+    }
+    return len?s.substr(++l,len):ret;
+}
+string longestPalindrome(string s) {
+        string res;
+        if(s.size()==1) return s;
+        for(int i=0; i<s.size()-1; ++i){
+            string str_a = ispPalindrome(s,i,i);//輸出palindrome
+            string str_b = ispPalindrome(s,i,i+1);//輸出palindrome
+           
+            if(str_a.size()>str_b.size()) {//比較palindrome長度
+                res = (str_a.size()>res.size())? str_a:res;
+            } else {
+                res = (str_b.size()>res.size())? str_b:res;
+            }   
+        }
+        return res;
+}
