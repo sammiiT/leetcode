@@ -1,3 +1,8 @@
+//=== more challenge===
+259. 3Sum Smaller
+2367. Number of Arithmetic Triplets
+2908. Minimum Sum of Mountain Triplets I
+//====
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
@@ -27,8 +32,28 @@ public:
                     }
                 }
             }
-     
         }
         return res;
     }
 };
+
+//=== Time limit Exceeded ===
+(*) 三維, 造成超時
+vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> res;
+    sort(nums.begin(),nums.end());    
+    for(int i=0;i<nums.size();++i){
+        if(i>0 && nums[i]==nums[i-1]) continue;
+        for(int j=i+1; j<nums.size(); ++j){
+            if(j>(i+1) && nums[j]==nums[j-1]) continue;
+            int target = (-1)*(nums[i]+nums[j]);
+            
+            for(int k=j+1; k<nums.size(); ++k){
+                if(k>j+1 && nums[k]==nums[k-1]) continue;
+                if(nums[k]==target) res.push_back({nums[i],nums[j],nums[k]});
+            }
+        }
+    }
+    return res;
+}
+
