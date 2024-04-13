@@ -19,9 +19,11 @@
 
 4. 用upper_bound的原因:
 rand()%(sum.back()) 取餘數, 數值從0 ~ (sum.back()-1)
-取到0~6,其upper_bound就是7,對應的index就是0, 也對應在w的index 0
-取到7~12,其upper_bound就是13,對應的index就是1, 同時也對應w的index 1
+取到0~6,其upper_bound就是7; (0~6)有7個數值 ;對應的index就是0, 也對應在w的index 0
+取到7~12,其upper_bound就是13;在累加陣列中(7~12)有6個數值;對應的index就是1, 同時也對應w的index 1
 
+count就是0-index的總數, 所以count就是0-index的upper_bound
+    
 //=======
 class Solution {
 public:
