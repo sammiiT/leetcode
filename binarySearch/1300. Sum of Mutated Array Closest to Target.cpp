@@ -51,3 +51,34 @@ int helper0(vector<int>& arr, int target){
 int findBestValue(vector<int>& arr, int target) {
         return helper0(arr,target);
 }
+
+//====思路2 ====
+(*)此思路只能求出最closet的數值,但沒有辦法滿足minimum value
+(*)[4,9,3] target=10 會求得 value = 4, 而不是3
+
+
+int mutated(vector<int>& arr, int value){
+    vector<int> nums = arr;
+    int sum = 0;
+    for(int i=0; i<nums.size(); ++i){
+        if(nums[i]>value) nums[i] = value;
+        sum+=nums[i];
+    }
+    return sum;
+}
+
+int findBestValue(vector<int>& arr, int target) {
+    int l = 0, r = target;
+    
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(mutated(arr,m)<target){
+            l = m+1;
+        
+        }else{//mutated(arr,m)>=target
+            r = m;
+        }
+        //res = min(res,min(r,l));//???
+    }
+    return r;
+}
