@@ -82,7 +82,27 @@ int helper0(vector<int>& nums, int k){
         }else{//split_count(nums,m)>k
             l = m+1;
         }
-    }//最後l==r時,再判斷是否可以滿足題意
+    }
+    //最後l==r時,再判斷是否可以滿足題意; 是否等於k
     return (split_count(nums,r)<k)? 0:r;
-}
 
+//如果單純 return r;//會出錯
+    
+}
+//--將上面helper0做修改, 可以判斷到 分割成1,1,1,1...的解
+/*
+int helper0(vector<int>& nums, int k){
+    int l=1, r=*min_element(ribbons.begin(),ribbons.end());//找到最小的ribbon,此長度必須小於等於k
+    if(r<k) return 0;
+    
+    while(l<r){
+        int m = l+(r-l)/2;
+        int cnts = split_count(nums,m);
+        if(cnts<=k){
+            r = m;
+        }else{//cnts>k
+            l = m+1;
+        }
+    }
+    return r;//此時的r是否滿足 使ribbon產生k段??? 所以必須再計算一次
+}*/
