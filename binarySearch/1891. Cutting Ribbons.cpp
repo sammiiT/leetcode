@@ -3,6 +3,18 @@
 //===思路===
 (*)k = 分成k分
 (*)k份的每一分數值, 是要最大; return 要分成k分索取的最大值
+
+(*)概念, 與 410. Split Array Largest Sum
+- 以數值, minimum_largest 來求出 對應的segement數目
+- minimum_largest範圍是 從單純"一個element"到"所有element累加";    
+- 在此範圍的數值, 求出對應的segament; 判斷此segment是反滿足題意k
+
+此題目:
+- 以數值, 來求出條件所需的 segament數目
+-此數值的範圍, 從數列中的最小值來定義 [1: minimum_element_value]
+- 先定義 length大小, 求出對應的segement; 判斷此segement是否滿足題意 k 
+
+    
 //======
 int split_count(vector<int>& nums,int m){
     int res = 0;
