@@ -48,6 +48,16 @@ int helper0(vector<int>& arr, int target){
     return r;
 }
 
+int helper1(vector<int>& arr, int target) {
+    int l = 0, r = target;
+    while(l<r){
+        int m = l+(r-l)/2;
+        if(diff(arr,target,m) <= diff(arr,target,m+1)) r = m;//m愈大,造成的error愈大, 
+        else l = m+1;                                       //選擇m不選m+1的另因: 可找到minimumt的value         
+    }
+    return r;
+}
+
 int findBestValue(vector<int>& arr, int target) {
         return helper0(arr,target);
 }
@@ -55,7 +65,10 @@ int findBestValue(vector<int>& arr, int target) {
 //====思路2 ====
 (*)此思路只能求出最closet的數值,但沒有辦法滿足minimum value
 (*)[4,9,3] target=10 會求得 value = 4, 而不是3
-
+-因為value=3也會得到同value=4的結果 
+-以下思路沒有辦法判斷出 value=3和value=4可以得到相同結果
+ 所以在過程中, m 會等於3, 但因為 mutated(arr,m)<target; 會再往右方移動一格
+  mid在運算過程中會左右跳動, 所以找到的minimum mid不會對應到difference的最小值
 
 int mutated(vector<int>& arr, int value){
     vector<int> nums = arr;
@@ -69,7 +82,6 @@ int mutated(vector<int>& arr, int value){
 
 int findBestValue(vector<int>& arr, int target) {
     int l = 0, r = target;
-    
     while(l<r){
         int m = l+(r-l)/2;
         if(mutated(arr,m)<target){
@@ -78,7 +90,7 @@ int findBestValue(vector<int>& arr, int target) {
         }else{//mutated(arr,m)>=target
             r = m;
         }
-        //res = min(res,min(r,l));//???
+        //res = min(res,min(r,l));//??? mid在運算過程中會左右跳動, 所以找到的minimum mid不會對應到difference的最小值
     }
     return r;
 }
