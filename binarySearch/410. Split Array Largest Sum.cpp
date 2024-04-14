@@ -15,7 +15,17 @@
 - 回傳 true, 要往較小的largest方向移動  r=m;
 (*)如果largest數值越小, 代表可以分割的區間越多 
 -回傳false, 要往較大largest的方向移動 l=m+1;
-  
+
+(*)概念, 與1891. Cutting Ribbons 思路相同
+- 以數值, 來求出條件所需的 segament數目
+-此數值的範圍, 從數列中的最小值來定義 [1: minimum_element_value]
+- 先定義 length大小, 求出對應的segement; 判斷此segement是否滿足題意 k 
+
+此題目:
+- 以數值, minimum_largest 來求出 對應的segement數目
+- minimum_largest範圍是 從單純"一個element"到"所有element累加";    
+- 在此範圍的數值, 求出對應的segament; 判斷此segment是反滿足題意k
+
 //=========
 
 bool can_split_down(vector<int>& nums, int k, int sum){
