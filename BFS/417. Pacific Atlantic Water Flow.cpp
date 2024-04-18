@@ -11,6 +11,11 @@
 -當前一個數值大於新的數值; 代表水"不可以"流通, 回傳
 -當前一個數值小於等於新的數值; 則代表水"可以"流通, 繼續往下一個點繼續運算下去
 
+(*)
+heights[x][y]: 新的位置高度   
+pre: 前一個位置高度
+新的位置高度一定要"大於"前一個位置高度, 水才可以流下去
+
 //======
 void dfs(vector<vector<int>>& height,int x, int y, int pre, vector<vector<bool>>& visited){
     if(x<0||x>=height.size()||y<0||y>=height[0].size()||visited[x][y]||height[x][y]<pre) return;
@@ -32,7 +37,8 @@ vector<vector<int>> pacificAtlantic_dfs(vector<vector<int>>& heights) {
         }
         for(int i=0;i<n;++i){
             dfs(heights,0,i,INT_MIN,pacific);
-            dfs(heights,m-1,i,INT_MIN,atlantic);        }
+            dfs(heights,m-1,i,INT_MIN,atlantic);        
+        }
 
         for(int i=0; i<m; ++i){
             for(int j=0; j<n; ++j){
@@ -48,6 +54,10 @@ vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights){
 }
 //===思路2===
 (*)BFS算法
+
+heights[x][y]:新位置的高度
+heights[p[0]][p[1]]:舊位置的高度
+新位置的高度 "大於" 舊位置的高度 ; 水才會流動
 
 //======
 void bfs(vector<vector<int>>& heights,
