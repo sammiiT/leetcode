@@ -17,3 +17,22 @@ DFS會算D->G->H->I;                  DFS會算B->D->H;
     | G ->H ->I |                   / \
     +---+---+---+                 *H   I
 
+(*)有些DFS題目必須用一個buffer記憶訪問過的節點,目的是為了避免重複訪問;如
+- 棋盤格類型的DFS; 會用一個二維陣列 vector<vector<int>> visited, 來紀錄是否訪問過
+if(x<0||x>=m||y<0||y>=n||visited[x][y]) return;
+
+- 一維陣列防止重複訪問, 如題目 valid palindrome III
+-- memo就是紀錄已經訪問過的節點, 
+if(memo[start][end]!=(-1)) return memo[start][end];
+
+上層的   (start@,end@)
+          |  \____  \_____________
+          |        \               \
+下層的 (start0,end0) (start1,end1)  (start#,end#)           
+        |  \              |
+        |    \_______     |
+        |             \   | 
+再下層 (start%,end%)  (start2,end2)
+
+
+
