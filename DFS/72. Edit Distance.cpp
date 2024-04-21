@@ -1,6 +1,10 @@
 //===類似題===
 
 //===思路===
+(*)概念有點像 兩個string刪除k個以內可以變成palindrome........
+- 現在除了刪除, 還多了insert,replase
+- 操作有 delete, insert, replace; 對這三種操作分別做dfs
+
 (*)DFS 運算會造成Time Limit Exceeded, 但思考邏輯不錯
 如果相等:
 word1[i]==word2[j]=>繼續比較下一個 (i+1)和(j+1)
