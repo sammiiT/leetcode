@@ -1,5 +1,8 @@
 //===more challange===
-
+2418. Sort the People
+2911. Minimum Changes to Make K Semi-palindromes
+1255. Maximum Score Words Formed by Letters
+    
 //===思路===
 (*)DFS
 (*)我這個DFS寫法會造成time_limit_exceeded
@@ -26,10 +29,36 @@ bool isInterleave(string s1, string s2, string s3) {
     if(s1.size()+s2.size()!=s3.size()) return false;
     return helper(s3,0,s1,s2);
 }
-
+//==== 修改版本, 可解決time limited exceeded ====
 (*)為避免重複計算, 要在helper一開始加入判斷描述
 概念如同 1216 Valid Palindrome III
 
+(*)將每一個擷取出的s1和s2片段前, 分別加入 '@','#'以避免重複
+-用unordered_set<string> 將所有的錯誤的('@'+s1+'#'+s2)加入倒set中
+-錯誤的set不會被重複計算.
+-可解決time limited exceeded, 但運算效率還是很慢
+
+bool helper(string& s3, int start, string s1, string s2,unordered_set<string>& st){
+    if(!s1.size() && !s2.size()) return true;
+    if(st.count('@'+s1+'#'+s2)) return false;
+
+    for(int i=start; i<s3.size(); ++i){
+        if((i-start+1<=s1.size()) && s3.substr(start,i-start+1)==s1.substr(0,i-start+1)){
+            if(helper(s3, i+1, s1.substr(i-start+1), s2,st)) return true;
+        }
+        if((i-start+1<=s2.size()) && s3.substr(start,i-start+1)==s2.substr(0,i-start+1)){
+            if(helper(s3, i+1, s1, s2.substr(i-start+1),st)) return true;
+        }
+    }
+    st.insert('@'+s1+'#'+s2);   
+    return false;
+}
+
+bool isInterleave(string s1, string s2, string s3) {
+        if(s1.size()+s2.size()!=s3.size()) return false;
+        unordered_set<string> st;
+        return helper(s3,0,s1,s2,st);
+}
 
 //===網路上的寫法====
 (*)DFS
