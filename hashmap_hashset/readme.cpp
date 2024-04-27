@@ -75,6 +75,19 @@ st.empty();
 itu = st.upper_bound(5);
 itl = st.lower_bound(3);
 
+(*)set也有如priority_queue的class compare 函式    
+struct cmp{//要加入const, 才可以用class compare
+    bool operator()(const string& a,const string& b) const{
+//        return a.size()<b.size();//錯誤, 會比對不到相等的情況; rat, cat=> rat會被排除
+        return a.size()<=b.size();//修正, 可正確執行
+    }
+};
+vector<string> words = {"cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"};
+set<string,cmp> st(words.begin(),words.end());//會按照string長度,由小到大做排序
+
+
+
+
 /***************************
 *    multiset
 ****************************/
