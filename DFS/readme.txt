@@ -35,4 +35,11 @@ if(memo[start][end]!=(-1)) return memo[start][end];
 再下層 (start%,end%)  (start2,end2)
 
 
+(*)
+利用 DFS + memory 解法, 通常是在求單一路徑下的所有可能; 每一個走過的節點不可以重複; 如題目
+- word break
+
+但 DFS + memory解法, 不適用於 路徑節點重複的 題型; 如題目
+- word break II 
+- 
 
