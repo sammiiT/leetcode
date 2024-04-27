@@ -44,27 +44,30 @@ if(memo[start][end]!=(-1)) return memo[start][end];
 - concatenated words
 
 
+(*)dfs函式帶有回傳參數:
+- 預先得知最底層的結果, 可用於 memory 題型; 將最底層的結果用memory紀錄, 防止重複運算
+- 回傳值可用來決定, 1.下一個運算的方向, 2.記錄起來防止重複運算 
+- 如 bool dfs(xxx,) ; 此回傳值(bool)可帶入memory buffer中 
+- 有回傳參數的dfs算法, 通常是所有可能的路徑中,  單一路徑節不可重複計算
+  窮盡所有可能,若找到一個解, 即回傳結果; 後面的解會被忽略
 
-    vector<string> wordBreak(string s, vector<string>& wordDict) {
-        unordered_map<string, vector<string>> m;
-        return helper(s, wordDict, m);
-    }
-    vector<string> helper(string s, vector<string>& wordDict, unordered_map<string, vector<string>>& m) {
-        if (m.count(s)) return m[s];
-        if (s.empty()) return {""};
-        vector<string> res;
-        for (string word : wordDict) {
-            if (s.substr(0, word.size()) != word) continue;
-            vector<string> rem = helper(s.substr(word.size()), wordDict, m);
-            for (string str : rem) {
-                res.push_back(word + (str.empty() ? "" : " ") + str);
-            }
-        }
-        return m[s] = res;
-    }
+如: string = dogcatsand; wordDict={dog,cat,cats,and,sand}
+組合路徑有 dog->cat->sand; dog->cats->and 
+當其中一個路徑滿足(dog->cat->sand), 則回傳到最上層, 不會再往下考慮(dog->cats->and) 
+
+如: string = catsanddogapple;  wordDict={cat,and,sand,dog,apple}
+搜尋路徑一:
+cat->sand->dog->apple 
+dog對應的memo是true
+
+搜尋路徑二:
+cats->and->dog->apple
+第二次又找到dog, memo已經有紀錄, 所以不用再繼續往apple找下去
 
 
-
+(*)dfs函式不帶回傳值參數: 
+- 結果是從參數列帶入, 一層一層做運算
+- 如  void dfs(xxx, vector<int>& res); 其中vector<int>& res 為解果.
 
 
 
