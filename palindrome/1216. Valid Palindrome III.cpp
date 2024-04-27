@@ -33,7 +33,8 @@ int helper(string& s, int start, int end, vector<vector<int>>& memo){
     if(s[start]==s[end]){
       res = helper(s,start+1,end-1,memo);
     } else {//s[start]!=s[end]
-        res = min(helper(s,start+1,end,memo),helper(s,start,end-1,memo));      
+        res = 1 + min(helper(s,start+1,end,memo),helper(s,start,end-1,memo)); //加1是累計刪除的次數
+//      res = min(1 + helper(s,start+1,end,memo),  1 + helper(s,start,end-1,memo));              
     }
     memo[start][end] = res;
     return res;
