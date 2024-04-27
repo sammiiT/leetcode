@@ -36,10 +36,38 @@ if(memo[start][end]!=(-1)) return memo[start][end];
 
 
 (*)
-利用 DFS + memory 解法, 通常是在求單一路徑下的所有可能; 每一個走過的節點不可以重複; 如題目
+利用 DFS + memory 解法, 通常是在求單一路徑下的所有可能; 每一個走過的節點不可以重複, 已經走過的節點用memory紀錄; 如題目
 - word break
 
 但 DFS + memory解法, 不適用於 路徑節點重複的 題型; 如題目
 - word break II 
-- 
+- concatenated words
+
+
+
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        unordered_map<string, vector<string>> m;
+        return helper(s, wordDict, m);
+    }
+    vector<string> helper(string s, vector<string>& wordDict, unordered_map<string, vector<string>>& m) {
+        if (m.count(s)) return m[s];
+        if (s.empty()) return {""};
+        vector<string> res;
+        for (string word : wordDict) {
+            if (s.substr(0, word.size()) != word) continue;
+            vector<string> rem = helper(s.substr(word.size()), wordDict, m);
+            for (string str : rem) {
+                res.push_back(word + (str.empty() ? "" : " ") + str);
+            }
+        }
+        return m[s] = res;
+    }
+
+
+
+
+
+
+
+
 
