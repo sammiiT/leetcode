@@ -60,3 +60,47 @@ vector<string> wordBreak(string s, vector<string>& wordDict) {
         helper(s,wordDict,out,res);
         return res;
 }
+
+//=== 寫法2 ===
+(*)一樣用DFS
+(*) 將wordDict用unordered_set<string> 儲存
+(*) 不用memory紀錄出現過的路徑:與word break不同
+- 當wordDict中包含 {cat , cats}, 且 cat和 cats皆可滿足題意
+- 若採用memory紀錄來避免重複計算, 則計算完cat之後, 就不會再往cats紀錄下去 
+
+(*)word break題目需要用到memory, 來避免重複計算.
+- word break,只判斷是否存在(true or false), 所以用一個 memory來記錄"先前已走過的路徑"
+- 當wordDict中包含 {cat , cats}, 且 cat和 cats皆可滿足題意
+  若判斷到"cat"時,就可滿足題意; 則不會往"cats"繼續運算.
+
+- 先前已走過的路徑: 先走到的路徑是最深Depth的路徑, 這些先走到的路徑會先存放到memory中
+- 先記錄到memory中的結果,目的是用來避免重複計算
+
+void dfs(string& s,
+        unordered_set<string>& ust,
+        int start,
+        string str,
+        vector<string>& res){
+    if(start==s.size()){
+        str.pop_back();
+        res.push_back(str);
+        return;
+    }
+
+    for(int i=start;i<s.size();++i){
+        string tmp = s.substr(start,i-start+1);
+        if(ust.count(tmp))
+            dfs(s,ust,i+1,str+tmp+" ",res);
+    }
+}
+
+vector<string> wordBreak(string s, vector<string>& wordDict) {
+    unordered_set<string> ust(wordDict.begin(),wordDict.end());
+    vector<string> res;
+    dfs(s,ust,0,"",res);
+    return res;
+}
+
+
+
+
