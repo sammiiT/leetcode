@@ -70,7 +70,7 @@ cats->and->dog->apple
 - 如  void dfs(xxx, vector<int>& res); 其中vector<int>& res 為解果.
 
 
-
-
-
+(*)
+-由下(最深層)往上(最上層)累計, 如同post-order
+-由上往下, 如同pre-order
 
