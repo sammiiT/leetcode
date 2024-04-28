@@ -90,8 +90,31 @@ bool wordBreak(string s, vector<string>& wordDict) {
     return dfs(s,0,ust,memo);
 }
 
+//=== 如何計算出 "解"的個數====
+(*)紀錄解的個數?? 怎麼寫?
+(*)bool 回傳值: 有或沒有
+-? int 回傳值, 紀錄當下層有幾個解, 往上層推導, 並做累加; memo就用來記錄當下層的解總數, 來防止重複計算
+- 用memo做防止重複運算機制,有點像BFS中的防止機制
+- DFS的防止是在下一層做判斷,再回傳;  BFS的防止機制是在當下層就把錯誤排除在外(不然會time_limited_exceeded)
 
-
+int dfs(string& s, 
+        int start, 
+        unordered_set<string>& ust, 
+        vector<int>& memo,
+        int& res){
+    if(start==s.size()) return 1;//一個解,匹配成功;所以回傳1  
+    if(memo[start]!=-1) return memo[start];
+    
+    int ret = 0;
+    for(int i=start; i<s.size(); ++i){
+        string str = s.substr(start,i-start+1);
+        if(ust.count(str)){
+            ret += dfs(s,i+1,ust,memo,res);
+        }
+    }
+    memo[start] = ret;
+    return ret;
+}
 
 
 
