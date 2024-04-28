@@ -141,4 +141,45 @@ vector<string> wordBreak(string s, vector<string>& wordDict){
     }
     return res;
 }
+//=== 寫法4====
+(*)寫法3再優化
 
+vector<string> dfs(string& s, 
+                int start, 
+                unordered_set<string>& ust, 
+                unordered_map<int,vector<string>>& ump){
+    if(start==s.size()){
+        vector<string> r = {""};
+        return r;
+    }    
+    if(ump.count(start)) return ump[start];
+    
+    vector<string> ret;//此ret是下一層的
+    vector<string> res = ret;//res是要回傳給上層的結果
+    
+    for(int i=start;i<s.size();++i){
+        string tmp = s.substr(start,i-start+1);
+        if(ust.count(tmp)){
+            ret = dfs(s,i+1,ust,ump);    
+            for(int j=0;j<ret.size();++j){
+                res.push_back(tmp+" "+ret[j]);
+            }
+        }
+    }
+    ump[start] = res;
+    return res;
+}
+vector<string> wordBreak(string s, vector<string>& wordDict){
+    unordered_set<string> ust(wordDict.begin(),wordDict.end());
+    unordered_map<int,vector<string>> ump;
+    vector<string> res;
+    res = dfs(s,0,ust,ump);
+    for(int i=0;i<res.size();++i){
+        res[i].pop_back();
+    }
+    return res;
+}
+
+
+
+ 
