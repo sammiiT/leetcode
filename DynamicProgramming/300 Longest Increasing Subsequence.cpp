@@ -90,3 +90,6 @@ i=  0   1   2   3   4   5   6
                      \    nums[i]本身
                    前面的累計increasing sequence數目
 
+
+(*)用2維的方式思考, dp[i][j]概念會誤會成 第[i:j] 的increasing subsequnce.
+- 如何用2維方式計算(思考), 得到對應的解???
