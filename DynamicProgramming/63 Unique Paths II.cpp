@@ -107,7 +107,20 @@ int helper0(vector<vector<int>>& obstacleGrid){
         }
         return dp[m-1][n-1];
 }
-//===============================================================
+//====思路2===
+(*)多建立一個空間給 dp做運算; vector<vector> dp(m+1,vector<int>(n+1)) ; 多了一個位址
+- 初始值會在運算式中建立, 不用單獨建立
+- 物理上,實際index的運算直, 會存在另一個新的index上
+  dp[i][j] = dp[i-1][j]+dp[i][j-1]
+    |           \               \
+     \       實際index位址空間    實際index位址空間
+     新的index位址空間
+
+- 在dp update的過程運算式中, 將實際的boundary condition 一併做計算.
+(1,2) = (0,2) + (1,1)
+  |       \       \
+   \     實際位址  實際位址
+    新的位址
 int helper1(vector<vector<int>>& obstacleGrid){
     if(obstacleGrid.empty()||obstacleGrid[0].empty()||obstacleGrid[0][0]==1) return 0;
     int m = obstacleGrid.size(), n= obstacleGrid[0].size();
@@ -118,8 +131,8 @@ int helper1(vector<vector<int>>& obstacleGrid){
         for(int j=1; j<=n; ++j){
             if(obstacleGrid[i-1][j-1]!=0) continue;
             dp[i][j]=dp[i-1][j]+dp[i][j-1];
-        }
-    }
+        }//(1,2) = (0,1) 
+    }    //(1,3) = (0,2)
     return dp[m][n];
 }
 
