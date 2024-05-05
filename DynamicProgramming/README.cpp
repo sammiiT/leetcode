@@ -14,7 +14,29 @@ for(int i=0;i<n;i++)
 (*)當i為0時, j不會執行
 (*)以i為"後"base, j在i前面, 一個一個選取
 
-
+//==== dp棋盤格問題 運算解析====
+(*)以原棋盤格位置建立boundary_condition(initial_value)
+- boundary_conditio(initial_value)先獨立計算, 與dp更新運算分開 
+- 依據先運算好的boundary_codition來計算每一個新的dp狀態
+- dp[i][j]=dp[i-1][j]+dp[i][j-1];  新狀態=舊狀態的疊加; 其中(i,j)對應到棋盤格的"實際位址"
+- 最後的結果在dp[m-1][n-1]
+  
+(*)多建立一個memory來計算整個dp  
+- 多了一個memory, 初始值是在宣告就決定了, 此初始值是虛擬初始值:
+vector<vector<int>> dp(m+1,vector<int>(n+1));
+  
+- boundday_condition(initial_value)在dp更新中運算 (不用獨立運算)
+- 一開始計算出的結果, 就是boundary_condition; boundary condition就是在dp更新中決定
+- 所有的dp更新值,會比原先多shift一個位置, 但在dp更新的過程中,仍然用 "原來位址的值" 來做判斷依據
+                                                         if(obstacleGrid[i-1][j-1]!=0) continue; 
+                                                          obstacleGrid是原來地址
+- 但, 更新之後的結果,會儲存在shift位置 
+dp[i][j]=dp[i-1][j]+dp[i][j-1];
+  
+- 如上,在dp更新運算的過程中, 還是可用 "新狀態=舊狀態疊加"思考邏輯來解釋
+- 如上,但 "新狀態" 的結果會shift一個位置
+- 最後的結果在 dp[m][n]
+  
 //==== dp棋盤格問題 =====
 概念:
 (*) dp棋盤格問題, 就是"羅列所有可能(窮舉)";棋盤上每一個位址的值 => 依條件所得到每一個格子的值
@@ -49,6 +71,7 @@ p[i][j]=0代表從上面來, p[i][j]=1代表從左邊來,並利用上述關係�
 1. 先建立dp二維陣列, 並依據input"在dp二維陣列上", 建立初始值
 2. 運算過程中, dp會搭配"input"和"之前的dp值"來求得
 
+  
 //===== stat/DAG ====
 每個小問題是一種狀態,數值範圍不同
 狀態之間是單行道, 不能往回走
