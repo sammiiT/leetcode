@@ -69,10 +69,7 @@ i=  0   1   2   3   4   5   6
     a   b   c   d   e   f   g
 
 - i=2時, 計算[0:2]的increasing sequence的個數, 就是dp[2], 此dp[2]會給下一輪 i=3,i=4...做參考
-
-
-- 過程中, 若不滿足提議;如 [4]<[3]; 則不列入計算, 如下:
-  
+- 過程中, 若不滿足提議;如 [4]<[3]; 則不列入計算, 如下:  
     [0] [1] [2] [3] [4] [5] [6]  
     1    2   3   9   5   6   7
         
@@ -93,3 +90,31 @@ i=  0   1   2   3   4   5   6
 
 (*)用2維的方式思考, dp[i][j]概念會誤會成 第[i:j] 的increasing subsequnce.
 - 如何用2維方式計算(思考), 得到對應的解???
+
+//===思路解析2===
+(*)此方式比較好理解, 參考 368 Largest Divisible Subset
+- dp[i]是第i索引下, increasing subsequence個數
+- 根據上述, 當索引j小於i; (j<i); 若nums[i]>nums[j]時, 代表nums[i]會大於 dp[j]之前所有的數值
+- dp[i]<dp[j] + 1
+     |     |     \
+     |     \      之前的結果不包含 nums[i], 所以要加回來  
+     \     前一次的結果
+    每一次的疊帶
+
+int lengthOfLIS(vector<int>& nums) {
+   int m = nums.size();
+    int res = 1;
+    vector<int> dp(m,1);
+    
+    for(int i=1; i<m; ++i){
+        for(int j=0; j<i; ++j){
+            if(nums[i]>nums[j] && (dp[i]<(dp[j]+1))){
+                dp[i]=dp[j]+1;
+            }
+        }
+        res = max(res,dp[i]);
+    }
+    return res;
+}
+
+
