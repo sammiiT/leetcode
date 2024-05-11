@@ -1,3 +1,9 @@
+
+//===思路===
+(*)遍歷數列
+-紀錄最小的值
+-將遍歷的數值減去最小的值, 最大的差,即為解
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
