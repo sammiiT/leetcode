@@ -75,9 +75,8 @@ int minCut(string s) {
 }
 
 //=====
-
-
 //===用DFS會Time Limited Exceeded ===
+
 bool isPalindrome(string& s, int left, int right){
     while(left<right){
         if(s[left]!=s[right]) return false;
@@ -85,6 +84,15 @@ bool isPalindrome(string& s, int left, int right){
     }
     return true;
 }
+
+(*)遍歷所有可能的結果, 此結果紀錄在vector<string>中, 其中:
+- string是 palindrome的string; 紀錄在vector中
+- 在dfs計算中, 如果能計算到 最後一個字元, 代表此次計算是可以完成partition
+- 此partition的大小,再減1, 就是cut次數
+- 窮盡所有可能, 會得到最小的cut數, 此數即為解
+
+(*)討論: 是否可用dfs + memory 來減少運算次數???
+
 void helper(string& s,int start, vector<string>& out, int& res){
     if(start>=s.size()){
         res = min(res, (int)out.size()-1);
@@ -105,3 +113,40 @@ void helper(string& s,int start, vector<string>& out, int& res){
         helper(s,0,out,res);
         return res;    
     }
+
+//--- dfs + memory ---
+void helpe(string& s, 
+         int start, 
+         int end, 
+         vector<string>& out, 
+         vector<vector<int>>& memo,
+         int& res){
+         
+    if(start>=s.size())
+
+
+    for(int i=start; i<s.size(); ++i){
+         helper(s, i+1,)
+    }
+         
+    for(int i=start; i<s.size(); ++i){
+         if(isPalindrome(s,start,i)){
+             out.push_back(s.substr(start,i-start+1));
+             helper(s,start,,out,memo,res);     
+             out.pop_back();
+         } else {//[start:i] is not palindrome
+             memo[start][i] 
+         }
+    }
+}
+
+q x 1 x  q  o o o 
+|--------|  |---| 
+
+q x x q    o o o
+|-----|    |---|
+         
+q q q q    o o o 
+|-----|    |---|  <===用memory 只能在這種情況減少運算 => 紀錄最小cut
+從最深層往上計算的思考方式會有錯誤
+         
