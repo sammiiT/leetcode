@@ -4,7 +4,20 @@
 1092. Shortest Common Supersequence
 2207. Maximize Number of Subsequences in a String
 //===思路===
+(*)dp[i][j]不能解釋為區間[i:j] ; 不能解釋為區間i到j
+=> 要解釋為 text1在[0:i], text2在[0:j]時所產生的字串; 一共有幾個common subsequence
 
+(*)此題為全二維平面計算, 不是"左下", "右上" 平面
+for(int i=1;i<m;++i){
+    for(int j=1;j<n;++j){
+
+左下平面:
+for(int i=0;i<m;++i){
+    for(int j=0;j<i; ++j){    
+
+右上平面:
+for(int i=0; i<m; ++i){
+    for(int j=i; j<n;++j){
 
 int longestCommonSubsequence(string text1, string text2) {
     int m = text1.size();
@@ -30,7 +43,7 @@ int longestCommonSubsequence(string text1, string text2) {
 - dp[i][j]的結果是儲存前一個結果的值; 前一個結果為[i-1][j], [i][j-1], [i-1][j-1]
 - dp的最後一個位置的值, dp[m][n] 就是"解"
 - dp[i][j]=1+dp[i-1][j-1]; //其中1就是 (i-1,j-1)位置的個別結果...wrong?
-                           其中1就是 (text1[i]==text2[j])的結果, 再加上(i-1,j-1)之前的結果
+                           其中1就是 (text1[i-1]==text2[j-1])的結果, 再加上(i-1,j-1)之前的結果
 
 (*)
 dp[1][1] = 1+dp[0][0], 位置(1,1)儲存了(0,0)的結果
