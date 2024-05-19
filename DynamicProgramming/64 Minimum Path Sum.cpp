@@ -32,6 +32,7 @@ int helper(vector<vector<int>>& grid){
     }
     return dp[m-1][n-1];
 }
+
 //===failed===
 不能用下面方式, 因為沒有真正初始化"邊界"
  0 | 0 | 0 | 0          0 | 0 | 0 | 0
@@ -54,6 +55,33 @@ int helper0(vector<vector<int>>& grid){
     }
     return dp.back().back();//dp[m-1][n-1];
 }
+(*)修正寫法: 即可解決上述錯誤
+- 邊界的初始化, 在dp update中執行
+if((i-1)==0) 
+  dp[i][j] = dp[i-1][j] + grid[i-1][j-1];//不看"j", 只update "i"
+else if((j-1==0)) 
+  dp[i][j] = dp[i][j-1] + grid[i-1][j-1];//不看"i", 只update "j"
+-----
+
+int helper1(vector<vector<int>>& grid) {
+    int m = grid.size();
+    int n = grid[0].size();
+    vector<vector<int>> dp(m+1,vector<int>(n+1));
+
+    for(int i=1; i<=m; ++i){
+        for(int j=1; j<=n; ++j){
+            if((i-1)==0) 
+                dp[i][j] = dp[i-1][j] + grid[i-1][j-1];
+            else if((j-1==0)) 
+                dp[i][j] = dp[i][j-1] + grid[i-1][j-1];
+            else
+                dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i-1][j-1];
+        }
+    }
+    return dp[m][n];
+}
+
+
 
 
 //===思路2====
