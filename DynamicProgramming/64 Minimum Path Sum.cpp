@@ -61,7 +61,10 @@ if((i-1)==0)
   dp[i][j] = dp[i-1][j] + grid[i-1][j-1];//不看"j", 只update "i"
 else if((j-1==0)) 
   dp[i][j] = dp[i][j-1] + grid[i-1][j-1];//不看"i", 只update "j"
------
+
+實際物理位置的index是 (i-1,j-1)
+但, dp update的數據,所對應的index, "沒有對應到原本的grid索引上"
+dp索引, 並不是gird索引
 
 int helper1(vector<vector<int>>& grid) {
     int m = grid.size();
