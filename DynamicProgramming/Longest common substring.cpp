@@ -1,5 +1,7 @@
 //===思路===
-
+(*)二維dp陣列
+dp[i][j]表示 
+-陣列從[0:i], 陣列從[0:j] 最長的common substring
 
 int LCSubstring(string& X, string& Y){
     int m = X.size();
