@@ -64,16 +64,23 @@ dp[5][7]=1+dp[4][6]
     | | 
     0 1 2 3 4 5 6 7 8 9   => dp_index         
     C B A B C A B C C
-0 A  
-1 B   
-2 C
-3 A
-4 B
-5 C
-6 B
-7 A
+0 A 0 0 1 1 1 1 1 1 1 
+1 B 0 1 
+2 C 1
+3 A 1
+4 B 1
+5 C 1
+6 B 1
+7 A 1
 8
 
+
+
+dp[1][1] => (s1[1-1]==s2[1-1])?
+
+s1[1] s2[1]
+=>s1[2-1] s2[2-1]
+=>dp[2][2]
 
 int longestCommonSubsequence(string text1, string text2) {
         int m = text1.size();//8
