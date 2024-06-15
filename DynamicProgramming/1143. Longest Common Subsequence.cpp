@@ -73,14 +73,30 @@ dp[5][7]=1+dp[4][6]
 6 B 1
 7 A 1
 8
-
-
-
 dp[1][1] => (s1[1-1]==s2[1-1])?
 
 s1[1] s2[1]
 =>s1[2-1] s2[2-1]
 =>dp[2][2]
+
+(*)圖解2
+        0 1 2 3 4 5 6 7 8   => 原string index
+      0 1 2 3 4 5 6 7 8 9   => dp_index         
+      @ C B A B C A B C C
+  0 @   0 0 0 0 0 0 0 0 0 
+0 1 A 0 0 0 1 1 1 1 1 1 1  
+1 2 B 0 0 1 1 2 2 2 2 2 2
+2 3 C 0 1 1 1 2 3 3 3 3 3 
+3 4 A 0 1 1 2 2 3 4 4 4 4
+4 5 B 0 1 2 2 3 3 4 5 5 5
+5 6 C 0 
+6 7 B 0
+7 8 A 0
+| |
+|  \__ dp_index
+|
+ \__ 原string index
+
 
 int longestCommonSubsequence(string text1, string text2) {
         int m = text1.size();//8
