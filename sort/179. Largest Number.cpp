@@ -8,7 +8,11 @@ to_string的比大小需要string的size()相等,比較出來才正確
 比如9和34，由于934>349
 30和3，由于303<330
 
+(*)用string 比較的好處, 前面可以有0字元
+33,0 => "330", "033"
+"330"和"033"可用字元字串比較 lexicographical
 
+    
 //=========
 string helper0(vector<int>& nums){
   string res="";
