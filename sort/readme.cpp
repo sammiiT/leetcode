@@ -68,6 +68,39 @@ void mergeSort(vector<int>& arr, int l, int r){
         merge(arr, l, m, r);//sort and combine
     }
 }
+
+//=== merge sort 寫法2 ===
+(*)分割到最小的元素, index會相同, 要回傳(i=j)位址的值到上層
+(*)到上層之後, 作排列
+
+vector<int> merge_sort(vector<int>& arr, int i, int j){
+    if(i==j) return vector<int>(1,arr[i]); //一定會遇到
+   
+    vector<int> ret;
+    int l=0,r=0;
+    int m = i+(j-i)/2;
+    vector<int> left = merge_sort(arr,i,m);
+    vector<int> right = merge_sort(arr,m+1,j);
+
+   do{//sorting
+        int nl = l<left.size()? left[l]: INT_MAX; 
+        int nr = r<right.size()? right[r]: INT_MAX;
+        
+        if(nl<=nr){
+            ++l;
+            ret.push_back(nl);
+        }else{//nl>nr
+            ++r;
+            ret.push_back(nr);
+        }
+        
+    }while(l<left.size() || r<right.size());
+    return ret;
+}
+
+
+
+
 //==== quick sort=====
 
        pivot (選自右邊界 [r])                      pivot(以pivot為基準,[i],[j]對調)   
