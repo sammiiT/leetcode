@@ -102,7 +102,14 @@ vector<int> merge_sort(vector<int>& arr, int i, int j){
 
 
 //==== quick sort=====
+(*)每次都找到一個pivot, 經過quick_sort之後:
+pivot右邊的數值, 都比pivot大
+pivot左邊的數值, 皆比pivot小
 
+(*)再藉由此pivot,分成左右兩邊陣列, 此左右兩邊陣列重複上述步驟計算, 最後可將陣列全部排利完成
+
+   
+   
        pivot (選自右邊界 [r])                      pivot(以pivot為基準,[i],[j]對調)   
          |                       [i]<=pivot             |  
  +----+  |  +----+               ======>         +----+ | +----+            
@@ -115,7 +122,7 @@ int partition_ascending(vector<int>& arr, int l, int r){
     int pivot = arr[r];
     int j = l;
     for(int i=l; i<r; i++){
-        if(arr[i]<=pivot){
+        if(arr[i]<=pivot){// arr[i]>pivot  會變成排列"由大至小"
             swap(arr,i,j);
             j++;
         }
