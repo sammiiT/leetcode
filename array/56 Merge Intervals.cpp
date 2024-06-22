@@ -34,8 +34,23 @@ vector<vector<int>> helper1(vector<vector<int>>& intervals){
     return res;
 }
 
+//===寫法2===
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> res;
 
+    sort(intervals.begin(),intervals.end(),[](vector<int>& a, vector<int>& b){
+        return a[0]<b[0];
+    });  
+    res.push_back(intervals[0]);
+    for(int i=1; i<intervals.size(); ++i){
 
+        if(res.back()[1]<intervals[i][0]) res.push_back(intervals[i]);//如果([i-1][1]<[i][0]); 區間沒有重和
+        else if(res.back()[1]<=intervals[i][1]){//區間有重和, 比較[i-1][1],[i][1]哪一個比較大
+            res.back()[1] = intervals[i][1];    
+        }
+    }
+    return res;
+}
 
 //====
 class Solution {
