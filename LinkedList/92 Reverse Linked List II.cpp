@@ -211,8 +211,28 @@ ListNode* reverseBetween_2(ListNode* head, int left, int right){
     
     return vnode.next;
     
-}
-
-     
-     
+}    
 };
+
+//===寫法3 (簡潔)===
+ListNode* reverseBetween(ListNode* head, int left, int right) {
+    ListNode hdr(-1);
+    ListNode *f,*r;
+    int reverse_count = right-left;
+
+    hdr.next = head;
+    f = r = &hdr;
+
+    while(left--){//寫法記起來
+        f = r;
+        r = r->next;
+    }        
+
+    while(reverse_count--){
+        ListNode* tmp = r->next;
+        r->next = tmp->next;
+        tmp->next = f->next;
+        f->next = tmp;
+    }
+    return hdr.next;
+}
