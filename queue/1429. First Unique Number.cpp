@@ -31,6 +31,55 @@ private:
     unordered_map<int,int> mp;//紀錄每一個數,出現的次數
     queue<int> q;//紀錄陣列
 };
+//=== 寫法 概念同上 ===
+
+class FirstUnique {
+public:
+    FirstUnique(vector<int>& nums){
+        for(int i=0;i<nums.size();++i){
+            if(ump.count(nums[i])){
+                ump[nums[i]]++;
+                if(!q.empty() && q.front()==nums[i]){
+                    q.pop();
+                    
+                    while(!q.empty() && ump.count(q.front()) && (ump[q.front()]>1)){
+                        q.pop();
+                    }
+                }               
+                
+            } else {
+                ump[nums[i]]=1;
+                q.push(nums[i]);
+            }
+        }
+    }
+    
+    int showFirstUnique(){
+        return q.empty()?(-1):q.front();    
+    }
+    
+    void add(int value){
+        if(ump.count(value)){
+            ump[value]++;
+            if(!q.empty() && q.front()==value){
+                q.pop();
+                while(!q.empty() && ump.count(q.front()) && ump[q.front()]>1){
+                    q.pop();
+                }
+            }
+        }  else {
+            ump[value]++;
+            q.push(value);
+        }  
+    }
+    
+private:
+queue<int> q;
+unordered_map<int,int> ump;//value,count
+    
+};
+
+
 
 //===思路2===
 (*)vector和map
