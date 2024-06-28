@@ -106,7 +106,6 @@ O O      => v3
 
 將v1,v2,v3皆push到matrix中,再縱向遍歷
 
-
 class ZigzagIterator {
 public:
   ZigzagIterator(vector<vector<int>>& v) {
@@ -137,6 +136,37 @@ private:
     
 };
 
+//=== 思路5 ===
+(*)寫法如思路4
 
+class ZigzagIterator {
+public:
+    ZigzagIterator(vector<vector<int>>& v){
+        for(int i=0; i<v.size(); ++i){
+            if(v[i].size()==0) continue;
+            q.push(v[i]);
+        }
+    }
+    
+    int next(){
+        int ret;
+        vector<int> v = q.front();
+        q.pop();
+        
+        ret = v[0];
+        v.erase(v.begin());
+        if(v.size()) q.push(v);
+    
+        return ret;
+    }
+    
+    bool hasNext(){
+        if(q.empty()) return false;
+        return true;
+    }
 
+private:
+queue<vector<int>> q;
+    
+};
 
