@@ -177,3 +177,34 @@ vector<int> helper1(vector<vector<int>>& matrix){
     return res;
 }
 
+//=== 寫法2 =====\
+(*)用到 vector<vector<int>> dirs = {{0,1},{1,0},{0,-1},{-1,0}}; 概念
+
+
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    int m = matrix.size(), n = matrix[0].size();
+    vector<vector<bool>> visited(m,vector<bool>(n,0));
+    int i=0,j=0;
+    vector<int> res;
+    vector<vector<int>> dirs = {{0,1},{1,0},{0,-1},{-1,0}};//right(0),down(1),left(2),up(3)
+    int direction_code = 0, total = m*n;
+
+    while(total){    
+        //先賦值
+        res.push_back(matrix[i][j]);
+        visited[i][j]=1;
+        total--;
+
+        //做update    
+        int tmpi,tmpj;
+        tmpi = i+dirs[direction_code][0];
+        tmpj = j+dirs[direction_code][1];
+        if(tmpi<0||tmpi>=m||tmpj<0||tmpj>=n||visited[tmpi][tmpj]){
+            direction_code = (direction_code+1)%4;    
+        }
+        i=i+dirs[direction_code][0];
+        j=j+dirs[direction_code][1];
+        //if(visited[i][j]) break;
+    }
+    return res;
+}
