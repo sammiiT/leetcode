@@ -57,3 +57,36 @@ public:
 private:
     stack<int> stk1,stk2;
 };
+
+//===思路2===
+(*) 建立一stack<int>, 紀錄stack的操作
+(*) 建立一map<int,int>, 紀錄當下最小的數值
+
+class MinStack{
+public:
+    MinStack(){}
+    void push(int x){
+        mp[x]++;
+        stk.push(x);
+    }    
+    void pop(){
+        int val = stk.top();
+        mp[val]--;
+        if(mp[val]==0) mp.erase(val);
+        stk.pop();
+    }
+    int top(){
+        return stk.top();    
+    }
+    int getMin(){
+        map<int,int>::iterator it = mp.begin();
+        return it->first;
+    }
+    
+private:
+map<int,int> mp;//value, count
+stack<int> stk;
+};
+
+
+    
