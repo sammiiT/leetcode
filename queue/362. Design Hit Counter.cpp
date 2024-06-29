@@ -38,6 +38,31 @@ public:
 private:
     queue<int> q;
 };
+//=== 思路1 概念 ===
+class HitCounter {
+public:
+    HitCounter(){}
+    void hit(int timestamp){
+        if(q.empty()) q.push(timestamp);
+        else{
+            while(!q.empty() && timestamp-q.front()>=300){//沒加上!q.empty()會出錯; 當q.empty()時,q.front()=?
+                q.pop();
+            }
+            q.push(timestamp);
+        }
+    }
+    int getHits(int timestamp){
+        if(q.empty()) return 0;
+        else{
+            while(!q.empty() &&timestamp-q.front()>=300){//沒加上!q.empty()會出錯
+                q.pop();
+            }
+        }
+        return q.size();
+    }
+private:    
+queue<int> q;
+};
 
 
 
