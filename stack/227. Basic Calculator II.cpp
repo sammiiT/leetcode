@@ -111,5 +111,50 @@ int calculate(string s) {
    return res;
 }
 
+//=== 思路3 ====
+int calculate(string s) {
 
+    stack<long> digit;
+    stack<char> optr;
+    
+    long val = 0;
+    optr.push('+');
+    for(int i=0; i<s.size(); ++i){
+        if(s[i]>='0'&&s[i]<='9'){
+            val = val*10+s[i]-'0';
+        } else if(s[i]==' '){//空格情況
+        } 
+        else {//+,-,*,/
+            if(optr.top()=='*'){
+                digit.top() = digit.top()*val;
+            } else if(optr.top()=='/') {
+                digit.top() = digit.top()/val;
+            } else if(optr.top()=='+') {
+                digit.push(val);
+            } else if(optr.top()=='-') {
+                digit.push(val*(-1));
+            }
+            val = 0;
+            optr.push(s[i]);//每次operator都疊加上去, 不用pop, 因為運算過程中不會影響 
+        }
+    }
+
+//最後一個數值
+    if(optr.top()=='*'){
+        digit.top() = digit.top()*val;
+    } else if(optr.top()=='/') {
+        digit.top() = digit.top()/val;
+    } else if(optr.top()=='+') {
+        digit.push(val);
+    } else if(optr.top()=='-') {
+        digit.push(val*(-1));
+    }
+    val = 0;
+
+    while(!digit.empty()){
+        val+=digit.top();
+        digit.pop();
+    }
+    return val;
+}
 
