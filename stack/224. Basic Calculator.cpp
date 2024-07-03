@@ -25,7 +25,8 @@ int calculator(string& s, int& index){
             }else if(op=='*'){ nums.back() = nums.back()*brk;
             }else if(op=='/'){ nums.back() = nums.back()/brk; }
             val = 0;//每次運算完,要重新定義 val和operator, 
-            op = '+';//'+'是push_back(), val=0是push_back(0),所以最後運算不影像總數值.
+            //op = '+';//'+'是push_back(), val=0是push_back(0),所以最後運算不影像總數值.
+            op = s[index];
             
         }else if(s[index]==')'){//遇到 ')' 將同一層的stack數值做累加, 並回傳給上一層.
             if(op=='+'){ nums.push_back(val);
@@ -37,6 +38,7 @@ int calculator(string& s, int& index){
                 val = val + nums.back();
                 nums.pop_back();
             }
+            index++;
             return val;
             
         } else {//+,-,*,/  在同一層的計算, 用stack紀錄
