@@ -84,4 +84,51 @@ private:
     vector<int> nums;
     unordered_map<int, int> m;
 }
+
+//===思路3===
+(*) map<> 和 priority_quue<>
+(*) priority_queue<> 預設是從"大排到小"
   
+class RandomizedSet {
+public:
+    RandomizedSet() {}
+    bool insert(int val) {
+        bool ret = true;
+        if(mp[val].empty()) { ret = true;
+        }else{ ret = false;
+        }
+        nums.push_back(val);
+        mp[val].push(nums.size()-1);
+        return ret;
+    }
+
+    bool remove(int val) {
+        if(mp[val].empty()) return false;
+        int index = mp[val].top();
+        mp[val].pop();
+
+        //index for nums.back()
+        if(index!=nums.size()-1){
+            int tmp = nums.back();//
+            nums[index]=tmp;
+            mp[tmp].pop();//indx for nums.back(), and is going to be pop from nums
+                           //priority_queue<> 預設是從"大排到小", 所以先將nums.back()的索引 pop();移除 
+            mp[tmp].push(index);//new index for nums.back()
+        }
+        nums.pop_back();
+    }
+
+    int getRandom() {
+        int _rand = rand()%nums.size();
+        return nums[_rand];
+    }
+private:
+    vector<int> nums;
+    map<int,priority_queue<int>> mp;
+}
+
+
+
+
+
+
