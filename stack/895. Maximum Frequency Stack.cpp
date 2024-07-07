@@ -72,3 +72,44 @@ private:
     unordered_map<int,int> freq;//number counts 
 };
 
+//===寫法3===
+(*)思路; 利用map + stack概念
+輸入:5,7,5,7,4,5 , 其frequency的排列如下
+
+5
+5,7
+5,7,4 ---->  vector<frequent_count>
+  \ 
+   vector<frequent_element>
+
+(*) 所以可以用vector<vector<int>> 來表示
+-most frequent count 第一層級vector ;  就是外部vector; vector<frequent_count>    
+-most frequent element  第二層級vector ; 就是內部vector; vector<frequent_element>
+
+(*)用 map<int,int> 來紀錄每一個element出現的freq
+
+class FreqStack {
+public:
+    FreqStack(){
+    }
+    void push(int val) {
+        if(mp[val]==stk.size()){
+            stk.push_back({});
+            stk.back().push_back(val);
+        } else {//mp[val]<stk.size()
+            stk[mp[val]].push_back(val);
+        }
+        ++mp[val];
+    }
+    int pop() {
+        int ret = stk.back().back();
+        stk.back().pop_back();
+        if(stk.back().size()==0) stk.pop_back();
+        if(--mp[val]==0) mp.erase(val);
+        return ret;
+    }
+private:
+vector<vector<int>> stk;
+map<int,int> mp;
+};
+
