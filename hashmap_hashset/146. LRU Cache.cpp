@@ -18,6 +18,8 @@ list還可以 splice; 剪list 插入list的任意位置
 3.定義unordered_map,紀錄key和list的iterator
 unordered_map<int,list<pair<int,int>>::iterator>//key, list的iterator
 
+(*)
+splice的iterator參數,經移動過後, 就會失效invalid
 
 //========
 class LRUCache {
