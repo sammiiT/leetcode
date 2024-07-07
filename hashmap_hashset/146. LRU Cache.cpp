@@ -19,7 +19,12 @@ list還可以 splice; 剪list 插入list的任意位置
 unordered_map<int,list<pair<int,int>>::iterator>//key, list的iterator
 
 (*)
-splice的iterator參數,經移動過後, 就會失效invalid
+splice的iterator參數,經移動過後(移動到不同的list後), 就會失效invalid
+it = mylist1.begin();
+mylist2.splice (mylist2.begin(),mylist1, it);
+
+mylist1少了mylist1.begin()的iterator; iterator 不屬於mylist1
+mylist2多了mylist1.begin()的element; 原iterator變成是mylist2
 
 //========
 class LRUCache {
