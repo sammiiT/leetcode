@@ -38,6 +38,40 @@ vector<string> helper0(vector<string>& words, int k){
     return res;
 }
 
+//===寫法2===
+(*) 前一個概念是由大排到小
+(*) 這一個寫法是 由小排到大, 取priority_queue中的k個
+    lexicalgraphic order 是由大排到小
+=> 最後 priority_queue的排序還要再做一次reverse
+        
+struct cmp{
+    bool operator()(pair<string,int>& a, pair<string,int>& b){
+        if(a.second > b.second) return true;
+        if(a.second==b.second){
+            return a.first < b.first;
+        }
+        return false;
+    }
+};
+vector<string> topKFrequent(vector<string>& words, int k) {
+    priority_queue<pair<string,int>,vector<pair<string,int>>,cmp> pq; 
+    unordered_map<string,int> ump;
+    vector<string> res;
+    for(string str:words){
+        ump[str]++;
+    }
+    for(auto it:ump){
+        pq.push({it.first,it.second});
+        if(pq.size()>k) pq.pop();
+    }
+    while(!pq.empty()){
+        res.insert(res.begin(), pq.top().first);
+        pq.pop();
+    }
+    return res;
+}
+
+
 vector<string> topKFrequent(vector<string>& words, int k) {
     return helper0(words,k);
 }
