@@ -103,6 +103,26 @@ public:
             }
         }
         while(j>=0) {nums1[k]=nums2[j]; k--;j--;}
-    }
-    
+    }  
 };
+//==== 寫法3 ===
+(*)概念: index從後面開始算起, 從大的開始算起
+
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+
+    for(int i=m-1, j=(n-1), k=(nums1.size()-1); (i>=0)||(j>=0);){
+        int val1 = (i>=0)?nums1[i]:INT_MIN;
+        int val2 = (j>=0)?nums2[j]:INT_MIN;
+
+        if(val1>val2){
+            nums1[k] = val1;
+            i--;
+        }else{//val1<=val2
+            nums1[k] = val2;
+            j--;
+        }
+        k--;
+    }
+}
+
+
