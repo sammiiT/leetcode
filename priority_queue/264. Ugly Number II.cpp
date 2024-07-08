@@ -21,8 +21,6 @@ i2=0 2倍數一開始的基底index
 i3=0 3倍數一開始的基底index    
 i5=0 5倍數一開始的基底index
 
-
-
 //=====
 int helper0(int n){
   vector<int> res(1,1);//第一個數為1,也被視為ugly number
@@ -41,5 +39,27 @@ int helper0(int n){
 
 int nthUglyNumber(int n) {
     return helper0(n);
+}
+
+//===思路2====
+(*)利用priority_queue
+(*)每次 top()的數值都提出, 並乘上2,3,5, 再push()回priority_queue中
+(*)priority_queue 的top(),是否會與接下來的一個數值相同, 若相同則pop()出, 直到沒有重複為止
+(*) 執行最後 回傳top(), 即為解
+
+int nthUglyNumber(int n) {
+    priority_queue<long,vector<long>,greater<long>> pq;
+    pq.push(1);
+
+    for(int i=1; i<n; ++i){
+        long val=pq.top();pq.pop();
+        while(!pq.empty() && val==pq.top()){
+          val = pq.top();pq.pop();
+        }
+        pq.push(val*2);
+        pq.push(val*3);
+        pq.push(val*5);
+    }
+    return pq.top();
 }
 
