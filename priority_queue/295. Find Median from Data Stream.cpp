@@ -11,6 +11,13 @@
 當small_q的size大於 large_q的size, 代表全部是奇數個, 所以取small的top即可
 當small_q的size等於large_1的size, 代表全部是偶數個, 所以取(small.top()-large.top())/; 
 large.top()是加上負號的數值,所以top的數, 是絕對值較小的數
+
+(*) 分成兩部分:
+1.左半部最大值 
+2.右半部最小值 => 用(-)來求解    
+(1+2)/2 = 解
+
+    
 //======
 class MedianFinder {
 public:
