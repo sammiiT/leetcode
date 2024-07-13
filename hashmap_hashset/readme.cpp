@@ -27,7 +27,7 @@ for(map<char,int>::iterator it = mp.begin(); it!=mp.end(); ++it){
 
 -元素判斷:
 mp.count('b');
-mp.find('b');
+mp.find('b');//找出iterator
 
 -元素清空:clear()
 map.clear();
