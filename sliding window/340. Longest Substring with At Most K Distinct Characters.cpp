@@ -50,7 +50,32 @@ int lengthOfLongestSubstringKDistinct(string s, int k){
         }
         res = max(res,i-j+1);
     }
-    return res;
-    
+    return res;   
 }
 
+//=== 寫法3 ===
+(*)用multiset<int> 和 set<int>
+
+int lengthOfLongestSubstringKDistinct(string s, int k){
+    multiset<int> mst;
+    set<int> st;
+    int j=0, res = INT_MIN;
+    
+    for(int i=0;i<s.size();++i){
+        mst.insert(s[i]);
+        st.insert(s[i]);
+        if(st.size()>k){
+            mst.erase(mst.equal_range(s[j]).first);
+            if(mst.count(s[j])==0){
+                st.erase(s[j]);
+            }
+            ++j;
+        }
+        res = max(res,i-j+1);
+    }
+    return res;
+}
+
+
+
+    
