@@ -39,3 +39,14 @@ public:
         return prev+1;
     }
 };
+
+//===寫法2===
+int removeDuplicates(vector<int>& nums) {
+    int i=0,j=0;
+    for(;i<nums.size();++i){
+        if(nums[i]==nums[j]) continue;
+        j++;
+        nums[j]=nums[i];
+    }        
+    return j+1;
+}
