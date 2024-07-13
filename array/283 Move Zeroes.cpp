@@ -43,3 +43,19 @@ public:
         }
     }
 };
+
+//=== 寫法3 ====
+void moveZeroes(vector<int>& nums) {
+int i =0,j=0;
+for(i=0; i<nums.size(); ++i){
+    if(nums[j]==0 && nums[i]==0){
+        continue;
+    } else if(nums[j]!=0 && nums[i]!=0) {
+        j++;
+    } else if(nums[j]==0 && nums[i]!=0) {
+        int tmp = nums[i];
+        nums[i]=nums[j];
+        nums[j]=tmp;
+        j++;
+    }
+}        
