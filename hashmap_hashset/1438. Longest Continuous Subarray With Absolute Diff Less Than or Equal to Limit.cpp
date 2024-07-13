@@ -18,6 +18,10 @@ rbegin(st)等效於st.rbegin()
 begin(st)等效於st.begin()
 
 (*)程式邏輯說明:
+(*)關鍵:
+把造成(>limit)的那一個 element 移除
+=>問題變成, 如何找到造成 (>limit)的那一個element
+
 - 此multi-set 有 3,5,6,7,8,11
 -其中3有二個, 5有三個, 6有三個, 7有一個,8有四個, 11有六個; 在multi-set中的所有數值表示在array中的所有數值 
 +-----------------------+
@@ -115,6 +119,11 @@ int helper1(vector<int>& nums, int limit){
 - 一個遞增 deque, 另外一個遞減deque
 - 遞增的deque紀錄最小的element
 - 遞減的deque紀錄最大的element
+
+(*)關鍵:
+把造成(>limit)的那一個 element 移除
+=>問題變成, 如何找到造成 (>limit)的那一個element
+
 
 int longestSubarray(vector<int>& nums, int limit) {
   deque<int> maxq;
