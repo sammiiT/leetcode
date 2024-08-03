@@ -24,11 +24,19 @@ rand()%(sum.back()) 取餘數, 數值從0 ~ (sum.back()-1)
 
 count就是0-index的總數, 所以count就是0-index的upper_bound
 
+nums = {2,5, 18}
+sum = {2,7,25} //目的是為了對應到題意 sum of w[i]
+7~25的區間比較大, 所以在rand()%25的數值,有比較高的機率落在此區間, 比2~7區間機率大
+最後再用upper bound 回推到原數列index {2,5,8}
 
+    
 (*) upper_bound
 nums = {6,  8,  11,  13,  16}
 upper_bound(nums.begin(),nums.end(),5)-nums.begin();
 回傳0
+
+
+
     
 //=======
 class Solution {
