@@ -78,5 +78,38 @@ int singleNonDuplicate(vector<int>& nums) {
       return nums[r];        
 }
 
+//==== 思路3 ===
+(*)以first_middle為基準點, 計算兩邊的個數.
+兩邊為偶數個: 往相同數值方向移動
+兩邊為奇數個: 往不同方向移動
+
+(*)因為有first_middle和second_middle的問題
+所以計算兩邊個數, 用左半邊計算
+
+  first_middle, 要計算兩邊個數, 用左半邊, 就是"0"個  
+ / 
+10,11
+
+int singleNonDuplicate(vector<int>& nums) {
+    int l =0, r=nums.size()-1;
+    //int last = nums.size()-1;
+    while(l<r){
+        int m = l+(r-l)/2;
+        if((m-0)%2){//用左半邊計算個數
+            if(nums[m]!=nums[m+1]){
+                l=m+1;
+            }else{//nums[m]!=nums[m-1]
+                r=m;
+            }            
+        }else{//even
+            if(nums[m]==nums[m+1]){
+                l=m+1;
+            }else{//nums[m]==nums[m-1]
+                r=m;
+            }
+        }  
+    }     
+    return nums[r];
+}
 
 
