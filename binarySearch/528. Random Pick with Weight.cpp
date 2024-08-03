@@ -23,6 +23,12 @@ rand()%(sum.back()) 取餘數, 數值從0 ~ (sum.back()-1)
 取到7~12,其upper_bound就是13;在累加陣列中(7~12)有6個數值;對應的index就是1, 同時也對應w的index 1
 
 count就是0-index的總數, 所以count就是0-index的upper_bound
+
+
+(*) upper_bound
+nums = {6,  8,  11,  13,  16}
+upper_bound(nums.begin(),nums.end(),5)-nums.begin();
+回傳0
     
 //=======
 class Solution {
