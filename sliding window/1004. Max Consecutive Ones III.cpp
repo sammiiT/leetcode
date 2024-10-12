@@ -117,3 +117,28 @@ int longestOnes(vector<int>& nums, int k){
     }
     return res;
 }
+
+//=== 思路5===
+(*) 利用queue<int> 
+(*) sliding window 技巧 --> 先完成正常情況下的程式碼,再構思遇到boundary condition情況下的運算
+int longestOnes(vector<int>& nums, int k) {
+    int i=0,j=0,n=nums.size();
+    queue<int> q;
+    
+    int res = 0;
+    int count =0;
+    
+    for(; i<n; ++i){
+        if(nums[i]==0) {
+            count++;
+            q.push(i);
+        }
+        while(count>k){
+            j = q.front()+1;
+            q.pop();
+            count--;
+        }
+        res = max(res,i-j+1);
+    }   
+    return res;
+}
