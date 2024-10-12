@@ -48,6 +48,12 @@ int characterReplacement(string s, int k) {
         ump[s[i]]++;
         mx = max(mx,ump[s[i]]);
 
+/*
+為什麼不用更新的maxCnt?
+maxCnt相當於卡了一個窗口大小,  
+我們並不希望窗口變小, 雖然窗口在滑動, 但之前是出現過跟窗口大小相同符合題意子串,
+縮小窗口沒有意義, 並不會使結果res變大, 所以我們才不更新maxCnt        
+*/
         while((i-j+1)-mx > k){// 在不同區間內, 減去一個固定的值 ----> 很難思考
             ump[s[j]]--;
             if(ump[s[j]]==0) ump.erase(s[j]);
