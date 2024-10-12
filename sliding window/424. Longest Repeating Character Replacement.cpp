@@ -33,3 +33,33 @@ int helper0(string s, int k){
 int characterReplacement(string s, int k) {
         return helper0(s,k);
 }
+//=== 寫法2 ===
+(*)使用unordered_map<char,int> 紀錄character出現個數
+
+AABABBBB  k=1
+
+    
+int characterReplacement(string s, int k) {
+    int i=0, j=0, n=s.size();
+    unordered_map<char,int> ump;
+    int mx = 0, res = 0;
+    
+    for(; i<n; ++i) {
+        ump[s[i]]++;
+        mx = max(mx,ump[s[i]]);
+
+        while((i-j+1)-mx > k){// 在不同區間內, 減去一個固定的值 ----> 很難思考
+            ump[s[j]]--;
+            if(ump[s[j]]==0) ump.erase(s[j]);
+            j++; //j++ ; j的移動,
+        }
+        res = max(res,i-j+1);
+    }
+    return res;
+}
+
+    
+
+
+
+
