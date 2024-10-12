@@ -73,22 +73,24 @@ else r=m;
 
 (*) r = nums.size();   while(l<r)
 --當target超出右極限, 給l移到右極限的機會;
-最後l==r, 且值為nums.size()
+最後l==r, 且值為nums.size() ; 此解為lower_bounded描述 
 
 
-(*) r= nums.size(); while(l<=r)
---當target超出右極限, 運算會出錯(1)
+(*) r= nums.size(); while(l<=r)  =======>有風險的描述
+--當target超出右極限, 運算會出錯(1); 會有segmentation fault存在
 當l==r時, 已經超出了 [num.size()-1]索引範圍; 所以要修正上面條件範圍 => r= nums.size()-1
 --當target存在, 運算會出錯(2)
 找到target, l會等於r, 接下來求出的m會一直在同一個數值, 導致跳不出迴圈
 
 
-(*)r= nums.size()-1; while(l<=r)
+(*)r= nums.size()-1; while(l<=r) =======>有風險的描述
 --當target超出右極限, l==r時會, 再運算一次, 若沒找到 最後 l>r, 跳出回圈
 --當target存在, 運算出錯, l==r時, m會一直在同一個數值,導致跳不出迴圈
+  ex:  if(nums[m]<target) l=m+1; 
+       else //nums[m]>=r 
+           r=m;  
 
-
-(*) r = nums.size()-1; while(l<r)
+(*) r = nums.size()-1; while(l<r) =======> 有風險的描述
 --當 target剛好在右極限, 可以找到解, 剛好在l==r的時候
 --當target超出右極限,找到的解,是右極限的位址, 但是錯誤的
 
@@ -96,18 +98,29 @@ r=nums.size()會有超出索引範圍的狀況
 while(l<=r)會有跳不出迴圈的狀況;要搭配break敘述或在每次r和l的遷移都要做+1或-1的運算
 
 //===討論 0-index和1-index的 數字中點====
-(*)1~10, 計算中點(0-index); 用first_middle => m=l+(r-l)/2;
+(*)計算中點(0-index); 用first_middle => m=l+(r-l)/2;
 index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
 value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
 middle = 0+(9-0)/2 = 4 (index) => first_middle index
                                => first_middle value = [4] = 5
 
-(*)1~10, 計算中點(1-index); 用first_middle => m=l+(r-l)/2;
+(*)計算中點(1-index); 用first_middle => m=l+(r-l)/2;
 index [1], [2], [3], [4], [5], [6], [7], [8], [9], [10]
 value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
 1+(10-1)/2 = 5 (index) => first_middle index
                        => first_middle value = [5] = 5
 
+//===討論 r=nums.size()-1 和 r=nums.size()的陣列中點====
+(*)r=nums.size()-1 => 求得的, 是first_middle
+index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
+value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
+middle = 0+(9-0)/2=4, first_middle index
+    
+(*)r=nums.size() => 求得的, 是second_middle
+index [0], [1], [2], [3], [4], [5], [6], [7], [8], [9]
+value  1,   2,   3,   4,   5,   6,   7,   8,   9,   10
+middle = 0+(10-0)/2=5, second_middle index
+    
 
 /***********************************************
 * 分析 first_middle和second_middle對運算的影響
@@ -123,7 +136,7 @@ int binarySearch(vector<int>& nums, int target){//用在最靠近的element
 //    int r = nums.size()-1;
     int r = nums.size();
     int m = 0;
-    while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r
+    while(l<r){//最後l超過r, 不能回傳l或r; 最後l會等於r , lower_bounded element
         m = l + (r-l)/2;
         if(nums[m]<target){//[m]在target左邊, 所以要往右邊移動
             l = m+1;//m+1原因: 偶數個,m會永遠落在first middle, 不會往下一個跳; 所以要m+1 
@@ -301,7 +314,7 @@ upper_bound = 找出(>)大於target的最小值的位置
 *****************************/
 leetcode 378 Kth Smallest Element in a Sorted Matrix
 (*)若以 binary-search計算, middle選擇用數值,而非index
-
+(*)用upper_bound是因為, kth是以1st-index概念作計算, 第一個為1th, 第二為2nd.... 第k個為kth
 
 int kthSmallest(vector<vector<int>>& matrix, int k){
      int l = matrix[0][0],r = matrix.back().back();//l和r都是以陣列的數值為依據,而非索引
