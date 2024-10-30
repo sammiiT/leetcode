@@ -1,5 +1,7 @@
 //=== more challenge ===
-
+261. Graph Valid Tree
+310. Minimum Height Trees
+630. Course Schedule III
 
 //=== 思路 ===
 bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
