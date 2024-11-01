@@ -46,7 +46,7 @@ res = max(max(max(max(res,l+r+root->val),l+root->val),r+root->val),root->val)
 	
 max(helper(root->left,res),0)//比較左邊的最大的總和, 0
 	                     //每往上一個節點, 若都是負值, 則 左總和會越來越小.
-//=====
+//===== 思路1 ====
 int helper(TreeNode* root, int& res){
     if(!root) return 0;
     int l=0,r=0;
@@ -63,6 +63,30 @@ int maxPathSum(TreeNode* root) {
         return res;
 }
 
+//=== 思路2 ===
+
+int helper(TreeNode* root, int& res){
+    if(root==NULL) return 0;
+    int l=0, r=0, ret;
+
+
+    l = helper(root->left,res);
+    r = helper(root->right,res);
+
+    res = max(res, root->val + l + r);//紀錄maximum path
+
+    ret = root->val + max(l,r);//如果maximum路徑,是負直,則回傳0
+    return (ret > 0)?ret:0;
+}
+int maxPathSum(TreeNode* root) {
+	int res = INT_MIN;
+        if(!root->left && !root->right) return root->val;//如果只有一個節點
+        
+	helper(root,res);
+        return res;
+}
+
+//=== 思路0 (解法0)  ====
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
