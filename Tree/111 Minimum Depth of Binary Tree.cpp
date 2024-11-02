@@ -42,6 +42,15 @@ int minDepth_OK(TreeNode* root){
 	*/
 	return 1 + min(minDepth(root->left), minDepth(root->right));
 }
-
-
 };
+
+//=== 思路2 ===
+int minDepth(TreeNode* root) {
+    if(root==NULL) return 0;        
+    int l,r;
+    l = minDepth(root->left);
+    r = minDepth(root->right);
+    
+    if((l>0) && (r>0)) return 1+min(l,r);//如果兩邊都有子節點;取最短的那一邊
+    return (l==0)?(r+1):(l+1);//如果只有一邊有子節點
+}
