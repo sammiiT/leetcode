@@ -106,7 +106,7 @@ void dfs(TreeNode* target,
     visited[target]=1;
     dfs(target->left,k-1,ump,visited,res);
     dfs(target->right,k-1,ump,visited,res);
-    if(ump.count(target))
+    if(ump.count(target))//root根節點,沒有parent; 所以當搜到root節點時, 就不會往root的parent找
         dfs(ump[target],k-1,ump,visited,res);
 }
 
