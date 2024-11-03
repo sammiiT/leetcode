@@ -61,3 +61,35 @@ for(auto a:m){//概念同上,但是一個一個加入res.back()中
 vector<vector<int>> verticalTraversal(TreeNode* root) {
     return helper1(root);    
 }
+
+//=== 思路 寫法2 ====
+
+void bfs(TreeNode* root,vector<vector<int>>& res){
+    map<int,map<int,vector<int>>> mp;
+    queue<pair<vector<int>,TreeNode*>> q;//x-coord, node
+    q.push({{0,0},root});
+
+    while(!q.empty()){
+        for(int i=0;i<q.size();++i){
+            pair<vector<int>,TreeNode*> p = q.front();q.pop();
+            mp[p.first[0]][p.first[1]].push_back(p.second->val);
+            if(p.second->left!=NULL) {
+                q.push({{p.first[0]-1,p.first[1]+1},p.second->left});
+            }
+            if(p.second->right!=NULL) {
+                q.push({{p.first[0]+1,p.first[1]+1},p.second->right});
+            }
+        }
+    }
+
+    for(auto x:mp){//< x.first = x-coord  , x.second = <y-coord,vector> >
+        res.push_back({});
+        for(auto it: x.second){//x.second=map   //< it.first=y-coord , it.second=vector > 
+            sort(it.second.begin(),it.second.end());
+            for(int i=0;i<it.second.size();++i){
+                res.back().push_back(it.second[i]);
+            }
+        }
+    }
+}
+
