@@ -90,6 +90,50 @@ vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
     return res;
 }
 
+//===寫法3 ====
+void dfs(TreeNode* target, 
+        int k, 
+        unordered_map<TreeNode*,TreeNode*>& ump,
+        unordered_map<TreeNode*,int>& visited,
+        vector<int>& res){
+    
+    if(target==NULL || visited[target]==1) return;
+    if(k==0) {
+        res.push_back(target->val);
+        return;
+    }
+
+    visited[target]=1;
+    dfs(target->left,k-1,ump,visited,res);
+    dfs(target->right,k-1,ump,visited,res);
+    if(ump.count(target))
+        dfs(ump[target],k-1,ump,visited,res);
+}
+
+void find_parent(TreeNode* root, 
+                TreeNode* parent, 
+                unordered_map<TreeNode*,TreeNode*>& ump,
+                unordered_map<TreeNode*,int>& visited){
+    if(root==NULL) return;
+    
+    ump[root]=parent;
+    visited[root]=0;
+    if(root->left) find_parent(root->left, root, ump,visited);
+    if(root->right) find_parent(root->right, root, ump,visited);
+}
+
+vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+    unordered_map<TreeNode*, TreeNode*> ump;
+    unordered_map<TreeNode*, int> visited;
+    vector<int> res;
+
+    visited[root]=0;
+    find_parent(root->left,root,ump,visited);
+    find_parent(root->right,root,ump,visited);
+
+    dfs(target,k,ump,visited,res);
+    return res;
+}
 
 
 
