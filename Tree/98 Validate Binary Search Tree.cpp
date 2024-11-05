@@ -84,10 +84,6 @@ O4          O6
      /
    pre  
 
-
-      
-
-      
 //=====
 int helper1(TreeNode* root, long& pre){
     if(!root) return true;
@@ -186,3 +182,24 @@ public:
         }
     }
 };
+
+//=== 思路,寫法3 ===
+bool helper(TreeNode* root, long& pre){
+    bool ret = true;
+    if(root==NULL) return ret;
+
+    ret = helper(root->left,pre);
+
+    if(ret==false) return false;
+    if(root->val <= pre) return false;
+    pre = root->val;
+    
+    ret = helper(root->right,pre);
+    return ret;     
+}
+bool isValidBST(TreeNode* root) {
+    long pre = LONG_MIN;
+    return helper(root,pre);
+}
+
+
