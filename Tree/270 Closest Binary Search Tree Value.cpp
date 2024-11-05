@@ -5,7 +5,7 @@
  1.初始化mi數值, 設定default為IN_MAX
  2.比較每一個節點與target的差異;如果比mi還要小,則記錄
  
-//====
+//====思路1 ===
 void helper(TreeNode* root, int& val, double& mi, double target){
     if(!root) return;
     if(abs((double)root->val - target) <= mi){
@@ -53,3 +53,19 @@ void helper(TreeNode* root, double target, int& diff, int& val){
    helper(root,target,diff,&node);
    return node->val;
  }
+//===思路3===
+
+int closestValue(TreeNode* root, double target){
+  int res = root->val;
+  while(root){
+      //舊節點的比較值     //新節點的比較值
+    if(abs(res-target)>=abs(root->val-target)){
+      res = root->val;  
+    }
+    root= (root->val < traget)?root->right:root->left;
+  }
+  return res;
+ 
+}
+
+
