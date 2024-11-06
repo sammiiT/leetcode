@@ -97,6 +97,7 @@ TreeNode* trimBST(TreeNode* root, int low, int high) {
 
         if(root->val>=low && root->val<=high) return root;
 
+        //因為運算從最底層往上層, 所以 運算while(tmp->left)底下的所有節點或root->left皆滿足條件
         TreeNode* tmp;
         if(root->right) {//連接right
             tmp=root->right;
