@@ -17,6 +17,7 @@ int helper(TreeNode* root, long& pre, int& count){
   count++;
   int r = helper(root->right,pre);
   return (l&&r)?true:false;//一直回傳到上層
+//可以直接  return r;  因為如果l是false, 不可能會執行到這裡
 }
 
 int largestBSTSubtree(TreeNode* root){
@@ -67,5 +68,27 @@ int largestBSTSubtree(TreeNode* root){
     int res = 0;
     dfs(root,res);
     retur res;
+}
+//=== dfs inorder ====
+bool helper(TreeNode* root, long& pre, int& res){
+  if(root==NULL) return true;
+  bool ret = 0;
+  ret = helper(root->left,pre,res);
+  if(ret==0) return false;
+  if(root->val<=pre) return false;
+  pre = root->val;
+  res++;
+  ret = helper(root->right,pre,res);
+  return ret;
+}
+
+int largestBSTSubtree(TreeNode* root){
+  int res = 0;
+  long pre = LONG_MIN;
+
+  if(helper(root,pre,res)){
+    return res;
+  }
+  return max(largestBSTsubtree(root->left),largestBSTsubtree(root->right));
 }
 
