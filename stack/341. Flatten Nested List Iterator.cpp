@@ -81,9 +81,6 @@ private:
             }
         }
         return false;
-
-
-  
 //====錯誤寫法
 沒考慮到[[],[3],[],[4,3,2]]情況
 
@@ -99,3 +96,63 @@ bool hasNext() {
   }
   return true;
 }
+
+//=== 思路3 ===
+(*)利用queue + dfs
+(*)宣告queue<NestedInteger>紀錄輸入的nestedList每一個NestedInteger元素
+   宣告queue<int> 紀錄每一個nesetdList[i]所產生的iterator
+
+(*)
+hasNext(): 用來判斷是否有下一個數值
+-先判斷queue<int> 是否有數值, 如果有, 則回傳true ; 如果沒有數值則執行下一個判斷
+-再判斷queue<NestedInteger> 是否有 NestedInteger元素, 並對此NestedInteger做flatten iterator動作; 就是將NestedInteger中的元素都加入到queue<int>中, 可以經由next()獲取
+
+(*)每次分析一個NestedInteger,都用dfs算法來做flatten iterator
+  
+(*)  
+如果(1)是 if(!qn.emty())則會錯誤,當輸入為[[],[3]]時,不會遍歷到[3]
+所以用 while(!qn.empty())描述
+(2)是用來判斷, 如果在[[],[3]]情況時, 遍歷到[3]; 會至少有一個element在queue<int>中
+
+public:
+NestedIterator(vector<NestedInteger> &nestedList) {
+    for(int i=0; i<nestedList.size(); ++i){
+        qn.push(nestedList[i]);
+    }
+}
+    
+int next() {
+    int ret = qi.front();qi.pop();
+    return ret;
+}
+    
+bool hasNext() {
+    if(!qi.empty()) return true;
+    while(!qn.empty()){//.....(1)
+        NestedInteger nest = qn.front();qn.pop();
+
+        dfs(nest,qi);
+        if(qi.size()<=0) continue;//....(2)
+    }  
+    return (!qi.empty()); 
+}
+
+private:
+
+void dfs(NestedInteger& nest,queue<int>& qi){
+    if(nest.isInteger()){
+        qi.push(nest.getInteger());
+    } else {
+        for(int i=0; i<nest.getList().size(); ++i){
+            dfs(nest.getList()[i],qi);
+        }
+    }
+}
+queue<NestedInteger> qn;
+queue<int> qi;
+
+};
+
+
+
+  
