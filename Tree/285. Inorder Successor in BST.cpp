@@ -111,3 +111,27 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
     return res;
 }
 
+//====思路4===
+(*)inorder 
+TreeNode** pre 要用pointer to pointer; 因為雙指標才能紀錄最上層傳下來指標的位址,也可以更改此指標所指向的位置
+如果只用TreeNode* pre, 只是一個副本, 它沒辦法把下層更改的位址傳到上層
+
+TreeNode* helper(TreeNode* root, TreeNode* p, TreeNode** pre){
+    if(root==NULL) return NULL;
+    TreeNode* ret;
+    ret = helper(root->left, p, pre);
+    if(ret!=NULL) return ret;//已經找到sucessor,所以上層一直回傳successor指標
+    if(*pre==p) return root;//找到successor
+    *pre = root;
+
+    ret = helper(root->right, p, pre);
+    return ret;
+}
+
+TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+    TreeNode* pre=NULL;
+    return helper(root,p,&pre);
+}
+
+
+
