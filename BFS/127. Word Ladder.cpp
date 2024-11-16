@@ -128,4 +128,45 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
     }
     return 0;
 }
+//===寫法4===
+(*)比寫法2慢
+-寫法2在運算過程中若滿足題目定義, 則馬上回傳 (res+1)
+for(char c='a'; c<='z'; ++c){
+   t[j]=c;
+   if(wordSet.count(t) && t==endWord) return res+1;           
 
+-寫法4 是在解 queue<string>的過程當中, 才去判斷, 會多一到deque的過程
+
+
+int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+    unordered_map<string,bool> visited;
+    queue<string> q;
+    int res = 0;
+    set<string> st;
+    for(string str:wordList) st.insert(str);
+
+    if(st.count(endWord)==0) return 0;
+    
+    q.push(beginWord);
+    visited[beginWord]=1;
+
+    while(!q.empty()){
+        res++;
+        for(int i=q.size(); i>0; --i){
+            string p = q.front();q.pop();
+            if(p==endWord) return (res);
+            
+            string tmp;
+            for(int j=0; j<p.size();++j){
+                for(int k=0;k<26;++k){
+                    tmp = p;
+                    tmp[j] = 'a'+ k;
+                    if(visited[tmp] || !st.count(tmp)) continue;
+                    q.push(tmp);
+                    visited[tmp]=1;
+                }
+            }    
+        }
+    }  
+    return 0;      
+}
