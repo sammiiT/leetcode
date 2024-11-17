@@ -74,3 +74,16 @@ cats->and->dog->apple
 -由下(最深層)往上(最上層)累計, 如同post-order
 -由上往下, 如同pre-order
 
+(*)每往下一層的搜索, 對於平行層的遍歷, 必須考慮是否有重複;
+如combination sum題型
+for(int i=start; i<s.size(); ++i){
+    if(i!=start && (s[i]==s[i-1])) continue;
+    dfs(...);
+其中, s[i]==s[i-1]判斷是因為, 在下一層dfs(...)的運算,已經被運算到.
+
+
+
+
+}
+
+
