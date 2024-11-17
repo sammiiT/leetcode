@@ -11,7 +11,19 @@ word1[i]==word2[j]=>繼續比較下一個 (i+1)和(j+1)
 
 如果不相等:下列都是一種路徑 
 -word1[i]可以insert => i位置insert j位置; insert之後, 原本的位置i變成位置(i+1), j要跳下一個位置,即運算j+1
+
++---- index 0 insert "O"      insert  +----原本的index0 仍然是從下一個比較的index  
+|                         =>    |   /      所以i的index不用update,只要更改j的index; (j+1)
+x x x x                         O  x  x  x  x  
+                                   
+
 -word1[i]可以delete => i位置delete, i+1, 比較j
+
++-----index0 delete      +---下一個跟j比較的是index_1; j的index不用update
+|                   =>   |          
+x x x x                  x  x  x      
+ 
+
 -word1[i]可以replace => 繼續比較下一個, (i+1)和(j+1)
 
 (*)過程中會記錄minmap[i][j],為minimum
