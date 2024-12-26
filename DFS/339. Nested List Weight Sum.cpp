@@ -26,10 +26,10 @@ int depthSum(vector<NestedInteger>& nestedList){
 int helper0(vector<NestedLinteger>& nestedList, int level){
   int sum =0;
   for(auto a:nestedList){
-    if(a.isInteger()) sum+=a.getInteger();
+    if(a.isInteger()) sum+=a.getInteger()*level;
     else sum+=helper0(a.getList(),level+1);
   }
-  return level*sum;
+  return sum;
 }
 int depthSum(vector<NestedInteger>& nestedList){
   int helper0(nestedList,1);
