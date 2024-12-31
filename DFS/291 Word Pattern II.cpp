@@ -84,3 +84,42 @@ bool wordPatternMatch(string pattern, string str){
     unordered_map<char,string> mp;
     return helper(pattern,0,str,0,mp);
 }
+
+//====寫法2====
+
+bool dfs(string& pattern, 
+         int p, //"pattern" index 
+         string& str, 
+         int s, //"str" index
+         unordered_map<char,string>& ump){
+    
+    if(p==pattern.size() && s==str.size()) return true;
+    if(p==pattern.size() && s<str.size()) return false;
+    if(p<pattern.size() && s==str.size()) return false;
+    
+    for(int i=s; i<str.size(); ++i){
+        if(ump.count(pattern[p])){
+            int length = ump[pattern[p]].size();
+            if(ump[pattern[p]]!=str.substr(s,length)) return false;//出現過, 但對應的pattern不相同
+            
+            if(dfs(pattern, p+1, str, i+length, ump)) return true;//出現過,且相同, 找下一個對應的pattern
+            else return false;
+        }
+        
+        ump[pattern[p]] = str.substr(s,i-s+1);
+        if(dfs(pattern, p+1, str, i+1, ump)==true) return true;
+        ump.erase(pattern[p]);
+    }
+    return false;
+}
+
+
+bool wordPatternMatch(string pattern, string str) {
+    unordered_map<char,string> ump;
+    return dfs(pattern, 0, str, 0, ump);
+}
+
+
+
+
+
