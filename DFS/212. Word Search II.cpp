@@ -8,6 +8,14 @@
 (*)用Trie字典樹,可以正規畫計算, 一次計算多個條件(string)的可能
 - 不用字典樹, 在原運算要多一個for loop,來依序判斷每一個string的存在
 
+TrieNode中有一26元素的陣列, 每一元素, 都是一個TrieNode的指標, 
+"同階層"且"同字母",會用到同樣的TrieNode節點
+pitch
+||      =====> 同階層,同字母; p i ;此兩字母會用到同一個TrieNode物件
+pirate
+
+    
+
 //======
 struct TrieNode{
     TrieNode(){
@@ -79,7 +87,7 @@ vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
     TrieNode* p;
     string s;
 
-    for(string str:words) trie.insert(str);
+    for(string str:words) trie.insert(str);//建立字典樹
     p = trie.root;
     for(int i=0; i<m; ++i){
         for(int j=0; j<n; ++j){
