@@ -59,3 +59,42 @@ int longestIncreasingPath(vector<vector<int>>& matrix) {
     }
     return mx;   
 }
+
+//==== 寫法2====
+vector<vector<int>> dirs = {{-1,0},{0,1},{1,0},{0,-1}};
+int dfs(vector<vector<int>>& matrix, int x, int y, int prev, vector<vector<int>>& visited, vector<vector<int>>& map){
+    if(x<0||x>=matrix.size()||y<0||y>=matrix[0].size()||visited[x][y]||matrix[x][y]<=prev) return 0;
+    if(map[x][y]>0) return map[x][y];
+    
+     int res  = 0;
+    visited[x][y]=1;
+    for(vector<int> dir:dirs){
+        int val = 0;
+        val = dfs(matrix, x+dir[0], y+dir[1], matrix[x][y], visited, map);
+        res = max(res,val);//res is the maximum value;
+    }
+    map[x][y] =  max(map[x][y],res+1);
+    visited[x][y]=0;
+    return map[x][y];
+}
+
+int longestIncreasingPath(vector<vector<int>>& matrix) {
+    int m = matrix.size(), n = matrix[0].size();
+    vector<vector<int>> visited(m,vector<int>(n,0));
+    vector<vector<int>> map(m, vector<int>(n,-1));
+    int res = 0;
+    
+    for(int i=0; i<matrix.size(); ++i){
+        for(int j=0; j<matrix[0].size(); ++j){
+            if(map[i][j]!=(-1)) continue;
+            int mx = 0;
+            mx = dfs(matrix,i,j, INT_MIN, visited,map); 
+            res = max(res,mx);
+        }
+    }    
+    return res;
+}
+
+
+
+
