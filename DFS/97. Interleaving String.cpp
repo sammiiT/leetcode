@@ -50,8 +50,8 @@ bool helper(string& s3, int start, string s1, string s2,unordered_set<string>& s
             if(helper(s3, i+1, s1, s2.substr(i-start+1),st)) return true;
         }
     }
-    st.insert('@'+s1+'#'+s2);   
-    return false;
+    st.insert('@'+s1+'#'+s2); //記錄在此,是代表 無法形成interleaving string的combination  
+    return false;             //因為是false; 如果是true, 就不會記錄在unordered_set中
 }
 
 bool isInterleave(string s1, string s2, string s3) {
@@ -81,4 +81,23 @@ bool isInterleave(string s1, string s2, string s3) {
         return helper(s1, 0, s2, 0, s3, 0, s);
 }
 
+//====寫法3 ===
+同上概念
+bool dfs(string& s1, string& s2, string& s3, int x, int y, int k, unordered_set<int>& s){
+    
+    int key = x*s3.size()+y;
+    if(s.count(key)) return false;
+    
+    if(x==s1.size()) return s2.substr(y)==s3.substr(k);
+    if(y==s2.size()) return s1.substr(x)==s3.substr(k);
+       
+    if(x<s1.size() && s1[x]==s3[k])
+        if(dfs(s1,s2,s3, x+1, y, k+1,s)) return true;
+    
+    if(y<s2.size() && s2[y]==s3[k])
+        if(dfs(s1,s2,s3, x, y+1, k+1,s)) return true;
+    
+    s.insert(key);#記錄在此,是代表 無法形成interleaving string的combination
+    return false; #因為是false; 如果是true, 就不會記錄在unordered_set中
+}
 
