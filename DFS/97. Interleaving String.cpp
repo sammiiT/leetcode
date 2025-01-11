@@ -82,7 +82,10 @@ bool isInterleave(string s1, string s2, string s3) {
 }
 
 //====寫法3 ===
-同上概念
+(*)同上概念
+(*)dfs在有"順序性選擇"的條件下, 才可以用memory來解題
+(*)如果每次下一層,都從頭開始, 就比較難用memory方式
+
 bool dfs(string& s1, string& s2, string& s3, int x, int y, int k, unordered_set<int>& s){
     
     int key = x*s3.size()+y;
