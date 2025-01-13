@@ -44,3 +44,36 @@ bool isValidPalindrome(string& s, int k){
     vector<vector<int>> memo(s.size(),vector<int>(s.size(),-1));
     return (helper(s,0,s.size()-1,memo) <=k);
 }
+
+//===寫法2 ===
+bool dfs(string& s, int k, int x, int y, vector<vector<int>>& mem){
+    if(k<0) return false;
+    if(x==y||x==(y-1)) return true;
+    if(mem[x][y]!=-1) return mem[x][y];
+    
+    while(x<y){
+        if(s[x]==s[y]){ 
+            mem[x][y]=true;
+            x+=1;
+            y-=1;
+        } else {//(s[x]!=s[y])   
+            //if(dfs(s, k-1, x+1, y, mem)||dfs(s, k-1, x, y-1, mem)) {mem[x][y]=true; return true;}        
+            if(dfs(s, k-1, x+1, y, mem)) { 
+                mem[x][y]=true;
+                return true;
+            } else if(dfs(s, k-1, x, y-1, mem)) { 
+                mem[x][y]=true;          
+                return true;
+            } else {
+                mem[x][y]=false;
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool isValidPalindrome(string s, int k) {
+    vector<vector<int>> mem(s.size(),vector<int>(s.size(),-1));
+    return dfs(s,k,0,s.size()-1,mem);
+}
+
