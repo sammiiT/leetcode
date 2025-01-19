@@ -84,6 +84,27 @@ Node* cloneGraph(Node* node) {
     return mp[node];
 }
 //=== 寫法2 優化 ====
+Node* bfs(Node* node, unordered_map<Node*,Node*>& ump){
+    if(!node) return node;
+    queue<Node*> q;
+    q.push(node);
+    ump[node] = new Node(node->val);
+
+    while(!q.empty()){
+        Node* ond = q.front(); q.pop();//old node
+        for(Node* n: ond->neighbors){
+            if(ump.count(n)) {//如果沒有此項 會發生 [2,4][3][][] ; 新節點沒辦法完整連結
+                ump[ond]->neighbors.push_back(ump[n]);
+            } else {
+                ump[n] = new Node(n->val);
+                ump[ond]->neighbors.push_back(ump[n]);
+                q.push(n);
+            }
+        }
+    } 
+    return ump[node];
+}
+
 
 //====錯誤寫法====
 Node* cloneGraph(Node* node){
