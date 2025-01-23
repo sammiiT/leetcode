@@ -41,6 +41,16 @@
    heights[stk.top()]<heights[i] =>做push
  ===>此stack是一個遞增stack   
 
+(*)
+int t=stk.top();stk.pop();
+height[t]*(stk.empty()?i:(i-stk.top()-1))  
+
+在stk不為empty時, 從前一個開始計算起
+找到stk為empty時, 才把當下那一個"i"計算進去
+
+
+  
+  
 //======
 int largestRectangleArea(vector<int> &height) {
     int res = 0;
