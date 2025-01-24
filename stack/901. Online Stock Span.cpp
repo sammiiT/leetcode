@@ -57,5 +57,30 @@ public:
 
 private:
 vector<pair<int,int>> stk;//price, count
+};
+
+//=== 思路2 ====
+class StockSpanner {
+public:
+StockSpanner() {
+        
+}
+    
+int next(int price) {
+    int count = 0;
+    while(!stk.empty() && stk.top().first <= price){
+        pair<int,int> p = stk.top();
+        count+=p.second;
+        stk.pop();
+    }
+    count+=1;
+    stk.push({price,count});
+    return count;
+}
+
+private:
+stack<pair<int,int>> stk;//value, count;
 
 };
+
+
