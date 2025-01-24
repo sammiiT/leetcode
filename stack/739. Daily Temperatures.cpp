@@ -42,3 +42,19 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
     }
     return res;
 }
+//=== 寫法3===
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    vector<int> res(temperatures.size(),0);
+    stack<int> stk;
+
+    for(int i=0; i<temperatures.size(); ++i){
+        while(!stk.empty()&& temperatures[stk.top()]<temperatures[i]){
+            int id = stk.top();
+            if(res[id]==0) res[id]=i-id;// 有 if(res[id]==0) 可降低運算時間
+            stk.pop();
+        }
+        stk.push(i);
+    }     
+    return res;   
+}
+
