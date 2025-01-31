@@ -93,6 +93,8 @@ bool areSentencesSimilarTwo(vector<string>& words1, vector<string>& words2, vect
 
 //===思路3===
 (*)union find
+(?) 建立個別群組之後, 最後如何縮減為單一群組???
+=> 在判斷最後兩者不為同一root之後, 做合併, 則會變成同一群組
 
 string getRoot(string word, unordered_map<string,string>& m){
     if(!m.count(word)) m[word]=word;
@@ -105,9 +107,10 @@ bool areSentencesSimilarTwo(vector<string>& words1,
     if(words1.size()!=words2.size()) return false;
     unordered_map<string,string> m;
     
-    for(auto pair: pairs){
+    for(auto pair: pairs){//建立pairs[i]的group, 並接續判斷 接下來的pairs[i]是否也是在同一個group中
         string x = getRoot(pair.first,m), y = getRoot(pair.second,m);
-        if(x!=y) m[x]=y;//不是同一個root, 則合併... 建立群組階段
+        if(x!=y) m[x]=y;//不是同一個root, 則合併... // 此處定義 y為root (建立群組階段)
+                        //第一個y是整個group的root
     }
     
     for(int i=0; i<words1.size(); ++i){//實際比較階段, 判斷words1[i]和words2[i]是否屬於同一個root
