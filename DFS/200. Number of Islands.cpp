@@ -43,3 +43,99 @@ int numIslands(vector<vector<char>>& grid) {
     }
     return res;    
 }
+
+//===思路2====
+(*)union find
+(*)搜尋root,如果root不相同,則合併
+-因為由圖做思考, 每次都考慮相鄰位置是否等於'1'
+-相鄰位置的root不相同, 所以要設定成相同root, 並將兩個獨立的群組做合併
+
+    
+int find(int node, vector<int>& parents){
+    if(parents[node]!=node){
+        return parents[node]=find(parents[node],parents);
+    }
+    return node;
+/*    while(parents[node]!=node){
+        parents[node]=parents[parents[node]];
+        node = parents[node];
+    }
+    return node;*/
+}
+int numIslands(vector<vector<char>> grid){
+    vector<vector<int>> dirs = {{1,0},{0,1}};
+    int nums = 0;
+    int rows = grid.size();
+    int cols =grid[0].size();
+    vector<int> parents(rows*cols,-1);
+    
+    for(int i=0; i<rows; ++i){//初始化, 先建立每一個位置, 對應一個群組
+        for(int j=0; j<cols; ++j){
+            if(grid[i][j]=='1') {
+                parents[i*cols+j]=i*cols+j;//2d線性化
+                nums++;
+            }
+        }
+    }
+    for(int i=0; i<rows; ++i){
+        for(int j=0;j<cols; ++j){
+            if(grid[i][j]=='1'){
+                int id = i*cols+j;
+                for(vector<int> dir:dirs){
+                    int x=i+dir[0],y=j+dir[1];
+                    if(x>=rows||y>=cols||grid[x][y]=='0') continue;
+                    
+                    int nid = x*cols+y;
+                    int root1 = find(id,parents);//搜尋root
+                    int root2 = find(nid,parents);
+                    if(root1!=root2){//合併
+                        parents[root2]=root1;
+                        nums--;
+                    }
+                }
+            }
+        }
+    }
+    return nums;  
+}
+
+==== union find 造成time limited exceeded ===
+(*)每一個節點會延伸出四個節點做運算
+- 造成time limited exceeded
+
+(*)相較於上一個算法, 一個點只延伸出兩個節點做運算
+
+
+int numIslands(vector<vector<char>>& grid) {
+    vector<vector<int>> dirs = {{-1,0},{0,1},{1,0},{0,-1}};
+    //vector<vector<int>> dirs = {{1,0},{0,1}};
+    int m=grid.size(),n=grid[0].size();
+    int count=0;
+    vector<int> roots(m*n,-1);
+
+    for(int i=0; i<m; ++i){
+        for(int j=0; j<n; ++j){
+            if(grid[i][j]=='0') continue;
+            int id = i*n+j;
+            roots[id]=id;
+            count++;
+            for(vector<int> dir:dirs){
+                int x=i+dir[0],y=j+dir[1]; 
+                int nid = x*n+y;
+                if(x<0||x>=m||y<0||y>=n||roots[nid]==-1) continue;
+                int rc=findRoot(id,roots), rn=findRoot(nid,roots);
+                if(rc!=rn){
+                    roots[rn]=rc;
+                    --count;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+
+
+
+
+
