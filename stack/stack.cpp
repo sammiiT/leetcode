@@ -465,6 +465,7 @@ bool isEmpty();
 bool isFull();
 
 #==== linked list實作 stack ===
+C語言版本
 struct ListNode{
     int val;
     struct ListNode* next;
@@ -494,5 +495,88 @@ void pop(ListNode** stk){
     delete(*stk);
     *stk = tmp;
 }
+
+C++ 版本
+class mystack{
+public:
+    mystack(){
+        lst=NULL;
+    }
+    void push(int val){
+        ListNode* tmp = new ListNode(val);
+        tmp->next = lst;
+        lst = tmp;
+    }
+    void pop(){
+        ListNode* tmp = lst;
+        lst = lst->next;
+        delete tmp;
+    }
+    int top(){
+        return lst->val;
+    }
+    bool empty(){
+        return (lst==NULL);
+    }
+    void printt(){
+        ListNode* tmp = lst;
+        for(;tmp!=NULL;){
+            cout<<tmp->val<<" ";
+            tmp = tmp->next;
+        }cout<<endl;
+    }
+private:
+    ListNode* lst;
+}; 
+
+利用stack實現queue
+class qbystack{
+public:
+    qbystack(){
+        
+    }
+    void push(int val){
+        stk.push(val); 
+    }
+    void pop(){
+        while(!stk.empty()){
+            int val = stk.top();
+            stk.pop();
+            stk_tmp.push(val);
+        }
+        
+        if(!stk_tmp.empty()){
+            stk_tmp.pop();
+            while(!stk_tmp.empty()){
+                int val = stk_tmp.top();
+                stk_tmp.pop();
+                stk.push(val);
+            }
+       }
+    }
+    int front(){
+        int ret = 0;
+        while(!stk.empty()){
+            int val = stk.top();
+            stk.pop();
+            stk_tmp.push(val);
+        }
+        if(!stk_tmp.empty()){
+            ret = stk_tmp.top();
+            while(!stk_tmp.empty()){
+                int val = stk_tmp.top();
+                stk_tmp.pop();
+                stk.push(val);
+            }
+        }
+        return ret;
+    }
+    bool empty(){
+        return stk.empty();
+    }
+private:
+    mystack stk;
+    mystack stk_tmp;
+};
 
 
