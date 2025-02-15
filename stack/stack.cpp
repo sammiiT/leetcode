@@ -464,7 +464,35 @@ int getSize();
 bool isEmpty();
 bool isFull();
 
+#==== linked list實作 stack ===
+struct ListNode{
+    int val;
+    struct ListNode* next;
+};
+void printt(ListNode** stk){
+    ListNode* tmp = *stk;
+    for(;tmp!=NULL;){
+        cout<<tmp->val<<" ";
+        tmp=tmp->next;
+    }cout<<endl;
+}
 
-
+void push(ListNode** stk, int val){
+    ListNode* tmp = new ListNode(val);
+    tmp->next = *stk;
+    *stk = tmp;
+}
+bool empty(ListNode** stk){
+    return (*stk==NULL);
+}
+int top(ListNode** stk){
+    int val = *stk->val;
+    return val;
+}
+void pop(ListNode** stk){
+    ListNode* tmp = (*stk)->next;
+    delete(*stk);
+    *stk = tmp;
+}
 
 
