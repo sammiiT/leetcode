@@ -40,3 +40,47 @@ int numSquares(int n) {
     }
     return dp[n];
 }
+
+#=== dfs做法會 Time limited exceeded ===
+void dfs(int n, int sum, vector<int>& count, int& res){
+  if(sum>n) return;
+  if(sum==n){
+    res = min(res,count.size());
+    return;
+  }
+  for(int i=1;i<=n;++i){
+      int sqaure = i*i;
+      sum+=sqaure;
+      count.push_back(i);
+      dfs(n,sum,count,res);
+      count.pop_back();
+      sum-=sqaure;
+  }
+}
+
+#=== 用bfs做 ===
+int bfs(int n){
+  queue<int> q;
+  unordered_set<int> visited;
+  q.push(0);
+  visited.insert(0);
+  int steps=0;
+  while(!q.empty()){
+    steps+=1;
+    for(int i=q.size(); i>0; --i){   #====每一個節點所產生的所有可能, 視為"一步"===
+      int p=q.front();q.pop();
+      for(int i=1; i<=n; ++i){
+        int sum = p+i*i;
+        if(sum==n) return steps;
+        if(sum>n) break;//因為接下來的數值, 也會造成sum 超出n
+        if(!visited.count(sum)){
+            visited.insert(sum);
+            q.push(sum);
+        }
+      }
+    }
+  }
+  return steps;
+}
+
+
