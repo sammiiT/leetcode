@@ -104,3 +104,67 @@ TreeNode* helper(string data, int& start){
     return node;
 }
 
+#=== BFS 寫法 ====
+
+    // Encodes a tree to a single string.
+string serialize(TreeNode* root) {
+    string str;
+    queue<TreeNode*> q;
+    if(root!=NULL) q.push(root);
+    
+    while(!q.empty()){
+        TreeNode* p=q.front();q.pop();
+        
+        if(p==NULL) {
+            str = str +"#@";
+        } else {
+            str = str + to_string(p->val)+'@';
+            q.push(p->left);
+            q.push(p->right);
+        }
+    }
+    return str;    
+}
+    // Decodes your encoded data to tree.
+TreeNode* deserialize(string data) {
+    if(data.size()==0) return NULL;
+    queue<TreeNode*> q;
+    TreeNode* root;
+    TreeNode* child;
+    int start=0,x=0;
+    
+    for(x=start;data[x]!='@';++x){}
+    root = new TreeNode(stoi(data.substr(start,x-start)));
+    q.push(root);
+    start=x+1;
+
+    while(!q.empty()){
+        string tmp;
+        TreeNode* p=q.front();q.pop();
+        
+        //left node
+        for(x=start;data[x]!='@';++x){}
+        tmp = data.substr(start,x-start);
+        if(tmp=="#") {
+            p->left = NULL;        
+        } else {
+            p->left = new TreeNode(stoi(tmp));
+            q.push(p->left);
+        }
+        start = x+1;
+         
+        //right node
+        for(x=start;data[x]!='@';++x){}
+        tmp = data.substr(start,x-start);
+        if(tmp=="#"){
+            p->right = NULL;
+        } else {
+            p->right = new TreeNode(stoi(tmp));
+            q.push(p->right);
+        }
+        start = x+1;
+    }
+    return root;
+
+}
+
