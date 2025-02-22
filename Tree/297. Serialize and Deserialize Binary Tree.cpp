@@ -62,3 +62,45 @@ private:
         return node;
     }
 };
+
+#=== dfs 寫法 ===
+(*)不用instringstream和ostringstream
+(*)用'#'代表NULL
+    用'@'代表每一個節點結束
+
+string serialize(TreeNode* root) {
+    if(root==NULL) return "#@";
+    string str; 
+    str = str + to_string(root->val)+'@';
+    str = str + serialize(root->left);
+    str = str + serialize(root->right);
+    return str;      
+}
+    // Decodes your encoded data to tree.
+TreeNode* deserialize(string data) {
+    int i=0;
+    TreeNode* node;
+    node = helper(data,i);
+    return node;
+}
+
+private:
+TreeNode* helper(string data, int& start){
+    if(start<data.size() && data[start]=='#') {
+        ++start;
+        ++start;
+        return NULL;
+    }
+
+    int x = start;
+    for(;data[x]!='@'; ++x){}
+    string str = data.substr(start,x-start);
+    int val = stoi(str);
+    TreeNode* node = new TreeNode(val);
+    
+    start = x+1;
+    node->left = helper(data,start);
+    node->right = helper(data,start);
+    return node;
+}
+
