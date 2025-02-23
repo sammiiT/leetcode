@@ -157,4 +157,81 @@ int calculate(string s) {
     }
     return val;
 }
+#==== 寫法3 ===
 
+int calculate(string s) {
+
+    stack<long> stk;
+    stack<char> stkop;
+    long sum = 0;
+    int sign = 1;
+    s=s+'#';
+
+    for(char c:s){
+        if(c=='+'){
+            while(!stkop.empty()){
+                char op = stkop.top();stkop.pop();
+                int val = stk.top();stk.pop();
+                sum=(op=='*')?(val*sum):(val/sum);
+            }
+            stk.push(sum*(sign));
+            sum=0;
+            sign=1;    
+        
+        }else if(c=='-'){
+            while(!stkop.empty()){
+                char op = stkop.top();stkop.pop();
+                int val = stk.top();stk.pop();
+                sum=(op=='*')?(val*sum):(val/sum);
+            }
+            stk.push(sum*(sign));
+            sum=0;
+            sign=-1;
+
+        }else if(c==' '){
+            //do nothing
+        }
+        else if(c=='#'){
+            while(!stkop.empty()){
+                char op = stkop.top();stkop.pop();
+                int val = stk.top();stk.pop();
+                sum=(op=='*')?(val*sum):(val/sum);
+            }
+            stk.push(sum*(sign));
+            sum=0;
+            sign=1;            
+
+        }else if(c=='*'){
+            while(!stkop.empty()){
+                char op = stkop.top();stkop.pop();
+                int val = stk.top();stk.pop();
+                sum=(op=='*')?(val*sum):(val/sum);
+            }
+            stkop.push('*');
+            stk.push(sum*sign);
+            sum=0;
+            sign=1;
+        
+        }else if(c=='/'){
+            while(!stkop.empty()){
+                char op = stkop.top();stkop.pop();
+                int val = stk.top();stk.pop();
+                sum=(op=='*')?(val*sum):(val/sum);
+            }
+            stkop.push('/');
+            stk.push(sum*sign);
+            sum=0;
+            sign=1;
+        
+        }else{
+            sum=sum*10 + c-'0';
+        }    
+    }
+
+    sum=0;
+    while(!stk.empty()){
+        sum+=stk.top();
+        stk.pop();
+    }
+    return sum;
+}
