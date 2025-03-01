@@ -48,3 +48,28 @@ int helper0(vector<int>& nums, int x) {
     int minOperations(vector<int>& nums, int x) {
         return helper0(nums,x);
     }
+
+#===寫法2===
+int minOperations(vector<int>& nums, int x) {
+    int n=nums.size();
+    int total = accumulate(nums.begin(),nums.end(),0);
+    int i=0,j=0;
+    int sum=0;
+    int ret = INT_MAX;
+
+    if(total<x) return -1;
+
+    for(;i<n;++i){
+        sum+=nums[i];
+        while((total-sum)<x && j<n){//
+            sum-=nums[j];
+            ++j;
+        }
+        ret = ((total-sum)==x)?min(ret,n-(i-j+1)):ret;
+    }
+    return (ret==INT_MAX)?(-1):ret;
+
+}
+
+
+    
