@@ -1,0 +1,24 @@
+(*)為什麼用sliding window?
+設想一個數列 vector<int> nums = {1,2,3,4,5,.....,n}
+
+當需遍歷計算"某區間"滿足 題目的條件, 則一般算法為; 
+for(int i=0;i<n; ++i){
+  for(int j=0;j<i;++j){
+    //計算 區間 [j:i]
+  }
+}
+此雙迴圈的算法會耗費時間; j每次都會從"頭"開始計算
+
+
+使用sliding window;
+只需調整j去滿足區間的條件需求
+j的計算, 都從前一次的運算結果開始, 所以j就不用每次從頭開始計算
+
+for(int i=0;i<n; ++i){
+  while(!condition){
+      //do_something
+      ++j;// j不用每次都從"頭"算起
+  }
+}
+
+所以sliding_window會減少時間複雜度
