@@ -82,8 +82,21 @@ for(int i=start; i<s.size(); ++i){
 其中, s[i]==s[i-1]判斷是因為, 在下一層dfs(...)的運算,已經被運算到.
 
 
+(*)以word_break II 為範例: 思路
+dfs有兩種 函式解法:
+模板1: 無回傳值, 結果位於參數中, 以reference方式帶入
+      void dfs(..., &out, &res)
+      void dfs(string s, string& out, vector<string>& res, set<string>& wordDict){//string每次都截斷往下一層傳遞
+      void dfs(string s, int start, string& out, vector<string>& res, set<string>& wordDict){ //start就很像上一個寫法的; 只是從某一個位置做開始截斷
 
+運算過程:
+out1+out2+out3+out4+out5 => res
+out1+out2+out3  跳回level3, level4和level5的結果也會移除 
+out1+out2+out3+out4_1+out5_1 => res; 跳回level4, level5, 分別接上 out4_1和out5_1的結果
 
-}
+模板2: 有回傳值, 結果是每次遞迴的疊代
+    vector<string> dfs(...)
+    vector<string> dfs(string s, set<string>& wordDict){
+
 
 
