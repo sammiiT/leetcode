@@ -143,7 +143,20 @@ vector<string> wordBreak(string s, vector<string>& wordDict){
 }
 //=== 寫法4====
 (*)寫法3再優化
+note:
+memory 算法,不建議以string為基準; 如:
+string s = "aaaaaa";
+vector<string> wordDict = {"aaa", "aaaa"};
 
+unordered_map<string, vector<string>> memorize;
+
+aaa,aaaa 第一個aaa可以配對aaaa  => memorize["aaa"]= {"aaaa"};
+但
+aaa,aaa,a 第二個aaa會配對到 a, 造成"無法配對" 
+這樣前一個aaa的結果會被覆蓋 => memorize["aaa"] = {""};
+=> 用位置做memorize 定位
+
+ 
 vector<string> dfs(string& s, 
                 int start, 
                 unordered_set<string>& ust, 
@@ -176,6 +189,43 @@ vector<string> wordBreak(string s, vector<string>& wordDict){
     res = dfs(s,0,ust,ump);
     for(int i=0;i<res.size();++i){
         res[i].pop_back();
+    }
+    return res;
+}
+
+#=== 寫法5 =====
+(*) dfs 
+(*) 不用memorize
+(*) 每次遞迴都回傳 vector<string>
+
+過程中描述:
+if(ret.size()==0 && next.size()!=0) continue;
+若沒有此描述, 則 最後的輸出會有  string無完整分割的結果
+
+string s = "catsandog" 
+vector<string> wordDict = {"cats","dog","sand","and","cat"};
+會輸出 cat, sand  =>  剩下og
+       casts,and  =>  剩下og
+
+vector<string> dfs(string s, set<string>& wordDict){
+    vector<string> res;
+    if(s.size()==0) { return res; }
+    
+    for(int i=0; i<s.size(); ++i){
+        string str = s.substr(0,i-0+1);
+        if(!wordDict.count(str)) continue;
+        vector<string> ret;
+        string next = s.substr(i+1);        
+        ret = dfs(next, wordDict);
+
+        if(ret.size()==0 && next.size()!=0) continue;
+        if(ret.size()==0){
+            res.push_back(str);            
+        } else {
+            for(string tmp:ret){
+                res.push_back(str+" "+tmp);
+            }
+        }
     }
     return res;
 }
