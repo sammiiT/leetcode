@@ -107,7 +107,9 @@ bool dfs(string& s1, string& s2, string& s3, int x, int y, int k, unordered_set<
 #===寫法4====
 (*)dfs
 (*)memory用2d-array
+(*)bool dfs() //搜到一個之後,就回傳, => worst_case 搜到O(n)
 
+    
 bool dfs(string& s1,string& s2,string& s3,int start1, int start2, int start3, vector<vector<int>>& mem){
 
     if(start1==s1.size()) 
