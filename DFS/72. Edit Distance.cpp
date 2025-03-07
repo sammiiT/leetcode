@@ -1,4 +1,7 @@
 //===類似題===
+161. One Edit Distance
+583. Delete Operation for Two Strings
+712. Minimum ASCII Delete Sum for Two Strings
 
 //===思路===
 (*)概念有點像 兩個string刪除k個以內可以變成palindrome........
@@ -34,6 +37,18 @@ note:
 s.size() - index4 = 剩下的個數
 index4=>[0,1,2,3,4]=>在位置4前面有4個
 s.size()-index4, 並沒有把index4的那一個減去; 只減去index4前面的個數, 就是4個
+
+
+(*)
+insert
+01234567      insert 之後, 原來的位置往"右"移一個, 比較的character 還是原來的那個位置
+    |         往右移一個位置之後, 比較的字元,還是原來的"t", 對應到exection,是 word1[4]                   
+    v         所以就是帶入原來的'i'值
+exection  
+    ution 
+ 
+execution
+  
   
 //===Time Limited Exceeded===
 int helper(string& word1, int i, string& word2, int j, vector<vector<int>> minmap){
