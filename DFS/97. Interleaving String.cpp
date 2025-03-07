@@ -104,3 +104,45 @@ bool dfs(string& s1, string& s2, string& s3, int x, int y, int k, unordered_set<
     return false; #因為是false; 如果是true, 就不會記錄在unordered_set中
 }
 
+#===寫法4====
+(*)dfs
+(*)memory用2d-array
+
+bool dfs(string& s1,string& s2,string& s3,int start1, int start2, int start3, vector<vector<int>>& mem){
+
+    if(start1==s1.size()) 
+        return (s2.substr(start2,s2.size()-start2)==s3.substr(start3,s3.size()-start3));
+    
+    if(start2==s2.size()) 
+        return (s1.substr(start1,s1.size()-start1)==s3.substr(start3,s3.size()-start3));
+    
+    if(mem[start1][start2]!=-1) 
+        return mem[start1][start2];
+    
+    if(start1<s1.size() && s1[start1]==s3[start3]){
+        if(dfs(s1, s2, s3, start1+1, start2, start3+1, mem)) {
+            mem[start1][start2]=true;
+            return true;
+        }
+    }    
+            
+    if(start2<s2.size() && s2[start2]==s3[start3]){    
+        if(dfs(s1, s2, s3, start1, start2+1, start3+1, mem)) {
+            mem[start1][start2]=true;
+            return true;
+        }
+    }
+    mem[start1][start2] = false;
+    return mem[start1][start2];
+}
+
+bool isInterleave(string s1, string s2, string s3) {
+    int m = s1.size(),n = s2.size();
+    vector<vector<int>> mem(m,vector<int>(n,-1));
+    return dfs(s1,s2,s3,0,0,0,mem);
+}
+
+
+
+
+    
