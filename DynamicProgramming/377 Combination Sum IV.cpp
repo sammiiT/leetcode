@@ -86,6 +86,15 @@ public:
 
 #=== 寫法2====
 (*)dfs + mem
+利用 dfs+ mem的概念可以反推 dynamic programing的寫法
+
+if(mem[target-sum]!=-1) return mem[target-sum];# dp[sum] = dp[sum]+dp[target-sum];
+count = dfs(nums,target,sum+nums[i],mem) #
+
+=> 可以想像成
+dp[i]=dp[i]+dp[i-a]
+dfs是會算到最底層
+dp是一開始從最底層開始疊加
 
 int dfs(vector<int>& nums, int target, int sum, vector<int>& mem){
     if(sum>target) return 0;
@@ -101,7 +110,6 @@ int dfs(vector<int>& nums, int target, int sum, vector<int>& mem){
     return count;
 
 }
-
 int combinationSum4(vector<int>& nums, int target) {
     vector<int> mem(target+1,-1);
     return dfs(nums,target,0,mem);        
