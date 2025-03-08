@@ -29,3 +29,45 @@ int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& pro
     }
     return dp.rbegin()->second;
 }  
+
+#=== 寫法2 會time limited exceeded ===
+(*)dfs +mem
+這邊的mem用的是1-d 陣列紀錄 => 導致 time limited exceeded
+應該用2-d陣列紀錄, 會比較好 => 
+
+int dfs(vector<vector<int>>& jobs, int start, vector<int>& mem){
+    if(start>=jobs.size()) return 0;
+    if(mem[start]!=-1) return mem[start];
+    
+    int profit = 0;
+    for(int i=start; i<jobs.size(); ++i){
+        if(start>0) if(jobs[start-1][1]>jobs[i][0]) continue; #如果前一個的endTime超過現在的startTime, 就不執行
+        profit = max(profit, jobs[i][2] + dfs(jobs,i+1,mem));
+    }
+    mem[start] = profit;
+    return profit;
+}
+
+int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+    int m = startTime.size();
+    vector<vector<int>> jobs;
+    vector<int> mem(m,-1);
+    
+    for(int i=0; i<m; ++i){
+        jobs.push_back({});
+        jobs.back().push_back(startTime[i]);
+        jobs.back().push_back(endTime[i]);
+        jobs.back().push_back(profit[i]);
+    }
+
+    sort(jobs.begin(),jobs.end(),[](vector<int>& a, vector<int>& b){
+        return a[0]<b[0];
+    });
+
+    return dfs(jobs,0,mem);
+}
+
+
+
+
+
