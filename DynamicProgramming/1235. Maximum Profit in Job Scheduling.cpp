@@ -15,7 +15,7 @@
 
 int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
     vector<vector<int>> jobs;//{endTime,startTime,profit}     
-    map<int,int> dp({0,0});
+    map<int,int> dp({0,0}); //<endTime, profit>
   
     for(int i=0; i<startTime.size(); ++i){//(2)
         jobs.push_back({endTime[i],startTime[i],profit[i]});
