@@ -67,7 +67,25 @@ int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& pro
     return dfs(jobs,0,mem);
 }
 
+#=== 解析 prev(dp.upper_bound())====
+分析 prev(dp.upper_bound(job[1]))->second + job[2];
 
-
+                  s2       e2 
+                   +-------+
+  +------+   +---------+
+  s0  | e0   s1   |   e1
+      |           \ 
+      \           dp.upper_bound()
+     prev(dp.upper_bound())
+   
+   
+              s1       e1 
+               +-------+
+   +-------+      ∅
+  s0  |   e0       \
+       \          dp.upper_bound()    
+prev(dp.upper_bound())
+   
+   
 
 
