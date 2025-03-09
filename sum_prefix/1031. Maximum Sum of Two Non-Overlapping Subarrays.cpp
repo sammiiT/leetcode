@@ -65,8 +65,7 @@ max(fmax+nums[i]-nums[i-second]),(smax+nums[i]-nums[i-first])
      |    \__________________/      |    \______________/
      |           |                  |            |
  有first   剩下second要加總      有second    剩下first要加總
-
-
+  
 //=======
 int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {
     int n = nums.size();
@@ -85,5 +84,32 @@ int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {
         res = max(res,max(fmax+nums[i]-nums[i-secondLen],smax+nums[i]-nums[i-firstLen]));
     }
     return res;
-
 }
+
+(*)解析
+定義區間: 
+  總區間: 
+  (f+s)區間: 分為 (f+s)或(s+f)
+  
+    |---f---|-s-|                 |-s-|---f---|
+  |---f---|-s-|                 |-s-|---f---|
+|---f---|-s-|                 |-s-|---f---|  
+|------------------|          |------------------|   
+
+
+
+  
+fmax = max(fmax,nums[i-secondLen]-nums[i-(firstLen+secondLen)]);
+新的區間,以f為開頭做分隔, 並與之前的fmax做比較           
+|---f--|-s-|            
+     
+  
+smax = max(smax,nums[i-firstLen]-nums[i-(firstLen+secondLen)]);
+新的區間,以s為開頭做分隔, 並與之前的smax做比較           
+|-s-|---f---|           
+  
+res = max(res,max(fmax+nums[i]-nums[i-secondLen],smax+nums[i]-nums[i-firstLen]));
+分別以新區間的f為開頭 和s為開頭 做maximum判斷
+
+
+  
