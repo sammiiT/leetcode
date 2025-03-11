@@ -44,3 +44,32 @@ int scoreOfParentheses(string s) {
     int level =0;
     return dfs(s,i,level);        
 }
+
+#=== 寫法3 ===
+遇到 '('進入下一層
+count+=dfs('(')
+
+如果(')') return 1;
+如果(')' && [i-1]==')') return count*2;
+    
+int dfs2(string& s, int& i){
+    int count=0;
+    while(i<s.size()){
+        if(s[i]=='('){
+            count+=dfs2(s,++i);
+        }else{
+            if(s[i]==')'){
+                if(s[i-1]=='(') {
+                    ++i;
+                    return 1;
+                } else {//s[i-1]==')'
+                    ++i;
+                    return count*2;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+    
